@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import com.example.dragonquest.databinding.ActivityBattleBinding;
 
-public class CharacterCreationActivity extends AppCompatActivity {
+public class NurtureActivity extends AppCompatActivity {
     private ActivityBattleBinding binding;
 
     @Override
