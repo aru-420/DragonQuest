@@ -10,8 +10,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DragonQuest">
         <activity android:name=".Chara"></activity>
-        <activity android:name=".MainActivity" />
-        <activity android:name=".BattleActivity">
+        <activity android:name=".BattleActivity" />
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
