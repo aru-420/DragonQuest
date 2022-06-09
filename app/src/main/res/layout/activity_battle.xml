@@ -4,15 +4,170 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_row="1"
+    android:layout_column="1"
     tools:context=".BattleActivity">
 
-    <Button
-        android:id="@+id/btn"
+    <androidx.gridlayout.widget.GridLayout
+        android:id="@+id/grid"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button"
+        app:columnCount="2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/myCharaImage"
+        app:rowCount="2">
+
+        <Button
+            android:id="@+id/skill1"
+            android:layout_width="160dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:text="Button"
+            android:textAlignment="center"
+            app:layout_column="0"
+            app:layout_row="0" />
+
+        <Button
+            android:id="@+id/skill2"
+            android:layout_width="160dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:text="Button"
+            android:textAlignment="center"
+            app:layout_column="1"
+            app:layout_row="0" />
+
+        <Button
+            android:id="@+id/skill4"
+            android:layout_width="160dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:text="Button"
+            android:textAlignment="center"
+            app:layout_column="1"
+            app:layout_row="1" />
+
+        <Button
+            android:id="@+id/skill3"
+            android:layout_width="160dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:text="Button"
+            android:textAlignment="center"
+            app:layout_column="0"
+            app:layout_row="1" />
+    </androidx.gridlayout.widget.GridLayout>
+
+    <ProgressBar
+        android:id="@+id/myHpBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="100dp"
+        android:layout_height="15dp"
+        android:layout_marginStart="24dp"
+        android:progressDrawable="@drawable/progressbar"
+        app:layout_constraintBottom_toTopOf="@+id/grid"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.013"
+        app:layout_constraintStart_toEndOf="@+id/myCharaImage"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.878" />
+
+    <ImageView
+        android:id="@+id/myCharaImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.25"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.591"
+        app:srcCompat="@android:mipmap/sym_def_app_icon" />
+
+    <ImageView
+        android:id="@+id/ememyImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/myCharaImage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.812"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.382"
+        app:srcCompat="@android:mipmap/sym_def_app_icon" />
+
+    <ProgressBar
+        android:id="@+id/ememyHpBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="100dp"
+        android:layout_height="15dp"
+        android:progressDrawable="@drawable/progressbar"
+        app:layout_constraintBottom_toTopOf="@+id/grid"
+        app:layout_constraintEnd_toStartOf="@+id/ememyImage"
+        app:layout_constraintHorizontal_bias="0.892"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.3" />
+
+    <TextView
+        android:id="@+id/myCharaName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="キャラ名"
+        app:layout_constraintBottom_toTopOf="@+id/myHpBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.22"
+        app:layout_constraintStart_toEndOf="@+id/myCharaImage"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/ememyName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="エネミー名"
+        app:layout_constraintBottom_toTopOf="@+id/ememyHpBar"
+        app:layout_constraintEnd_toStartOf="@+id/ememyImage"
+        app:layout_constraintHorizontal_bias="0.83"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="＝" />
+
+    <TextView
+        android:id="@+id/battleMessage"
+
+        android:layout_width="344dp"
+        android:layout_height="216dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@android:color/darker_gray"
+        android:lineSpacingExtra="8sp"
+        android:paddingLeft="20dp"
+        android:paddingTop="20dp"
+        android:paddingEnd="20dp"
+        android:paddingRight="20dp"
+        android:text="TextView\n改行\n改行\n改行\n改行5"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/myCharaImage" />
 </androidx.constraintlayout.widget.ConstraintLayout>

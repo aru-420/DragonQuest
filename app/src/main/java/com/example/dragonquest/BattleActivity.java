@@ -16,10 +16,15 @@ public class BattleActivity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
 
-        binding.btn.setOnClickListener(new View.OnClickListener() {
+        //メッセージ非表示
+        binding.battleMessage.setVisibility(View.INVISIBLE);
+
+        //左上ボタンクリック時の処理
+        binding.skill1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                binding.btn.setText("こんにちは");
+                //メッセージの表示
+                binding.battleMessage.setVisibility(View.VISIBLE);
             }
         });
     }
