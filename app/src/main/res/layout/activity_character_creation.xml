@@ -121,7 +121,6 @@
         android:layout_height="29dp"
         android:layout_marginTop="16dp"
         android:text="名前"
-        android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="24sp"
         android:textStyle="bold"
