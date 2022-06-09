@@ -14,7 +14,7 @@ public class BattleActivity extends AppCompatActivity {
     private ActivityBattleBinding binding;
 
     private Handler handler = new Handler();//スレッド内でテキストをいじる
-    private int myhp = 100;
+    private int myhp = 100; //キャラのHPを保存する変数
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,11 +28,11 @@ public class BattleActivity extends AppCompatActivity {
         binding.battleEndButton.setVisibility(View.INVISIBLE);  //バトル終了ボタン非表示
 
         //ライフゲージ周りの設定
-        binding.myHpBar.setMax(myhp);
-        binding.myHpBar.setProgress(myhp);
-        binding.ememyHpBar.setMax(myhp);
-        binding.ememyHpBar.setProgress(myhp);
-        binding.myHpText.setText(myhp + "/" + myhp);
+        binding.myHpBar.setMax(myhp);           //キャラの最大値の設定
+        binding.myHpBar.setProgress(myhp);      //キャラの現在地の設定
+        binding.ememyHpBar.setMax(myhp);        //エネミーの最大値の設定
+        binding.ememyHpBar.setProgress(myhp);   //エネミーの現在地の設定
+        binding.myHpText.setText(myhp + "/" + myhp);    //キャラのHPテキスト
 
 
         //左上ボタンクリック時の処理
@@ -56,7 +56,7 @@ public class BattleActivity extends AppCompatActivity {
         });
 
         //HPが減る処理
-        int val = 1;
+        int hpPoint = 1;
         int maxHp = binding.myHpBar.getMax();   //hp最大値
         //スレッド
         new Thread(new Runnable() {
@@ -65,7 +65,7 @@ public class BattleActivity extends AppCompatActivity {
                 //HPが0になるまで
                 while (binding.myHpBar.getProgress() >= 0){
                     //HPを１ずつ減らす
-                    myhp -= val;
+                    myhp -= hpPoint;
                     binding.myHpBar.setProgress(myhp);  //バーの表示更新
                     handler.post(()->{
                        binding.myHpText.setText(myhp + "/" + maxHp);    //テキストの更新
@@ -81,7 +81,6 @@ public class BattleActivity extends AppCompatActivity {
                         break;
                     }
 
-
                     try {
                         Thread.sleep(50);   //50ミリ秒待つ
                     }catch (InterruptedException e){
@@ -91,12 +90,8 @@ public class BattleActivity extends AppCompatActivity {
             }
 
         }).start();
+        //スレッドここまで
 
-
-    }
-
-    protected void ShowEndButton(){
-        binding.battleEndButton.setVisibility(View.VISIBLE);
     }
 
 }
