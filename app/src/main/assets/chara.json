@@ -1,0 +1,29 @@
+{
+  "charaID1":{
+    "name": "キャラクター名",
+    "HP": 150,
+    "ATK": 40,
+    "DEF": 40,
+    "DEX": 40,
+    "SKILL1": 1,
+    "SKILL2": 2,
+  },
+  "charaID2":{
+    "name": "敵名",
+    "HP": 100,
+    "ATK": 50,
+    "DEF": 50,
+    "DEX": 50,
+    "SKILL1": 1,
+    "SKILL2": 1,
+  },
+  "charaID3":{
+    "name": "敵名",
+    "HP": 100,
+    "ATK": 50,
+    "DEF": 50,
+    "DEX": 50,
+    "SKILL1": 1,
+    "SKILL2": 1,
+  }
+}
