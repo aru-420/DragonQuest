@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/BattleSecen"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_row="1"
@@ -170,4 +171,25 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/myCharaImage" />
+
+    <Button
+        android:id="@+id/battleEndButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="次のステージへ"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.417" />
+
+    <TextView
+        android:id="@+id/myHpText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="@+id/myHpBar"
+        app:layout_constraintStart_toStartOf="@+id/myHpBar"
+        app:layout_constraintTop_toBottomOf="@+id/myHpBar" />
 </androidx.constraintlayout.widget.ConstraintLayout>
