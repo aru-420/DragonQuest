@@ -1,6 +1,8 @@
 {
-  "skill_nameID": {
-    "skill_name": "スラッシュ",
-    "skill_effect": 2
+  "スラッシュ": {
+    "skill_effect": 23
+  },
+  "たたきつける": {
+    "skill_effect": 5
   }
 }
