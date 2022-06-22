@@ -24,6 +24,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Random;
+
+import static java.lang.String.valueOf;
 
 public class BattleActivity extends AppCompatActivity {
     private ActivityBattleBinding binding;
@@ -63,67 +66,6 @@ public class BattleActivity extends AppCompatActivity {
         binding.battleMessage.setVisibility(View.INVISIBLE);    //バトルメッセージ非表示
         binding.battleEndButton.setVisibility(View.INVISIBLE);  //バトル終了ボタン非表示
 
-
-        //左上ボタンクリック時の処理
-        binding.skill1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //メッセージの表示
-                binding.battleMessage.setVisibility(View.VISIBLE);
-                binding.grid.setVisibility(View.INVISIBLE);
-                binding.battleMessage.setClickable(false);
-                BattleStart(my_actor.getSkill1());
-            }
-        });
-
-        //右上ボタンクリック時の処理
-        binding.skill2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //メッセージの表示
-                binding.battleMessage.setVisibility(View.VISIBLE);
-                binding.grid.setVisibility(View.INVISIBLE);
-                binding.battleMessage.setClickable(false);
-                BattleStart(my_actor.getSkill2());
-            }
-        });
-
-        //左下ボタンクリック時の処理
-        binding.skill3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //メッセージの表示
-                binding.battleMessage.setVisibility(View.VISIBLE);
-                binding.grid.setVisibility(View.INVISIBLE);
-                binding.battleMessage.setClickable(false);
-                BattleStart(my_actor.getSkill3());
-            }
-
-        });
-
-        //右下ボタンクリック時の処理
-        binding.skill4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //メッセージの表示
-                binding.battleMessage.setVisibility(View.VISIBLE);
-                binding.grid.setVisibility(View.INVISIBLE);
-                binding.battleMessage.setClickable(false);
-                BattleStart("スラッシュ");
-            }
-        });
-
-        //メッセージクリック時の処理
-        binding.battleMessage.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                //メッセージの非表示
-                binding.battleMessage.setVisibility(View.INVISIBLE);
-                //スキルボタンの表示
-                binding.grid.setVisibility(View.VISIBLE);
-            }
-        });
-
         //ボタンのカラーによって役割を表す
         //青ならスキル灰色ならスキルなし
         buttonsColor(binding.skill1);
@@ -141,14 +83,23 @@ public class BattleActivity extends AppCompatActivity {
             skill.setEnabled(false);
             skill.setBackgroundColor(Color.GRAY);
         }else{
-            //skill.setOnClickListener();
+            skill.setOnClickListener(new View.OnClickListener(){
+                        @Override
+                        public void onClick(View view) {
+                            //メッセージの表示
+                            binding.battleMessage.setVisibility(View.VISIBLE);
+                            binding.grid.setVisibility(View.INVISIBLE);
+                            binding.battleMessage.setClickable(false);
+                            BattleStart((String) skill.getText());
+                        }
+                    });
         }
     }
 
     //ダメージを与える処理
     private void damageCalculation(boolean tof , int damage){
         //HPが減る処理
-        int hpPoint = damage / 80 + 1;    //一ずつ減る
+        int hpPoint = damage / 60 + 1;    //一ずつ減る
         final int maxHp = binding.myHpBar.getMax();
 
         //スレッド
@@ -236,7 +187,7 @@ public class BattleActivity extends AppCompatActivity {
                         }
 
                         //メッセージを消せるようにする
-                        if (ememyHp == result_HP && messageclickflag){
+                        if (ememyHp == result_HP){
                             if (messageclickflag){
                                 messageclickflag = false;
                                 //スレッド内でUI変更
@@ -284,6 +235,8 @@ public class BattleActivity extends AppCompatActivity {
                         //メッセージビューのクリックリスナーを管理するフラグ
                         messageclickflag = true;
                         onShow(enemy_actor.getSkill1(), enemy_actor.getName(), true);
+                        //メッセージのクリック処理有効化
+                        binding.battleMessage.setClickable(true);
                     }
                 }, 2000); // 2000ミリ秒（2秒）後
             }
@@ -300,6 +253,8 @@ public class BattleActivity extends AppCompatActivity {
                     if (my_actor.getHp() != 0){
                         messageclickflag = true;
                         onShow(skill_name, my_actor.getName(), false);
+                        //メッセージのクリック処理有効化
+                        binding.battleMessage.setClickable(true);
                     }
                 }
             }, 2000); // 2000ミリ秒（2秒）後
@@ -344,13 +299,18 @@ public class BattleActivity extends AppCompatActivity {
             /*skill.jsonからskill_nameのskill_effectを呼び出している
             * */
             int skill_effect = Integer.parseInt(json.getJSONObject(skill_name).getString("skill_effect"));
+
+            //ダメージ計算
+
+            int damage = damegeRandom(tof, skill_effect);
+
             //表示するメッセージ
-            messagetext = name + "の" + skill_name + "\n" +  skill_effect + "ダメージ!";
+            messagetext = name + "の" + skill_name + "\n" +  damage + "ダメージ!";
 
             //バトルメッセージに表示
             binding.battleMessage.setText(messagetext);
             //HPバー減少処理
-            damageCalculation(tof, skill_effect);
+            damageCalculation(tof, damage);
 
         }catch (IOException | JSONException e) {
             e.printStackTrace();
@@ -432,4 +392,28 @@ public class BattleActivity extends AppCompatActivity {
 
     }
 
+    //ダメージ計算
+    private int damegeRandom(boolean MoE, int skill_effect){
+        //(攻撃力+乱数)×ダメージエフェクト-防御力
+
+        //ダメージの乱数
+        Random rnd = new Random();
+        int random;
+
+        int damege = 0;
+        if (MoE){
+            //乱数はATKの10分の1で生成しその半分の値を減産した値をATKに加算する
+            //例：ATK100なら乱数は「-5~5」の値をとる。よってATKは「95~105」になる
+            random = rnd.nextInt(enemy_actor.getAtk()/10)-( (enemy_actor.getAtk()/10) / 2);
+            String moi = valueOf(random);
+            binding.skill4.setText(moi);
+            damege = (enemy_actor.getAtk() + random) * skill_effect - my_actor.getDex();
+        }else {
+            random = rnd.nextInt(my_actor.getAtk()/10)-( (my_actor.getAtk()/10) / 2);
+            damege = my_actor.getAtk() * skill_effect - enemy_actor.getDex();
+        }
+        return damege;
+    }
+
 }
+
