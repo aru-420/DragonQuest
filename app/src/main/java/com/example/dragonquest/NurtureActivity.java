@@ -22,6 +22,7 @@ public class NurtureActivity extends AppCompatActivity {
         binding.Choices1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //押されるとターンが増える
                 turncount += 1;
                 binding.turnCount.setText(turncount + "ターン");
             }
@@ -31,6 +32,7 @@ public class NurtureActivity extends AppCompatActivity {
         binding.Choices2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //押されるとターンが増える
                 turncount += 1;
                 binding.turnCount.setText(turncount + "ターン");
             }
