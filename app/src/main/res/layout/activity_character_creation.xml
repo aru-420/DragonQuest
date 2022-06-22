@@ -4,13 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:backgroundTint="@color/white"
     tools:context=".CharacterCreationActivity">
 
     <Button
         android:id="@+id/skill1"
-        android:layout_width="168dp"
-        android:layout_height="90dp"
+        android:layout_width="175dp"
+        android:layout_height="65dp"
         android:layout_marginStart="28dp"
+        android:layout_marginTop="23dp"
         android:backgroundTint="@color/silver"
         android:text="技1"
         android:textColor="@color/white"
@@ -18,14 +20,15 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/skill3"
         app:layout_constraintEnd_toStartOf="@+id/skill2"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view" />
 
     <Button
         android:id="@+id/skill3"
         android:layout_width="168dp"
-        android:layout_height="90dp"
+        android:layout_height="65dp"
         android:layout_marginStart="28dp"
-        android:layout_marginBottom="112dp"
+        android:layout_marginBottom="120dp"
         android:backgroundTint="@color/silver"
         android:text="技3"
         android:textColor="@color/white"
@@ -34,12 +37,15 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/skill4"
         app:layout_constraintHorizontal_bias="0.786"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/skill1" />
 
     <Button
         android:id="@+id/skill2"
         android:layout_width="168dp"
-        android:layout_height="90dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="23dp"
         android:layout_marginEnd="28dp"
         android:backgroundTint="@color/silver"
         android:text="技2"
@@ -48,14 +54,17 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/skill4"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/skill1" />
+        app:layout_constraintStart_toEndOf="@+id/skill1"
+        app:layout_constraintTop_toBottomOf="@+id/view"
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/skill4"
         android:layout_width="168dp"
-        android:layout_height="90dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="8dp"
         android:layout_marginEnd="28dp"
-        android:layout_marginBottom="112dp"
+        android:layout_marginBottom="120dp"
         android:backgroundTint="@color/silver"
         android:text="技4"
         android:textColor="@color/white"
@@ -63,33 +72,37 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/skill3" />
+        app:layout_constraintStart_toEndOf="@+id/skill3"
+        app:layout_constraintTop_toBottomOf="@+id/skill2" />
 
     <Button
         android:id="@+id/startbutton"
         android:layout_width="340dp"
         android:layout_height="81dp"
-        android:layout_marginBottom="16dp"
         android:backgroundTint="@color/orengered"
         android:text="開始"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.521"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.975" />
 
     <View
         android:id="@+id/view"
-        android:layout_width="351dp"
-        android:layout_height="201dp"
+        android:layout_width="349dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="8dp"
         android:background="@color/whiteSilver"
         android:backgroundTint="@color/silver"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.596"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.45" />
+        app:layout_constraintVertical_bias="0.401" />
 
     <TextView
         android:id="@+id/textView3"
@@ -107,27 +120,30 @@
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="257dp"
-        android:layout_height="152dp"
-        android:layout_marginBottom="20dp"
+        android:layout_height="155dp"
+        android:layout_marginBottom="8dp"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toTopOf="@+id/view"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/name"
         android:layout_width="136dp"
         android:layout_height="29dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="9dp"
         android:text="名前"
+        android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/textView10"
@@ -249,5 +265,36 @@
         app:layout_constraintHorizontal_bias="0.51"
         app:layout_constraintStart_toEndOf="@+id/textView6"
         app:layout_constraintTop_toBottomOf="@+id/txtdef" />
+
+    <Button
+        android:id="@+id/leftbtn"
+        android:layout_width="45dp"
+        android:layout_height="60dp"
+        android:backgroundTint="@color/white"
+        android:text="＜"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        app:iconTint="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/imageView"
+        app:layout_constraintHorizontal_bias="0.592"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.145" />
+
+    <Button
+        android:id="@+id/rightbtn"
+        android:layout_width="50dp"
+        android:layout_height="60dp"
+        android:backgroundTint="@color/white"
+        android:text="＞"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.481"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.144" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

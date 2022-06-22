@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     android:layout_row="1"
     android:layout_column="1"
+    android:background="@drawable/ic_launcher_background"
     tools:context=".BattleActivity">
 
     <androidx.gridlayout.widget.GridLayout
@@ -89,7 +90,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.591"
-        app:srcCompat="@android:mipmap/sym_def_app_icon" />
+        app:srcCompat="@drawable/warrior" />
 
     <ImageView
         android:id="@+id/ememyImage"
@@ -97,11 +98,11 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/myCharaImage"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.812"
+        app:layout_constraintHorizontal_bias="0.903"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.382"
-        app:srcCompat="@android:mipmap/sym_def_app_icon" />
+        app:layout_constraintVertical_bias="0.364"
+        app:srcCompat="@drawable/golem" />
 
     <ProgressBar
         android:id="@+id/ememyHpBar"
@@ -111,7 +112,7 @@
         android:progressDrawable="@drawable/progressbar"
         app:layout_constraintBottom_toTopOf="@+id/grid"
         app:layout_constraintEnd_toStartOf="@+id/ememyImage"
-        app:layout_constraintHorizontal_bias="0.892"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.3" />
@@ -122,9 +123,9 @@
         android:layout_height="wrap_content"
         android:text="キャラ名"
         app:layout_constraintBottom_toTopOf="@+id/myHpBar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.22"
-        app:layout_constraintStart_toEndOf="@+id/myCharaImage"
+        app:layout_constraintEnd_toEndOf="@+id/myHpBar"
+        app:layout_constraintHorizontal_bias="0.477"
+        app:layout_constraintStart_toStartOf="@+id/myHpBar"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
@@ -134,14 +135,14 @@
         android:layout_height="wrap_content"
         android:text="エネミー名"
         app:layout_constraintBottom_toTopOf="@+id/ememyHpBar"
-        app:layout_constraintEnd_toStartOf="@+id/ememyImage"
-        app:layout_constraintHorizontal_bias="0.83"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/ememyHpBar"
+        app:layout_constraintHorizontal_bias="0.666"
+        app:layout_constraintStart_toStartOf="@+id/ememyHpBar"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/menubtn"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginTop="16dp"
@@ -179,8 +180,10 @@
         android:text="次のステージへ"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.417" />
 
     <TextView
         android:id="@+id/myHpText"
