@@ -9,11 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DragonQuest">
-        <activity android:name=".BattleActivity"></activity>
+        <activity android:name=".CharacterCreationActivity"></activity>
         <activity android:name=".NurtureActivity"></activity>
         <activity android:name=".MainActivity"></activity>
 
-        <activity android:name=".CharacterCreationActivity">
+        <activity android:name=".BattleActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

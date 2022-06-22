@@ -1,18 +1,18 @@
 {
   "charaID1":{
     "NAME": "戦士",
-    "HP": 150,
+    "HP": 1500,
     "ATK": 40,
     "DEF": 40,
     "DEX": 40,
     "SKILL1": "スラッシュ",
-    "SKILL2": "無し",
+    "SKILL2": "",
     "SKILL3": "",
     "SKILL4": ""
   },
   "charaID2":{
     "NAME": "ゴーレム",
-    "HP": 500,
+    "HP": 47,
     "ATK": 50,
     "DEF": 50,
     "DEX": 50,
