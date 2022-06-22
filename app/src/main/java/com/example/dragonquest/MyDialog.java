@@ -40,8 +40,8 @@ public class MyDialog extends DialogFragment {
                 .setNegativeButton("はい", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // このボタンを押した時の処理
-                            Intent intent = new Intent(String.valueOf(Chara.class));
-                            startActivity(intent);
+                            //Intent intent = new Intent(String.valueOf(Chara.class));
+                            //startActivity(intent);
                         }
 
                 });
