@@ -8,7 +8,7 @@ import com.example.dragonquest.databinding.ActivityNurtureBinding;
 public class NurtureActivity extends AppCompatActivity {
     private ActivityNurtureBinding binding;
 
-    //private int turncount;
+    private int turncount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,7 +17,7 @@ public class NurtureActivity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
 
-        /*
+
         //選択肢1の処理
         binding.Choices1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -37,6 +37,6 @@ public class NurtureActivity extends AppCompatActivity {
         });
 
 
-         */
+
     }
 }

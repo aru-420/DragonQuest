@@ -6,14 +6,13 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Gravity;
-import android.view.View;
 import android.widget.TextView;
 
 import androidx.fragment.app.DialogFragment;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
+
 public class MyDialog extends DialogFragment {
     @NonNull
     @Override
@@ -40,8 +39,8 @@ public class MyDialog extends DialogFragment {
                 .setNegativeButton("はい", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // このボタンを押した時の処理
-                            Intent intent = new Intent(String.valueOf(Chara.class));
-                            startActivity(intent);
+                            //Intent intent = new Intent(String.valueOf(Chara.class));
+                            //startActivity(intent);
                         }
 
                 });

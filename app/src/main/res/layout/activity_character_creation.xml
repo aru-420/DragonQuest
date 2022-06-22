@@ -8,39 +8,6 @@
     tools:context=".CharacterCreationActivity">
 
     <Button
-        android:id="@+id/skill1"
-        android:layout_width="175dp"
-        android:layout_height="65dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="23dp"
-        android:backgroundTint="@color/silver"
-        android:text="技1"
-        android:textColor="@color/white"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/skill3"
-        app:layout_constraintEnd_toStartOf="@+id/skill2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view" />
-
-    <Button
-        android:id="@+id/skill3"
-        android:layout_width="168dp"
-        android:layout_height="65dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginBottom="120dp"
-        android:backgroundTint="@color/silver"
-        android:text="技3"
-        android:textColor="@color/white"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/skill4"
-        app:layout_constraintHorizontal_bias="0.786"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/skill1" />
-
-    <Button
         android:id="@+id/skill2"
         android:layout_width="168dp"
         android:layout_height="65dp"
@@ -59,6 +26,22 @@
         app:layout_constraintVertical_bias="1.0" />
 
     <Button
+        android:id="@+id/skill1"
+        android:layout_width="175dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="23dp"
+        android:backgroundTint="@color/silver"
+        android:text="技1"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/skill3"
+        app:layout_constraintEnd_toStartOf="@+id/skill2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view" />
+
+    <Button
         android:id="@+id/skill4"
         android:layout_width="168dp"
         android:layout_height="65dp"
@@ -74,6 +57,23 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/skill3"
         app:layout_constraintTop_toBottomOf="@+id/skill2" />
+
+    <Button
+        android:id="@+id/skill3"
+        android:layout_width="168dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginBottom="120dp"
+        android:backgroundTint="@color/silver"
+        android:text="技3"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/skill4"
+        app:layout_constraintHorizontal_bias="0.786"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/skill1" />
 
     <Button
         android:id="@+id/startbutton"
@@ -99,51 +99,39 @@
         android:backgroundTint="@color/silver"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.596"
+        app:layout_constraintHorizontal_bias="0.516"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.401" />
+        app:layout_constraintVertical_bias="0.47" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="20dp"
         android:text="ステータス"
         android:textColor="@color/black"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/view"
+        app:layout_constraintHorizontal_bias="0.48"
         app:layout_constraintStart_toStartOf="@+id/view"
         app:layout_constraintTop_toTopOf="@+id/view" />
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="257dp"
-        android:layout_height="155dp"
-        android:layout_marginBottom="8dp"
-        android:scaleType="centerCrop"
-        app:layout_constraintBottom_toTopOf="@+id/view"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
         android:id="@+id/name"
         android:layout_width="136dp"
         android:layout_height="29dp"
-        android:layout_marginTop="9dp"
+        android:layout_marginTop="16dp"
         android:text="名前"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView10"
@@ -268,19 +256,20 @@
 
     <Button
         android:id="@+id/leftbtn"
-        android:layout_width="45dp"
+        android:layout_width="50dp"
         android:layout_height="60dp"
+        android:layout_marginStart="4dp"
         android:backgroundTint="@color/white"
         android:text="＜"
         android:textColor="@color/black"
-        android:textSize="30sp"
+        android:textSize="24sp"
         app:iconTint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/imageView"
-        app:layout_constraintHorizontal_bias="0.592"
+        app:layout_constraintEnd_toStartOf="@+id/Character_Image"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.145" />
+        app:layout_constraintVertical_bias="0.162" />
 
     <Button
         android:id="@+id/rightbtn"
@@ -289,12 +278,23 @@
         android:backgroundTint="@color/white"
         android:text="＞"
         android:textColor="@color/black"
-        android:textSize="30sp"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.481"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/Character_Image"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.144" />
+        app:layout_constraintVertical_bias="0.162" />
+
+    <ImageView
+        android:id="@+id/Character_Image"
+        android:layout_width="253dp"
+        android:layout_height="149dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.1"
+        app:srcCompat="@drawable/warrior" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
