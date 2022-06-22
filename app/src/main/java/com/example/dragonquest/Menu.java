@@ -14,17 +14,17 @@ public class Menu extends AppCompatActivity {
 
         setContentView(R.layout.activity_menu);
 
-//        Button tap_continue = findViewById(R.id.continue1);
-//        // lambda式
-//        tap_continue.setOnClickListener(v -> finish());
-//
-//        Button tap_giveup = findViewById(R.id.giveup);
-//        tap_giveup.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                MyDialog dialog = new MyDialog();
-//                dialog.show(getSupportFragmentManager(), "my_dialog");
-//            }
-//        });
+        Button tap_continue = findViewById(R.id.continue1);
+        // lambda式
+        tap_continue.setOnClickListener(v -> finish());
+
+        Button tap_giveup = findViewById(R.id.giveup);
+        tap_giveup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MyDialog dialog = new MyDialog();
+                dialog.show(getSupportFragmentManager(), "my_dialog");
+            }
+        });
     }
 }
