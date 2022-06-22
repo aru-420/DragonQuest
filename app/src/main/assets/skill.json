@@ -1,8 +1,8 @@
 {
   "スラッシュ": {
-    "skill_effect": 23
+    "skill_effect": 2
   },
   "たたきつける": {
-    "skill_effect": 5
+    "skill_effect": 500
   }
 }

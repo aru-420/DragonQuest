@@ -13,6 +13,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.widget.Button;
 
 import com.example.dragonquest.databinding.ActivityBattleBinding;
 
@@ -31,12 +32,13 @@ public class BattleActivity extends AppCompatActivity {
     Actor my_actor;
     //エネミーステータスを保存するクラス
     Actor enemy_actor;
-    //フラグ
-    boolean flag = false;
+    //メッセージをクリックしたときに消えるかどうかのフラグ
+    boolean messageclickflag = false;
 
     //データベース接続用変数
     private DatabaseHelper helper = null;
 
+    //メッセージテキスト
     private String messagetext;
 
     private Handler handler = new Handler();//スレッド内でテキストをいじる際に使用
@@ -82,7 +84,7 @@ public class BattleActivity extends AppCompatActivity {
                 binding.battleMessage.setVisibility(View.VISIBLE);
                 binding.grid.setVisibility(View.INVISIBLE);
                 binding.battleMessage.setClickable(false);
-                BattleStart("スラッシュ");
+                BattleStart(my_actor.getSkill2());
             }
         });
 
@@ -94,29 +96,22 @@ public class BattleActivity extends AppCompatActivity {
                 binding.battleMessage.setVisibility(View.VISIBLE);
                 binding.grid.setVisibility(View.INVISIBLE);
                 binding.battleMessage.setClickable(false);
+                BattleStart(my_actor.getSkill3());
+            }
+
+        });
+
+        //右下ボタンクリック時の処理
+        binding.skill4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //メッセージの表示
+                binding.battleMessage.setVisibility(View.VISIBLE);
+                binding.grid.setVisibility(View.INVISIBLE);
+                binding.battleMessage.setClickable(false);
                 BattleStart("スラッシュ");
             }
         });
-
-        //スキル4がなければボタンを押せなくして灰色にする
-        if (my_actor.getSkill4().equals("")) {
-            binding.skill4.setEnabled(false);
-            binding.skill4.setBackgroundColor(Color.GRAY);
-        }else {
-            //右下ボタンクリック時の処理
-            binding.skill4.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    //メッセージの表示
-                    binding.battleMessage.setVisibility(View.VISIBLE);
-                    binding.grid.setVisibility(View.INVISIBLE);
-                    binding.battleMessage.setClickable(false);
-                    BattleStart("スラッシュ");
-                }
-            });
-        }
-
-
 
         //メッセージクリック時の処理
         binding.battleMessage.setOnClickListener(new View.OnClickListener(){
@@ -129,13 +124,31 @@ public class BattleActivity extends AppCompatActivity {
             }
         });
 
+        //ボタンのカラーによって役割を表す
+        //青ならスキル灰色ならスキルなし
+        buttonsColor(binding.skill1);
+        buttonsColor(binding.skill2);
+        buttonsColor(binding.skill3);
+        buttonsColor(binding.skill4);
+
 
 
     }
 
-    private void damageCalculation(boolean tof , int damege){
+    private void buttonsColor(Button skill){
+        //スキル4がなければボタンを押せなくして灰色にする
+        if (skill.getText().equals("")) {
+            skill.setEnabled(false);
+            skill.setBackgroundColor(Color.GRAY);
+        }else{
+            //skill.setOnClickListener();
+        }
+    }
+
+    //ダメージを与える処理
+    private void damageCalculation(boolean tof , int damage){
         //HPが減る処理
-        int hpPoint = 1;    //一ずつ減る
+        int hpPoint = damage / 80 + 1;    //一ずつ減る
         final int maxHp = binding.myHpBar.getMax();
 
         //スレッド
@@ -146,14 +159,32 @@ public class BattleActivity extends AppCompatActivity {
                 //エネミーかキャラクターか
                 if (tof){
                     //キャラクターのHP処理
-                    result_HP = my_actor.getHp() -damege;
+                    result_HP = my_actor.getHp() -damage;
                     myhp = my_actor.getHp();
                     while (myhp >= result_HP) {
 
+                        //HPがゼロ以下になったらボタン表示
+                        if (myhp <= 0) {
+                            //HPを0に
+                            my_actor.setHp(0);
+                            //スレッド内でUI変更
+                            handler.post(() -> {
+                                //ゲームオーバー
+                                messagetext = my_actor.getName() + "は死んでしまった！";
+                                binding.battleMessage.setText(messagetext);
+                                binding.battleMessage.setBackgroundColor(Color.RED);
+                                binding.battleEndButton.setText("リザルト画面へ");
+                                binding.battleEndButton.setVisibility(View.VISIBLE);
+
+                            });
+                            //ループ終了
+                            break;
+                        }
+
                         if (myhp == result_HP){
                             //メッセージを消せるようにする
-                            if (flag){
-                                flag = false;
+                            if (messageclickflag){
+                                messageclickflag = false;
                                 //スレッド内でUI変更
                                 handler.post(()->{
                                     //メッセージのクリック処理有効化
@@ -164,19 +195,15 @@ public class BattleActivity extends AppCompatActivity {
                             my_actor.setHp(myhp);
                             break;
                         }
-                        //HPがゼロになったらボタン表示
-                        if (myhp == 0) {
-                            //スレッド内でUI変更
-                            handler.post(() -> {
-                                binding.battleEndButton.setText("リザルト画面へ");
-                                binding.battleEndButton.setVisibility(View.VISIBLE);
-                            });
-                            //ループ終了
-                            break;
-                        }
 
-                        //HPを１ずつ減らす
+
+                        //HPをhpPointずつ減らす
                         myhp -= hpPoint;
+                        if (myhp < result_HP && myhp >= 0){
+                            myhp = result_HP;
+                        }else if (myhp < 0){
+                            myhp = 0;
+                        }
 
                         binding.myHpBar.setProgress(myhp);  //バーの表示更新
                         //スレッド内でUI変更
@@ -192,13 +219,26 @@ public class BattleActivity extends AppCompatActivity {
                     //エネミーのHP処理
                     //残りHPを計算
                     ememyHp = enemy_actor.getHp();
-                    result_HP = ememyHp -damege;
+                    result_HP = ememyHp -damage;
                     //残りHPになるまでループ
                     while (ememyHp >= result_HP){
+                        //HPがゼロ以下になったらボタン表示
+                        if (ememyHp <= 0){
+                            //HPを0に
+                            enemy_actor.setHp(ememyHp);
+                            //スレッド内でUI変更
+                            handler.post(()->{
+                                binding.battleEndButton.setText("次の育成へ");
+                                binding.battleEndButton.setVisibility(View.VISIBLE);
+                            });
+                            //ループ終了
+                            break;
+                        }
+
                         //メッセージを消せるようにする
-                        if (ememyHp == result_HP && flag){
-                            if (flag){
-                                flag = false;
+                        if (ememyHp == result_HP && messageclickflag){
+                            if (messageclickflag){
+                                messageclickflag = false;
                                 //スレッド内でUI変更
                                 handler.post(()->{
                                     //メッセージのクリック処理有効化
@@ -209,18 +249,13 @@ public class BattleActivity extends AppCompatActivity {
                             break;
                         }
 
-                        //HPがゼロになったらボタン表示
-                        if (ememyHp == 0){
-                            //スレッド内でUI変更
-                            handler.post(()->{
-                                binding.battleEndButton.setText("次の育成へ");
-                                binding.battleEndButton.setVisibility(View.VISIBLE);
-                            });
-                            //ループ終了
-                            break;
-                        }
-                        //HPを１ずつ減らす
+                        //HPをhpPointずつ減らす
                         ememyHp -= hpPoint;
+                        if (ememyHp < result_HP && ememyHp >=0){
+                            ememyHp = result_HP;
+                        }else if (ememyHp < 0){
+                            ememyHp = 0;
+                        }
                         binding.ememyHpBar.setProgress(ememyHp);  //バーの表示更新
                         try {
                             Thread.sleep(20);   //50ミリ秒待つ
@@ -235,30 +270,46 @@ public class BattleActivity extends AppCompatActivity {
 
     //バトル順序
     protected void BattleStart(String skill_name){
+        //素早さを比較してダメ――ジ処理に移行
         if (my_actor.getDex() >= enemy_actor.getDef()){
-            onShow(skill_name, false);
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    flag = true;
-                    onShow(enemy_actor.getSkill1(), true);
-                }
-            }, 2000); // 2000ミリ秒（2秒）後
+            //プレイヤーの方が早い場合
+            //プレイヤーのダメージ処理
+            onShow(skill_name, my_actor.getName(),false);
+            //エネミーのHPが０でなければ
+            if (enemy_actor.getHp() != 0){
+                //表示2秒後に処理を移す
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        //メッセージビューのクリックリスナーを管理するフラグ
+                        messageclickflag = true;
+                        onShow(enemy_actor.getSkill1(), enemy_actor.getName(), true);
+                    }
+                }, 2000); // 2000ミリ秒（2秒）後
+            }
+
         }else {
-            onShow(enemy_actor.getSkill1() ,true);
+            //エネミーの方が早い場合
+            //エネミーのダメージ処理
+            onShow(enemy_actor.getSkill1() , enemy_actor.getName(),true);
+            //表示2秒後に処理を移す
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    flag = true;
-                    onShow(skill_name, false);
+                    //キャラのHPが０でなければ
+                    if (my_actor.getHp() != 0){
+                        messageclickflag = true;
+                        onShow(skill_name, my_actor.getName(), false);
+                    }
                 }
             }, 2000); // 2000ミリ秒（2秒）後
+
         }
     }
 
 
     // データを表示する
-    protected void onShow(String skill_name, boolean tof) {
+    protected void onShow(String skill_name, String name, boolean tof) {
         //アセットにあるjsonを開く
         try {
             //アセットマネージャー
@@ -293,9 +344,11 @@ public class BattleActivity extends AppCompatActivity {
             /*skill.jsonからskill_nameのskill_effectを呼び出している
             * */
             int skill_effect = Integer.parseInt(json.getJSONObject(skill_name).getString("skill_effect"));
+            //表示するメッセージ
+            messagetext = name + "の" + skill_name + "\n" +  skill_effect + "ダメージ!";
 
             //バトルメッセージに表示
-            binding.battleMessage.setText(skill_name + "\n" +  skill_effect + "ダメージ!");
+            binding.battleMessage.setText(messagetext);
             //HPバー減少処理
             damageCalculation(tof, skill_effect);
 
