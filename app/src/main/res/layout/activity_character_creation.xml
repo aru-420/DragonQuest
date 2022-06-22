@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:backgroundTint="@color/white"
     tools:context=".CharacterCreationActivity">
 
     <Button
@@ -128,7 +129,7 @@
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/name"
         android:layout_width="136dp"
         android:layout_height="29dp"
         android:layout_marginTop="9dp"
@@ -264,5 +265,36 @@
         app:layout_constraintHorizontal_bias="0.51"
         app:layout_constraintStart_toEndOf="@+id/textView6"
         app:layout_constraintTop_toBottomOf="@+id/txtdef" />
+
+    <Button
+        android:id="@+id/leftbtn"
+        android:layout_width="45dp"
+        android:layout_height="60dp"
+        android:backgroundTint="@color/white"
+        android:text="＜"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        app:iconTint="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/imageView"
+        app:layout_constraintHorizontal_bias="0.592"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.145" />
+
+    <Button
+        android:id="@+id/rightbtn"
+        android:layout_width="50dp"
+        android:layout_height="60dp"
+        android:backgroundTint="@color/white"
+        android:text="＞"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.481"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.144" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

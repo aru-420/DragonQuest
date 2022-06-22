@@ -16,14 +16,25 @@ public class CharacterCreationActivity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
 
-        //開始ボタンの処理
         binding.startbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //NurtureActivityに画面遷移
                 Intent intent = new Intent(getApplication(), NurtureActivity.class);
                 startActivity(intent);
             }
         });
+
+        binding.leftbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            }
+        });
+
+        binding.leftbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            }
+        });
+
     }
 }
