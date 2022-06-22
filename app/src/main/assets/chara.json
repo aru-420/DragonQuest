@@ -1,29 +1,31 @@
 {
   "charaID1":{
-    "name": "キャラクター名",
+    "NAME": "戦士",
     "HP": 150,
     "ATK": 40,
     "DEF": 40,
     "DEX": 40,
-    "SKILL1": 1,
-    "SKILL2": 2,
+    "SKILL1": "スラッシュ",
+    "SKILL2": "無し",
+    "SKILL3": "",
+    "SKILL4": ""
   },
   "charaID2":{
-    "name": "敵名",
-    "HP": 100,
+    "NAME": "ゴーレム",
+    "HP": 500,
     "ATK": 50,
     "DEF": 50,
     "DEX": 50,
-    "SKILL1": 1,
-    "SKILL2": 1,
+    "SKILL1": "たたきつける",
+    "SKILL2": ""
   },
   "charaID3":{
-    "name": "敵名",
+    "NAME": "敵名",
     "HP": 100,
     "ATK": 50,
     "DEF": 50,
     "DEX": 50,
-    "SKILL1": 1,
-    "SKILL2": 1,
+    "SKILL1": "",
+    "SKILL2": ""
   }
 }
