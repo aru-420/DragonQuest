@@ -14,20 +14,15 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
-
 import com.example.dragonquest.DBTables.CharacterTable;
 import com.example.dragonquest.databinding.ActivityBattleBinding;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Random;
-
-import static java.lang.String.valueOf;
 
 public class BattleActivity extends AppCompatActivity {
     private ActivityBattleBinding binding;
@@ -56,6 +51,9 @@ public class BattleActivity extends AppCompatActivity {
         binding = ActivityBattleBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
+
+        // ヘルパーを準備
+        helper = new DatabaseHelper(this);
 
         //キャラ作成
         Create_Actor();
@@ -87,32 +85,6 @@ public class BattleActivity extends AppCompatActivity {
         buttonsColor(binding.skill2);
         buttonsColor(binding.skill3);
         buttonsColor(binding.skill4);
-
-        // ヘルパーを準備
-        helper = new DatabaseHelper(this);
-        // データベースから取得する項目を設定
-        String[] cols = {CharacterTable.CHARA_SAVE_NAME, CharacterTable.CHARA_SAVE_SKILL1};
-        String where = CharacterTable.CHARA_SAVE_ID +  " = 1";
-
-        // 読み込みモードでデータベースをオープン
-        try (SQLiteDatabase db = helper.getReadableDatabase()) {
-
-            // データを取得するSQLを実行
-            // 取得したデータがCursorオブジェクトに格納される
-            Cursor cursor = db.query(CharacterTable.TABLE_NAME, cols, where,
-                    null, null, null, null, null);
-
-            // moveToFirstで、カーソルを検索結果セットの先頭行に移動
-            // 検索結果が0件の場合、falseが返る
-            if (cursor.moveToFirst()){
-
-                // 表示用のテキスト・コンテンツに検索結果を設定
-                binding.test.setText(cursor.getString(0) + cursor.getString(1));
-
-
-            } else {
-            }
-        }
 
     }
 
@@ -165,7 +137,8 @@ public class BattleActivity extends AppCompatActivity {
                                 binding.battleMessage.setBackgroundColor(Color.RED);
                                 binding.battleEndButton.setText("リザルト画面へ");
                                 binding.battleEndButton.setVisibility(View.VISIBLE);
-
+                                //DB更新
+                                EndDBChange();
                             });
                             //ループ終了
                             break;
@@ -183,9 +156,11 @@ public class BattleActivity extends AppCompatActivity {
                                 });
                             }
                             my_actor.setHp(myhp);
+
+                            //データベース更新
+                            onSave(my_actor, 3);
                             break;
                         }
-
 
                         //HPをhpPointずつ減らす
                         myhp -= hpPoint;
@@ -220,6 +195,8 @@ public class BattleActivity extends AppCompatActivity {
                             handler.post(()->{
                                 binding.battleEndButton.setText("次の育成へ");
                                 binding.battleEndButton.setVisibility(View.VISIBLE);
+                                //DB更新
+                                EndDBChange();
                             });
                             //ループ終了
                             break;
@@ -236,6 +213,9 @@ public class BattleActivity extends AppCompatActivity {
                                 });
                             }
                             enemy_actor.setHp(ememyHp);
+
+                            //データベース更新
+                            onSave(enemy_actor, 2);
                             break;
                         }
 
@@ -265,6 +245,7 @@ public class BattleActivity extends AppCompatActivity {
             //プレイヤーの方が早い場合
             //プレイヤーのダメージ処理
             onShow(skill_name, my_actor.getName(),false);
+
             //エネミーのHPが０でなければ
             if (enemy_actor.getHp() != 0){
                 //表示2秒後に処理を移す
@@ -282,6 +263,7 @@ public class BattleActivity extends AppCompatActivity {
             //エネミーの方が早い場合
             //エネミーのダメージ処理
             onShow(enemy_actor.getSkill1() , enemy_actor.getName(),true);
+
             //表示2秒後に処理を移す
             handler.postDelayed(new Runnable() {
                 @Override
@@ -290,6 +272,7 @@ public class BattleActivity extends AppCompatActivity {
                     if (my_actor.getHp() != 0){
                         messageclickflag = true;
                         onShow(skill_name, my_actor.getName(), false);
+
                     }
                 }
             }, 2000); // 2000ミリ秒（2秒）後
@@ -386,40 +369,115 @@ public class BattleActivity extends AppCompatActivity {
             inputStream.close();
             bufferedReader.close();
 
-            //jsonからプレイヤーデータを引っ張る
-            JSONObject my_json = json.getJSONObject("charaID1");
-            String name = my_json.getString("NAME");
-            int hp = my_json.getInt("HP");
-            int atk = my_json.getInt("ATK");
-            int def = my_json.getInt("DEF");
-            int dex = my_json.getInt("DEX");
-            String skill1 = my_json.getString("SKILL1");
-            String skill2 = my_json.getString("SKILL2");
-            my_actor = new Actor(name, hp, atk, def, dex, skill1,skill2,"","");
-            binding.myCharaName.setText(my_actor.getName());
-            myhp = my_actor.getHp();
-            binding.myHpBar.setMax(myhp);   //キャラの最大値の設定
-            binding.myHpBar.setProgress(myhp);      //キャラの現在地の設定
-            binding.myHpText.setText(myhp + "/" + myhp);    //キャラのHPテキスト
-            binding.skill1.setText(my_actor.getSkill1());   //スキルをセット
-            binding.skill2.setText(my_actor.getSkill2());
-            binding.skill3.setText(my_actor.getSkill3());
-            binding.skill4.setText(my_actor.getSkill4());
+            // データベースから取得する項目を設定
+            String[] cols = {CharacterTable.CHARA_SAVE_NAME, CharacterTable.CHARA_SAVE_HP,
+                    CharacterTable.CHARA_SAVE_ATK, CharacterTable.CHARA_SAVE_DEF, CharacterTable.CHARA_SAVE_DEX,
+                    CharacterTable.CHARA_SAVE_SKILL1, CharacterTable.CHARA_SAVE_SKILL2, CharacterTable.CHARA_SAVE_SKILL3, CharacterTable.CHARA_SAVE_SKILL4
+            };
+            //where文
+            String my_where = CharacterTable.CHARA_SAVE_ID + " = 3";
 
-            //jsonからエネミーデータを引っ張る
+            // 読み込みモードでデータベースをオープン
+            try (SQLiteDatabase db = helper.getReadableDatabase()) {
+                // データを取得するSQLを実行
+                // 取得したデータがCursorオブジェクトに格納される
+
+                Cursor cursor2;
+                       cursor2 = db.query(CharacterTable.TABLE_NAME, cols, my_where,
+                        null, null, null, null, null);
+
+                if (cursor2.moveToFirst()){
+                    String my_name = cursor2.getString(0);
+                    //名前がなければDB取得
+                    if (my_name.equals("")){
+                        my_where = CharacterTable.CHARA_SAVE_ID +  " = 1";
+                        // データを取得するSQLを実行
+                        // 取得したデータがCursorオブジェクトに格納される
+                        cursor2 = db.query(CharacterTable.TABLE_NAME, cols, my_where,
+                                null, null, null, null, null);
+
+                        if (cursor2.moveToFirst()){
+                            my_actor = new Actor(cursor2.getString(0), cursor2.getInt(1), cursor2.getInt(2),
+                                    cursor2.getInt(3), cursor2.getInt(4),
+                                    cursor2.getString(5),cursor2.getString(6),cursor2.getString(7),cursor2.getString(8));
+                        }
+
+
+                    }else {
+                        //検索結果からmy_actorを作成
+                        my_actor = new Actor(cursor2.getString(0), cursor2.getInt(1), cursor2.getInt(2),
+                                cursor2.getInt(3), cursor2.getInt(4),
+                                cursor2.getString(5),cursor2.getString(6),cursor2.getString(7),cursor2.getString(8));
+                    }
+
+                    my_where = CharacterTable.CHARA_SAVE_ID +  " = 1";
+
+                    cursor2 = db.query(CharacterTable.TABLE_NAME, cols, my_where,
+                            null, null, null, null, null);
+                    if (cursor2.moveToFirst()){
+                        binding.myHpBar.setMax(cursor2.getInt(1));   //キャラの最大値の設定
+                        binding.myCharaName.setText(my_actor.getName());
+                        myhp = my_actor.getHp();
+                        binding.myHpBar.setProgress(myhp);      //キャラの現在地の設定
+                        binding.myHpText.setText(myhp + "/" + cursor2.getInt(1));    //キャラのHPテキスト
+                        binding.skill1.setText(my_actor.getSkill1());   //スキルをセット
+                        binding.skill2.setText(my_actor.getSkill2());
+                        binding.skill3.setText(my_actor.getSkill3());
+                        binding.skill4.setText(my_actor.getSkill4());
+                    }
+
+                }
+
+
+            }
+
+
+
             JSONObject enemy_json = json.getJSONObject("charaID2");
-            String enemy_name = enemy_json.getString("NAME");
             int enemy_hp = enemy_json.getInt("HP");
             int enemy_atk = enemy_json.getInt("ATK");
             int enemy_def = enemy_json.getInt("DEF");
             int enemy_dex = enemy_json.getInt("DEX");
-            String enemy_skill1 = enemy_json.getString("SKILL1");
-            String enemy_skill2 = enemy_json.getString("SKILL2");
-            enemy_actor = new Actor(enemy_name, enemy_hp, enemy_atk, enemy_def, enemy_dex,
-                    enemy_skill1,enemy_skill2,"","");
+
+
+            //where文
+            String where = CharacterTable.CHARA_SAVE_ID +  " = 2";
+
+            // 読み込みモードでデータベースをオープン
+            try (SQLiteDatabase db = helper.getReadableDatabase()) {
+
+                // データを取得するSQLを実行
+                // 取得したデータがCursorオブジェクトに格納される
+                Cursor cursor = db.query(CharacterTable.TABLE_NAME, cols, where,
+                        null, null, null, null, null);
+
+                // moveToFirstで、カーソルを検索結果セットの先頭行に移動
+                // 検索結果が0件の場合、falseが返る
+                if (cursor.moveToFirst()){
+
+                    //名前がなければjsonから取得
+                    if (cursor.getString(0).equals("")){
+                        //jsonからエネミーデータを引っ張る
+                        String enemy_name = enemy_json.getString("NAME");
+                        String enemy_skill1 = enemy_json.getString("SKILL1");
+                        String enemy_skill2 = enemy_json.getString("SKILL2");
+                        enemy_actor = new Actor(enemy_name, enemy_hp, enemy_atk, enemy_def, enemy_dex,
+                                enemy_skill1,enemy_skill2,"","");
+                    }else {
+                        //検索結果からenemy_actorを作成
+                        enemy_actor = new Actor(cursor.getString(0), cursor.getInt(1), cursor.getInt(2),
+                                cursor.getInt(3), cursor.getInt(4),
+                                cursor.getString(5),cursor.getString(6),cursor.getString(7),cursor.getString(8));
+                    }
+
+                } else {
+
+                }
+            }
+            //エネミーの初期画面設定
             binding.ememyName.setText(enemy_actor.getName());
             ememyHp = enemy_actor.getHp();
-            binding.ememyHpBar.setMax(ememyHp);   //エネミーの最大値の設定
+            binding.ememyHpBar.setMax(enemy_hp);   //エネミーの最大値の設定
             binding.ememyHpBar.setProgress(ememyHp);      //エネミーの現在地の設定
 
         }catch (IOException | JSONException e) {
@@ -447,6 +505,64 @@ public class BattleActivity extends AppCompatActivity {
             damege = my_actor.getAtk() * skill_effect - enemy_actor.getDex();
         }
         return damege;
+    }
+
+    //DBにアップデート保存
+    private void onSave(Actor acto, int id){
+        // 入力されたタイトルとコンテンツをContentValuesに設定
+        // ContentValuesは、項目名と値をセットで保存できるオブジェクト
+        ContentValues cv = new ContentValues();
+        cv.put(CharacterTable.CHARA_SAVE_NAME, acto.getName());
+        cv.put(CharacterTable.CHARA_SAVE_HP, acto.getHp());
+        cv.put(CharacterTable.CHARA_SAVE_ATK, acto.getAtk());
+        cv.put(CharacterTable.CHARA_SAVE_DEF, acto.getDef());
+        cv.put(CharacterTable.CHARA_SAVE_DEX, acto.getDex());
+        cv.put(CharacterTable.CHARA_SAVE_SKILL1, acto.getSkill1());
+        cv.put(CharacterTable.CHARA_SAVE_SKILL2, acto.getSkill2());
+        cv.put(CharacterTable.CHARA_SAVE_SKILL3, acto.getSkill3());
+        cv.put(CharacterTable.CHARA_SAVE_SKILL4, acto.getSkill4());
+        //cv.put(CharacterTable.CHARA_SAVE_TURN, 0);
+
+        //where文 今回はidを指定して
+        String where = CharacterTable.CHARA_SAVE_ID + " = " + id;
+
+        // 書き込みモードでデータベースをオープン
+        try (SQLiteDatabase db = helper.getWritableDatabase()) {
+
+            //アップデート
+            db.update(CharacterTable.TABLE_NAME, cv, where, null);
+
+        }
+    }
+
+    //バトル終了時データベースを更新する
+    private void EndDBChange(){
+        // 入力されたタイトルとコンテンツをContentValuesに設定
+        // ContentValuesは、項目名と値をセットで保存できるオブジェクト
+        ContentValues cv = new ContentValues();
+        cv.put(CharacterTable.CHARA_SAVE_NAME, "");
+        cv.put(CharacterTable.CHARA_SAVE_HP, 0);
+        cv.put(CharacterTable.CHARA_SAVE_ATK, 0);
+        cv.put(CharacterTable.CHARA_SAVE_DEF, 0);
+        cv.put(CharacterTable.CHARA_SAVE_DEX, 0);
+        cv.put(CharacterTable.CHARA_SAVE_SKILL1, "");
+        cv.put(CharacterTable.CHARA_SAVE_SKILL2, "");
+        cv.put(CharacterTable.CHARA_SAVE_SKILL3, "");
+        cv.put(CharacterTable.CHARA_SAVE_SKILL4, "");
+        //cv.put(CharacterTable.CHARA_SAVE_TURN, 0);
+
+        //where文 今回はidを指定して
+        String where = CharacterTable.CHARA_SAVE_ID + " = " + 2;
+
+        // 書き込みモードでデータベースをオープン
+        try (SQLiteDatabase db = helper.getWritableDatabase()) {
+
+            //アップデート
+            db.update(CharacterTable.TABLE_NAME, cv, where, null);
+            where = CharacterTable.CHARA_SAVE_ID + " = " + 3;
+            db.update(CharacterTable.TABLE_NAME, cv, where, null);
+        }
+
     }
 
 }
