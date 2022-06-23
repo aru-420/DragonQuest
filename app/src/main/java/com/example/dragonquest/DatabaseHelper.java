@@ -10,7 +10,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     // データベースのバージョン
     // テーブルの内容などを変更したら、この数字を変更する
-    static final private int VERSION = 12;
+    static final private int VERSION = 15;
 
     // データベース名
     static final private String DBNAME = "sample.db";
@@ -52,11 +52,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         //追加するカラムに内容をセット
         ContentValues cv = new ContentValues();
         cv.put(CharacterTable.CHARA_SAVE_ID, 1);
-        cv.put(CharacterTable.CHARA_SAVE_NAME, "名前");
+        cv.put(CharacterTable.CHARA_SAVE_NAME, "");
         cv.put(CharacterTable.CHARA_SAVE_HP, 0);
         cv.put(CharacterTable.CHARA_SAVE_ATK, 0);
+        cv.put(CharacterTable.CHARA_SAVE_DEF, 0);
         cv.put(CharacterTable.CHARA_SAVE_DEX, 0);
-        cv.put(CharacterTable.CHARA_SAVE_SKILL1, "スキル");
+        cv.put(CharacterTable.CHARA_SAVE_SKILL1, "");
         cv.put(CharacterTable.CHARA_SAVE_SKILL2, "");
         cv.put(CharacterTable.CHARA_SAVE_SKILL3, "");
         cv.put(CharacterTable.CHARA_SAVE_SKILL4, "");
@@ -64,19 +65,34 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         ContentValues cv2 = new ContentValues();
         cv2.put(CharacterTable.CHARA_SAVE_ID, 2);
-        cv2.put(CharacterTable.CHARA_SAVE_NAME, "名前");
+        cv2.put(CharacterTable.CHARA_SAVE_NAME, "");
         cv2.put(CharacterTable.CHARA_SAVE_HP, 0);
         cv2.put(CharacterTable.CHARA_SAVE_ATK, 0);
+        cv2.put(CharacterTable.CHARA_SAVE_DEF, 0);
         cv2.put(CharacterTable.CHARA_SAVE_DEX, 0);
-        cv2.put(CharacterTable.CHARA_SAVE_SKILL1, "スキル");
+        cv2.put(CharacterTable.CHARA_SAVE_SKILL1, "");
         cv2.put(CharacterTable.CHARA_SAVE_SKILL2, "");
         cv2.put(CharacterTable.CHARA_SAVE_SKILL3, "");
         cv2.put(CharacterTable.CHARA_SAVE_SKILL4, "");
         cv2.put(CharacterTable.CHARA_SAVE_TURN, 0);
 
+        ContentValues cv3 = new ContentValues();
+        cv3.put(CharacterTable.CHARA_SAVE_ID, 3);
+        cv3.put(CharacterTable.CHARA_SAVE_NAME, "");
+        cv3.put(CharacterTable.CHARA_SAVE_HP, 0);
+        cv3.put(CharacterTable.CHARA_SAVE_ATK, 0);
+        cv3.put(CharacterTable.CHARA_SAVE_DEF, 0);
+        cv3.put(CharacterTable.CHARA_SAVE_DEX, 0);
+        cv3.put(CharacterTable.CHARA_SAVE_SKILL1, "");
+        cv3.put(CharacterTable.CHARA_SAVE_SKILL2, "");
+        cv3.put(CharacterTable.CHARA_SAVE_SKILL3, "");
+        cv3.put(CharacterTable.CHARA_SAVE_SKILL4, "");
+        cv3.put(CharacterTable.CHARA_SAVE_TURN, 0);
+
         //インサート
         db.insert(CharacterTable.TABLE_NAME, null, cv);
         db.insert(CharacterTable.TABLE_NAME, null, cv2);
+        db.insert(CharacterTable.TABLE_NAME, null, cv3);
     }
 
     //バージョン変更時に削除
