@@ -15,6 +15,7 @@ import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.dragonquest.DBTables.CharacterTable;
 import com.example.dragonquest.databinding.ActivityBattleBinding;
 
 import org.json.JSONException;
@@ -66,6 +67,20 @@ public class BattleActivity extends AppCompatActivity {
         binding.battleMessage.setVisibility(View.INVISIBLE);    //バトルメッセージ非表示
         binding.battleEndButton.setVisibility(View.INVISIBLE);  //バトル終了ボタン非表示
 
+        //メッセージのクリック処理有効化
+        binding.battleMessage.setClickable(true);
+        //メッセージクリック時の処理
+        binding.battleMessage.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                //メッセージの非表示
+                binding.battleMessage.setVisibility(View.INVISIBLE);
+                //スキルボタンの表示
+                binding.grid.setVisibility(View.VISIBLE);
+            }
+        });
+
+
         //ボタンのカラーによって役割を表す
         //青ならスキル灰色ならスキルなし
         buttonsColor(binding.skill1);
@@ -73,7 +88,31 @@ public class BattleActivity extends AppCompatActivity {
         buttonsColor(binding.skill3);
         buttonsColor(binding.skill4);
 
+        // ヘルパーを準備
+        helper = new DatabaseHelper(this);
+        // データベースから取得する項目を設定
+        String[] cols = {CharacterTable.CHARA_SAVE_NAME, CharacterTable.CHARA_SAVE_SKILL1};
+        String where = CharacterTable.CHARA_SAVE_ID +  " = 1";
 
+        // 読み込みモードでデータベースをオープン
+        try (SQLiteDatabase db = helper.getReadableDatabase()) {
+
+            // データを取得するSQLを実行
+            // 取得したデータがCursorオブジェクトに格納される
+            Cursor cursor = db.query(CharacterTable.TABLE_NAME, cols, where,
+                    null, null, null, null, null);
+
+            // moveToFirstで、カーソルを検索結果セットの先頭行に移動
+            // 検索結果が0件の場合、falseが返る
+            if (cursor.moveToFirst()){
+
+                // 表示用のテキスト・コンテンツに検索結果を設定
+                binding.test.setText(cursor.getString(0) + cursor.getString(1));
+
+
+            } else {
+            }
+        }
 
     }
 
@@ -235,8 +274,6 @@ public class BattleActivity extends AppCompatActivity {
                         //メッセージビューのクリックリスナーを管理するフラグ
                         messageclickflag = true;
                         onShow(enemy_actor.getSkill1(), enemy_actor.getName(), true);
-                        //メッセージのクリック処理有効化
-                        binding.battleMessage.setClickable(true);
                     }
                 }, 2000); // 2000ミリ秒（2秒）後
             }
@@ -253,8 +290,6 @@ public class BattleActivity extends AppCompatActivity {
                     if (my_actor.getHp() != 0){
                         messageclickflag = true;
                         onShow(skill_name, my_actor.getName(), false);
-                        //メッセージのクリック処理有効化
-                        binding.battleMessage.setClickable(true);
                     }
                 }
             }, 2000); // 2000ミリ秒（2秒）後
@@ -278,11 +313,12 @@ public class BattleActivity extends AppCompatActivity {
             //jsonオブジェクトの宣言
             JSONObject json = null;
 
+
             //読み込んだファイルをString型にする
             String data = "";
             //読み込んだファイルを一行読み込み
             String str = bufferedReader.readLine();
-            while(str != null){
+            while (str != null) {
                 //一行ずつ書き込んでいく
                 data += str;
                 //読み込んだファイルを一行読み込み
@@ -405,8 +441,6 @@ public class BattleActivity extends AppCompatActivity {
             //乱数はATKの10分の1で生成しその半分の値を減産した値をATKに加算する
             //例：ATK100なら乱数は「-5~5」の値をとる。よってATKは「95~105」になる
             random = rnd.nextInt(enemy_actor.getAtk()/10)-( (enemy_actor.getAtk()/10) / 2);
-            String moi = valueOf(random);
-            binding.skill4.setText(moi);
             damege = (enemy_actor.getAtk() + random) * skill_effect - my_actor.getDex();
         }else {
             random = rnd.nextInt(my_actor.getAtk()/10)-( (my_actor.getAtk()/10) / 2);
