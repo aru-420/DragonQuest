@@ -6,14 +6,14 @@ public class Actor {
     private int atk;        //攻撃力
     private int def;        //守備力
     private int dex;        //素早さ
-    private String skill1;  //スキル1
-    private String skill2;  //スキル2
-    private String skill3;  //スキル3
-    private String skill4;  //スキル4
+    private Skill skill1;  //スキル1
+    private Skill skill2;  //スキル2
+    private Skill skill3;  //スキル3
+    private Skill skill4;  //スキル4
 
     //ステータスを受け取り保存する
     public Actor(String set_name, int set_hp, int set_atk, int set_def, int set_dex,
-                 String set_skill1, String set_skill2, String set_skill3, String set_skill4){
+                 Skill set_skill1, Skill set_skill2, Skill set_skill3, Skill set_skill4){
         name = set_name;
         hp = set_hp;
         atk = set_atk;
@@ -41,16 +41,16 @@ public class Actor {
     public void setDex(int set_dex){
         dex =set_dex;
     }
-    private void setSkill1(String set_skill1){
+    private void setSkill1(Skill set_skill1){
         skill1 = set_skill1;
     }
-    private void setSkill2(String set_skill2){
+    private void setSkill2(Skill set_skill2){
         skill2 = set_skill2;
     }
-    private void setSkill3(String set_skill3){
+    private void setSkill3(Skill set_skill3){
         skill3 = set_skill3;
     }
-    private void setSkill4(String set_skill4){
+    private void setSkill4(Skill set_skill4){
         skill4 = set_skill4;
     }
 
@@ -71,16 +71,29 @@ public class Actor {
     public int getDex(){
         return dex;
     }
-    public String getSkill1(){
+    public Skill getSkill1(){
         return skill1;
     }
-    public String getSkill2(){
+    public Skill getSkill2(){
         return skill2;
     }
-    public String getSkill3(){
+    public Skill getSkill3(){
         return skill3;
     }
-    public String getSkill4(){
+    public Skill getSkill4(){
         return skill4;
+    }
+
+    //スキル名から正しいスキルを返す
+    public Skill returnSkill(String name){
+        if (skill1.getSkill_name().equals(name)){
+            return skill1;
+        }else if (skill2.getSkill_name().equals(name)){
+            return skill2;
+        }else if (skill3.getSkill_name().equals(name)){
+            return skill3;
+        }else{
+            return skill4;
+        }
     }
 }

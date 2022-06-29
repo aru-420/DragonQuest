@@ -194,13 +194,24 @@
         app:layout_constraintStart_toStartOf="@+id/myHpBar"
         app:layout_constraintTop_toBottomOf="@+id/myHpBar" />
 
-    <TextView
-        android:id="@+id/test"
+    <ImageView
+        android:id="@+id/enemy_sord_effect"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toBottomOf="@+id/ememyImage"
+        app:layout_constraintEnd_toEndOf="@+id/ememyImage"
+        app:layout_constraintStart_toStartOf="@+id/ememyImage"
+        app:layout_constraintTop_toTopOf="@+id/ememyImage"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <ImageView
+        android:id="@+id/my_sord_effect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/myCharaImage"
+        app:layout_constraintEnd_toEndOf="@+id/myCharaImage"
+        app:layout_constraintStart_toStartOf="@+id/myCharaImage"
+        app:layout_constraintTop_toTopOf="@+id/myCharaImage"
+        app:srcCompat="@drawable/effect_sord" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
