@@ -93,6 +93,16 @@
         app:srcCompat="@drawable/warrior" />
 
     <ImageView
+        android:id="@+id/my_effect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/myCharaImage"
+        app:layout_constraintEnd_toEndOf="@+id/myCharaImage"
+        app:layout_constraintStart_toStartOf="@+id/myCharaImage"
+        app:layout_constraintTop_toTopOf="@+id/myCharaImage"
+        app:srcCompat="@drawable/sword_effect" />
+
+    <ImageView
         android:id="@+id/ememyImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -103,6 +113,16 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.364"
         app:srcCompat="@drawable/golem" />
+
+    <ImageView
+        android:id="@+id/enemy_effect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/ememyImage"
+        app:layout_constraintEnd_toEndOf="@+id/ememyImage"
+        app:layout_constraintStart_toStartOf="@+id/ememyImage"
+        app:layout_constraintTop_toTopOf="@+id/ememyImage"
+        tools:srcCompat="@drawable/sword_effect" />
 
     <ProgressBar
         android:id="@+id/ememyHpBar"
@@ -140,16 +160,6 @@
         app:layout_constraintStart_toStartOf="@+id/ememyHpBar"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
-
-    <Button
-        android:id="@+id/menubtn"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="＝" />
 
     <TextView
         android:id="@+id/battleMessage"
@@ -194,24 +204,32 @@
         app:layout_constraintStart_toStartOf="@+id/myHpBar"
         app:layout_constraintTop_toBottomOf="@+id/myHpBar" />
 
-    <ImageView
-        android:id="@+id/enemy_sord_effect"
-        android:layout_width="wrap_content"
+    <TextView
+        android:id="@+id/skill_context"
+        android:layout_width="310dp"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/ememyImage"
-        app:layout_constraintEnd_toEndOf="@+id/ememyImage"
-        app:layout_constraintStart_toStartOf="@+id/ememyImage"
-        app:layout_constraintTop_toTopOf="@+id/ememyImage"
-        tools:srcCompat="@tools:sample/avatars" />
+        android:layout_marginBottom="16dp"
+        android:background="@color/purple_500"
+        android:paddingLeft="15dp"
+        android:paddingTop="5dp"
+        android:paddingRight="15dp"
+        android:paddingBottom="5dp"
+        android:text="TextView"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/grid"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <ImageView
-        android:id="@+id/my_sord_effect"
+    <ImageButton
+        android:id="@+id/menu_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/myCharaImage"
-        app:layout_constraintEnd_toEndOf="@+id/myCharaImage"
-        app:layout_constraintStart_toStartOf="@+id/myCharaImage"
-        app:layout_constraintTop_toTopOf="@+id/myCharaImage"
-        app:srcCompat="@drawable/effect_sord" />
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@null"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/menu_button" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

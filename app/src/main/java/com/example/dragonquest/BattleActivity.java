@@ -4,16 +4,19 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
+import android.content.Intent;
 import android.content.res.AssetManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.bumptech.glide.DrawableTypeRequest;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 import com.example.dragonquest.DBTables.CharacterTable;
@@ -35,6 +38,8 @@ public class BattleActivity extends AppCompatActivity {
     Actor enemy_actor;
     //メッセージをクリックしたときに消えるかどうかのフラグ
     boolean messageclickflag = false;
+    //ボタンを複数押せないようにする
+    boolean button_not_double = true;
 
     //データベース接続用変数
     private DatabaseHelper helper = null;
@@ -66,14 +71,15 @@ public class BattleActivity extends AppCompatActivity {
         // ContentValuesは、項目名と値をセットで保存できるオブジェクト
         ContentValues cv = new ContentValues();
         cv.put(CharacterTable.CHARA_SAVE_NAME, "戦士");
-        cv.put(CharacterTable.CHARA_SAVE_HP, 1500);
+        cv.put(CharacterTable.CHARA_SAVE_HP, 500);
         cv.put(CharacterTable.CHARA_SAVE_ATK, 100);
         cv.put(CharacterTable.CHARA_SAVE_DEF, 50);
         cv.put(CharacterTable.CHARA_SAVE_DEX, 60);
         cv.put(CharacterTable.CHARA_SAVE_SKILL1, "スラッシュ");
-        cv.put(CharacterTable.CHARA_SAVE_SKILL2, "ヒール");
+        cv.put(CharacterTable.CHARA_SAVE_SKILL2, "ブレス");
         cv.put(CharacterTable.CHARA_SAVE_SKILL3, "ダブルスラッシュ");
-//        cv.put(CharacterTable.CHARA_SAVE_SKILL4, "");
+        cv.put(CharacterTable.CHARA_SAVE_SKILL4, "じこさいせい");
+        cv.put(CharacterTable.CHARA_SAVE_TURN, 20);
 
         //where文 今回はidを指定して
         String where = CharacterTable.CHARA_SAVE_ID + " = " + 1;
@@ -87,8 +93,8 @@ public class BattleActivity extends AppCompatActivity {
         }
 
         //エフェクト初期非表示
-        binding.mySordEffect.setVisibility(View.INVISIBLE);
-        binding.enemySordEffect.setVisibility(View.INVISIBLE);
+        binding.myEffect.setVisibility(View.INVISIBLE);
+        binding.enemyEffect.setVisibility(View.INVISIBLE);
 
         //キャラ作成
         Create_Actor();
@@ -112,6 +118,18 @@ public class BattleActivity extends AppCompatActivity {
                 binding.grid.setVisibility(View.VISIBLE);
             }
         });
+        //メニューボタン
+        binding.menuButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplication(), Menu.class);
+                startActivity(intent);
+
+            }
+        });
+
+        //スキル説明テキスト非表示
+        binding.skillContext.setVisibility(View.INVISIBLE);
 
         //ボタンのカラーによって役割を表す
         //青ならスキル灰色ならスキルなし
@@ -122,8 +140,8 @@ public class BattleActivity extends AppCompatActivity {
 
     }
 
-
-
+    //ボタンの色変えと処理
+    @SuppressLint("ClickableViewAccessibility")
     private void buttonsColor(Button button_skill, Skill skills){
         if (skills.getSkill_subject().equals("my")){
             //自身にかける効果なら緑
@@ -135,28 +153,57 @@ public class BattleActivity extends AppCompatActivity {
             button_skill.setBackgroundColor(Color.GRAY);
 
         }else {
+            //ボタンを長押ししたとき
+            button_skill.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    binding.skillContext.setVisibility(View.VISIBLE);
+                    binding.skillContext.setText(skills.getSkill_context());
+
+                    //trueならonclickを呼び出さない
+                    return true;
+                }
+            });
+            //ボタンを離したとき
+            button_skill.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View view, MotionEvent motionEvent) {
+                    if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                        //離したとき
+                        binding.skillContext.setVisibility(View.INVISIBLE);
+                    }
+
+                    return false;
+                }
+            });
             button_skill.setOnClickListener(new View.OnClickListener(){
-                        @Override
-                        public void onClick(View view) {
-                            Skill skill = my_actor.returnSkill((String) button_skill.getText());
-                            //メッセージの表示
-                            binding.battleMessage.setVisibility(View.VISIBLE);
-                            //ボタンの非表示
-                            binding.grid.setVisibility(View.INVISIBLE);
-                            //メッセージのクリックイベント解除
-                            binding.battleMessage.setClickable(false);
-                            BattleStart(skill);
-                        }
-                    });
+
+                @Override
+                public void onClick(View view) {
+                    if (button_not_double){
+                        button_not_double = false;
+                        Skill skill = my_actor.returnSkill((String) button_skill.getText());
+                        //メッセージの表示
+                        binding.battleMessage.setVisibility(View.VISIBLE);
+                        //ボタンの非表示
+                        binding.grid.setVisibility(View.INVISIBLE);
+                        //メッセージのクリックイベント解除
+                        binding.battleMessage.setClickable(false);
+                        BattleStart(skill);
+                    }
+                }
+            });
         }
     }
 
 
     //バトル順序
     protected void BattleStart(Skill skill){
-        if (skill.getSkill_subject().equals("double")){
-            changeTime(skill);
-        }
+        //敵のスキル決定
+        Skill enemy_skill = getEnemyUseSkill();
+
+        //ディレイ時間変更
+        changeTime(skill);
         //素早さを比較してダメ――ジ処理に移行
         if (my_actor.getDex() >= enemy_actor.getDex()){
             //プレイヤーの方が早い場合
@@ -164,24 +211,32 @@ public class BattleActivity extends AppCompatActivity {
             onShow(skill, false);
             //表示2秒後に処理を移す
             handler.postDelayed(new Runnable() {
-            //エネミーのHPが０でなければ
-            @Override
-            public void run() {
-                if (enemy_actor.getHp() != 0){
-
-                    //メッセージビューのクリックリスナーを管理するフラグ
-                    messageclickflag = true;
-                    onShow(enemy_actor.getSkill1(),  true);
+                @Override
+                public void run() {
+                    //エネミーのHPが０でなければ
+                    if (enemy_actor.getHp() != 0){
+                        //メッセージビューのクリックリスナーを管理するフラグ
+                        messageclickflag = true;
+                        button_not_double = true;
+                        onShow(enemy_skill,  true);
+                    }else {
+                        GameClear();
+                    }
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (my_actor.getHp() == 0){
+                                GameOver();
+                            }
+                        }
+                    },delayTime - 500); // 2000ミリ秒（2秒）後
                 }
-            }
 
             }, delayTime); // 2000ミリ秒（2秒）後
-
         }else {
             //エネミーの方が早い場合
             //エネミーのダメージ処理
-            onShow(enemy_actor.getSkill1(),true);
-
+            onShow(enemy_skill,true);
             //表示2秒後に処理を移す
             handler.postDelayed(new Runnable() {
                 @Override
@@ -190,8 +245,17 @@ public class BattleActivity extends AppCompatActivity {
                     if (my_actor.getHp() != 0){
                         messageclickflag = true;
                         onShow(skill,false);
-
+                    }else {
+                        GameOver();
                     }
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (enemy_actor.getHp() == 0){
+                                GameClear();
+                            }
+                        }
+                    },delayTime - 500); // 2000ミリ秒（2秒）後
                 }
             }, delayTime); // 2000ミリ秒（2秒）後
 
@@ -202,7 +266,7 @@ public class BattleActivity extends AppCompatActivity {
     // データを表示する
     protected void onShow(Skill skill,  boolean tof) {
         //ダメージ系スキル
-        if (skill.getSkill_subject().equals("enemy")){
+        if (skill.getSkill_subject().equals("enemy") ||skill.getSkill_subject().equals("element")){
             //ダメージ計算
             damegeRandom(tof, skill);
 
@@ -214,52 +278,101 @@ public class BattleActivity extends AppCompatActivity {
             //ダメージ計算
             damegeRandom(tof, skill);
             //表示2秒後に処理を移す
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    //２秒待って実行
-                    if (my_actor.getHp() != 0 && enemy_actor.getHp() != 0){
-                        damegeRandom(tof, skill);
-                    }
+            handler.postDelayed(() -> {
+                //２秒待って実行
+                if (my_actor.getHp() != 0 && enemy_actor.getHp() != 0){
+                    damegeRandom(tof, skill);
                 }
             }, delayTime/2 - 100); // 約2000ミリ秒（2秒）後
 
         }
-
-
     }
 
     //ダメージ計算
     private void damegeRandom(boolean MoE, Skill skill){
         //(攻撃力+乱数)×ダメージエフェクト-防御力
-        //ダメージの乱数
-        Random rnd = new Random();
-        int random;
 
         int damage = 0;
+        int def;
+
         if (MoE){
             //乱数はATKの10分の1で生成しその半分の値を減産した値をATKに加算する
             //例：ATK100なら乱数は「-5~5」の値をとる。よってATKは「95~105」になる
-            random = rnd.nextInt(enemy_actor.getAtk()/10 + 1) - enemy_actor.getAtk()/20;
-            damage = (int) ((enemy_actor.getAtk() + random) * skill.getSkill_effect() - my_actor.getDef());
+
+            def = my_actor.getDef();
+            //属性攻撃なら防御を半分にする
+            if (skill.getSkill_subject().equals("element")){
+                def = def / 2;
+            }
+            damage = minDamage(enemy_actor.getAtk(), def, skill.getSkill_effect());
             //表示するメッセージ
             messagetext = enemy_actor.getName() + "の" + skill.getSkill_name() + "\n" +  damage + "ダメージ!";
         }else {
-            random = rnd.nextInt(my_actor.getAtk()/10 + 1) - my_actor.getAtk()/20;
-            damage = (int) ((my_actor.getAtk() + random) * skill.getSkill_effect() - enemy_actor.getDef());
+            def = enemy_actor.getDef();
+            //属性攻撃なら防御を半分にする
+            if (skill.getSkill_subject().equals("element")){
+                def = def / 2;
+            }
+            damage = minDamage(my_actor.getAtk(), def,skill.getSkill_effect());
             //表示するメッセージ
             messagetext = my_actor.getName() + "の" + skill.getSkill_name() + "\n" +  damage + "ダメージ!";
         }
         //エフェクト表示
-        effect_show(MoE);
+        effect_show(MoE, skill.getSkill_gif());
         //バトルメッセージに表示
         binding.battleMessage.setText(messagetext);
         //HPバー減少処理
         damageCalculation(MoE, damage);
     }
 
+    //最低保証
+    private int minDamage(int atk, int def, double skill_effect){
+        //ダメージの乱数
+        Random rnd = new Random();
+        int random;
+        int damage;
+        random = rnd.nextInt(atk/10 + 1) - atk/20;
+        damage = (int) ((atk + random) * skill_effect - def);
+        if (damage <= 0){
+            damage = atk/20 + 1;
+        }
+        return damage;
+    }
+
+
+    //キャラクターがやられたときの処理
+    private void GameOver(){
+        //ゲームオーバー
+        messagetext = my_actor.getName() + "は死んでしまった！";
+        binding.battleMessage.setText(messagetext);
+        binding.battleMessage.setBackgroundColor(Color.RED);
+        binding.battleEndButton.setText("リザルト画面へ");
+        binding.battleEndButton.setVisibility(View.VISIBLE);
+        //DB更新
+        EndDBChange();
+    }
+
+    private void GameClear(){
+        messagetext = enemy_actor.getName() + "を倒した！";
+        binding.battleMessage.setText(messagetext);
+        binding.battleEndButton.setText("次の育成へ");
+        binding.battleEndButton.setVisibility(View.VISIBLE);
+
+        //DB更新
+        EndDBChange();
+        //育成画面へ移行
+        binding.battleEndButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplication(), NurtureActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    //回復
     private void recoverHP(boolean MoE, Skill skill){
-        int recovery = 0;
+        int recovery;
         if (MoE) {
             recovery = (int) (enemy_actor.getAtk() * skill.getSkill_effect());
             //表示するメッセージ
@@ -269,6 +382,8 @@ public class BattleActivity extends AppCompatActivity {
             //表示するメッセージ
             messagetext = my_actor.getName() + "の" + skill.getSkill_name() + "\n" +  recovery + "回復!";
         }
+        //エフェクト表示
+        effect_show(!MoE, skill.getSkill_gif());
         //バトルメッセージに表示
         binding.battleMessage.setText(messagetext);
         //HPバー増加処理
@@ -368,7 +483,7 @@ public class BattleActivity extends AppCompatActivity {
 
     //スキル内容を保存
     private Skill SettingSkill(int skill_number,String skill_name){
-        Skill skill = new Skill(0,"", 0.0, "");
+        Skill skill = new Skill(0,"", 0.0, "","","");
         try {
             //jsonオブジェクトの宣言
             JSONObject json = null;
@@ -380,7 +495,9 @@ public class BattleActivity extends AppCompatActivity {
 
             Double effect = json.getDouble("skill_effect");
             String subject = json.getString("skill_subject");
-            skill = new Skill(skill_number,skill_name, effect, subject);
+            String gif = json.getString("skill_gif");
+            String context = json.getString("skill_context");
+            skill = new Skill(skill_number,skill_name, effect, subject, gif, context);
 
             return skill;
         }catch (JSONException e) {
@@ -394,6 +511,7 @@ public class BattleActivity extends AppCompatActivity {
     }
 
     //キャラ作成
+    @SuppressLint("SetTextI18n")
     protected void Create_Actor(){
         //アセットにあるjsonを開く
         try {
@@ -428,10 +546,14 @@ public class BattleActivity extends AppCompatActivity {
             // データベースから取得する項目を設定
             String[] cols = {CharacterTable.CHARA_SAVE_NAME, CharacterTable.CHARA_SAVE_HP,
                     CharacterTable.CHARA_SAVE_ATK, CharacterTable.CHARA_SAVE_DEF, CharacterTable.CHARA_SAVE_DEX,
-                    CharacterTable.CHARA_SAVE_SKILL1, CharacterTable.CHARA_SAVE_SKILL2, CharacterTable.CHARA_SAVE_SKILL3, CharacterTable.CHARA_SAVE_SKILL4
+                    CharacterTable.CHARA_SAVE_SKILL1, CharacterTable.CHARA_SAVE_SKILL2, CharacterTable.CHARA_SAVE_SKILL3, CharacterTable.CHARA_SAVE_SKILL4,
+                    CharacterTable.CHARA_SAVE_TURN
             };
             //where文
             String my_where = CharacterTable.CHARA_SAVE_ID + " = 3";
+
+            //エネミーの名前を保存する変数
+            String enemy_names = "";
 
             // 読み込みモードでデータベースをオープン
             try (SQLiteDatabase db = helper.getReadableDatabase()) {
@@ -498,6 +620,7 @@ public class BattleActivity extends AppCompatActivity {
                         binding.skill2.setText(my_actor.getSkill2().getSkill_name());
                         binding.skill3.setText(my_actor.getSkill3().getSkill_name());
                         binding.skill4.setText(my_actor.getSkill4().getSkill_name());
+                        enemy_names = getEnemyName(cursor2.getInt(9));
                     }
 
                 }
@@ -506,12 +629,11 @@ public class BattleActivity extends AppCompatActivity {
 
             //エネミーの作成処理
             //jsonから基準値を取得
-            JSONObject enemy_json = json.getJSONObject("charaID2");
+            JSONObject enemy_json = json.getJSONObject(enemy_names);
             int enemy_hp = enemy_json.getInt("HP");
             int enemy_atk = enemy_json.getInt("ATK");
             int enemy_def = enemy_json.getInt("DEF");
             int enemy_dex = enemy_json.getInt("DEX");
-
 
             //where文
             String where = CharacterTable.CHARA_SAVE_ID +  " = 2";
@@ -549,8 +671,6 @@ public class BattleActivity extends AppCompatActivity {
                                 enemy_skill1,enemy_skill2,enemy_skill3,enemy_skill4);
                     }
 
-                } else {
-
                 }
             }
             //エネミーの初期画面設定
@@ -563,6 +683,48 @@ public class BattleActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+    }
+
+    String[] Enemy_names ={"スライム","charaID2","ドラゴン","魔王"};
+    //エネミーの決定
+    private String getEnemyName(int turn){
+        ImageView image = binding.ememyImage;
+        int num = turn / 10 - 1;
+        switch (num){
+            case 0:
+                image.setImageResource(R.drawable.slime);
+                break;
+            case 1:
+                image.setImageResource(R.drawable.golem);
+                break;
+            case 2:
+                image.setImageResource(R.drawable.dragon);
+                break;
+        }
+        return Enemy_names[num];
+    }
+
+    private Skill getEnemyUseSkill(){
+        Skill skill = new Skill(0,"",0.0,"","","");
+        Random rnd = new Random();
+        int random;
+        random = rnd.nextInt(4) + 1;
+        //random =1;
+        switch (random){
+            case 1:
+                skill = enemy_actor.getSkill1();
+                break;
+            case 2:
+                skill = enemy_actor.getSkill2();
+                break;
+            case 3:
+                skill = enemy_actor.getSkill3();
+                break;
+            case 4:
+                skill = enemy_actor.getSkill4();
+                break;
+        }
+        return skill;
     }
 
     //ダメージを与える処理
@@ -587,17 +749,7 @@ public class BattleActivity extends AppCompatActivity {
                         if (myhp <= 0) {
                             //HPを0に
                             my_actor.setHp(0);
-                            //スレッド内でUI変更
-                            handler.post(() -> {
-                                //ゲームオーバー
-                                messagetext = my_actor.getName() + "は死んでしまった！";
-                                binding.battleMessage.setText(messagetext);
-                                binding.battleMessage.setBackgroundColor(Color.RED);
-                                binding.battleEndButton.setText("リザルト画面へ");
-                                binding.battleEndButton.setVisibility(View.VISIBLE);
-                                //DB更新
-                                EndDBChange();
-                            });
+
                             //ループ終了
                             break;
                         }
@@ -650,12 +802,7 @@ public class BattleActivity extends AppCompatActivity {
                             enemy_actor.setHp(ememyHp);
                             //スレッド内でUI変更
                             handler.post(()->{
-                                messagetext = enemy_actor.getName() + "を倒した！";
-                                binding.battleMessage.setText(messagetext);
-                                binding.battleEndButton.setText("次の育成へ");
-                                binding.battleEndButton.setVisibility(View.VISIBLE);
-                                //DB更新
-                                EndDBChange();
+
                             });
                             //ループ終了
                             break;
@@ -795,43 +942,64 @@ public class BattleActivity extends AppCompatActivity {
     }
 
     //エフェクト表示
-    private void effect_show(boolean tof){
+    private void effect_show(boolean tof, String gif){
         if (tof){
-            binding.mySordEffect.setVisibility(View.VISIBLE);
+            binding.myEffect.setVisibility(View.VISIBLE);
+
             //エフェクト
-            ImageView imageView = binding.mySordEffect;
+            ImageView imageView = binding.myEffect;
             GlideDrawableImageViewTarget target = new GlideDrawableImageViewTarget(imageView, 1);
-            Glide.with(this).load(R.drawable.fire_effect).into(target);
+            return_gif(gif).into(target);
+
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    //メッセージビューのクリックリスナーを管理するフラグ
-                    binding.mySordEffect.setVisibility(View.INVISIBLE);
+                    //エフェクトを非表示に
+                    binding.myEffect.setVisibility(View.INVISIBLE);
                 }
             }, 1000); // 1000ミリ秒（1秒）後
         }else {
-            binding.enemySordEffect.setVisibility(View.VISIBLE);
+            binding.enemyEffect.setVisibility(View.VISIBLE);
             //エフェクト
-            ImageView imageView = binding.enemySordEffect;
+            ImageView imageView = binding.enemyEffect;
             GlideDrawableImageViewTarget target = new GlideDrawableImageViewTarget(imageView, 1);
-            Glide.with(this).load(R.drawable.effect_sord).into(target);
+            return_gif(gif).into(target);
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    //メッセージビューのクリックリスナーを管理するフラグ
-                    binding.enemySordEffect.setVisibility(View.INVISIBLE);
+                    //エフェクトを非表示に
+                    binding.enemyEffect.setVisibility(View.INVISIBLE);
                 }
             }, 1000); // 1000ミリ秒（1秒）後
         }
     }
 
+    //エフェクトを決める
+    private DrawableTypeRequest<Integer> return_gif(String gif){
+        DrawableTypeRequest<Integer> re_gif = null;
+        switch (gif){
+            case "sword_effect":
+                re_gif = Glide.with(this).load(R.drawable.sword_effect);
+                break;
+            case "fire_effect":
+                re_gif = Glide.with(this).load(R.drawable.fire_effect);
+                break;
+            case "recover_effect":
+                re_gif = Glide.with(this).load(R.drawable.recover_effect);
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + gif);
+        }
+        return re_gif;
+    }
+
+    //ディレイの時間変更
     private void changeTime(Skill skill){
         if (skill.getSkill_subject().equals("double")){
-            delayTime = 4000;
+            delayTime = 3600;
         }else {
-            delayTime = 2000;
+            delayTime = 1800;
         }
-
     }
 
 }
