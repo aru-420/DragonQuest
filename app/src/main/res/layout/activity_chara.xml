@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Chara">
+
+    <ImageView
+        android:id="@+id/background"
+        android:layout_width="425dp"
+        android:layout_height="733dp"
+        android:layout_marginStart="-23dp"
+        android:layout_marginEnd="-25dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.454"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/kuro" />
+
+    <TextView
+        android:id="@+id/charaName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="128dp"
+        android:text="Name"
+        android:textColor="#FAF6F6"
+        android:textSize="36sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageChara"
+        android:layout_width="265dp"
+        android:layout_height="218dp"
+        android:layout_marginTop="80dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/charaName"
+        app:srcCompat="@drawable/suraimu" />
+
+    <Button
+        android:id="@+id/ikuseibutton"
+        style="@android:style/Widget.Button"
+        android:layout_width="150dp"
+        android:layout_height="80dp"
+        android:layout_marginBottom="88dp"
+        android:background="#FFFDFD"
+        android:backgroundTint="#EFECEC"
+        android:text="@string/tap_ikusei"
+        android:textColor="#FBFBFB"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageChara"
+        app:layout_constraintVertical_bias="0.345"
+        app:strokeColor="#FFFFFF" />
+</androidx.constraintlayout.widget.ConstraintLayout>

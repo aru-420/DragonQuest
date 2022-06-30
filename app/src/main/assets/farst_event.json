@@ -1,0 +1,11 @@
+{
+  "eventID": {
+    "event_name": "走り込み",
+    "event_content": "草原を走り回った",
+    "result_hp": 5,
+    "event_atk": 0,
+    "event_def": 0,
+    "event_dex": 0,
+    "event_skill": "skill_nameID"
+  }
+}
