@@ -12,7 +12,6 @@
         <activity android:name=".CharacterCreationActivity"></activity>
         <activity android:name=".NurtureActivity"></activity>
         <activity android:name=".MainActivity"></activity>
-        <activity android:name=".Menu"></activity>
 
         <activity android:name=".BattleActivity">
             <intent-filter>

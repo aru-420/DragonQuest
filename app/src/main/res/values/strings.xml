@@ -1,9 +1,3 @@
 <resources>
     <string name="app_name">DragonQuest</string>
-    <string name="tap_ikusei">育成</string>
-    <string name="tap_continue">続ける</string>
-    <string name="tap_giveup">あきらめる</string>
-    <string name="tap_status">ステータス</string>
-    <string name="tap_back">×</string>
-    <string name="tap_save">セーブ</string>
 </resources>
