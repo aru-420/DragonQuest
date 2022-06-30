@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DragonQuest">
-        <activity android:name=".Chara"></activity>
+        <activity android:name=".ResultActivity"></activity>
+        <activity android:name=".TitleActivity" />
+        <activity android:name=".Chara" />
         <activity android:name=".BattleActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
