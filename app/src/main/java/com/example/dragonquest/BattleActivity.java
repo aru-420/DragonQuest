@@ -350,6 +350,14 @@ public class BattleActivity extends AppCompatActivity {
         binding.battleEndButton.setVisibility(View.VISIBLE);
         //DB更新
         EndDBChange();
+        //リザルト画面へ移行
+        binding.battleEndButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplication(), ResultActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void GameClear(){
