@@ -73,28 +73,28 @@ public class BattleActivity extends AppCompatActivity {
 
         // 入力されたタイトルとコンテンツをContentValuesに設定
         // ContentValuesは、項目名と値をセットで保存できるオブジェクト
-        ContentValues cv = new ContentValues();
-        cv.put(CharacterTable.CHARA_SAVE_NAME, "戦士");
-        cv.put(CharacterTable.CHARA_SAVE_HP, 500);
-        cv.put(CharacterTable.CHARA_SAVE_ATK, 50);
-        cv.put(CharacterTable.CHARA_SAVE_DEF, 50);
-        cv.put(CharacterTable.CHARA_SAVE_DEX, 60);
-        cv.put(CharacterTable.CHARA_SAVE_SKILL1, "スラッシュ");
-        cv.put(CharacterTable.CHARA_SAVE_SKILL2, "ブレス");
-        cv.put(CharacterTable.CHARA_SAVE_SKILL3, "ダブルスラッシュ");
-        cv.put(CharacterTable.CHARA_SAVE_SKILL4, "じこさいせい");
-        cv.put(CharacterTable.CHARA_SAVE_TURN, 20);
+//        ContentValues cv = new ContentValues();
+//        cv.put(CharacterTable.CHARA_SAVE_NAME, "戦士");
+//        cv.put(CharacterTable.CHARA_SAVE_HP, 500);
+//        cv.put(CharacterTable.CHARA_SAVE_ATK, 50);
+//        cv.put(CharacterTable.CHARA_SAVE_DEF, 50);
+//        cv.put(CharacterTable.CHARA_SAVE_DEX, 60);
+//        cv.put(CharacterTable.CHARA_SAVE_SKILL1, "スラッシュ");
+//        cv.put(CharacterTable.CHARA_SAVE_SKILL2, "ブレス");
+//        cv.put(CharacterTable.CHARA_SAVE_SKILL3, "ダブルスラッシュ");
+//        cv.put(CharacterTable.CHARA_SAVE_SKILL4, "じこさいせい");
+//        cv.put(CharacterTable.CHARA_SAVE_TURN, 20);
+//
+//        //where文 今回はidを指定して
+//        String where = CharacterTable.CHARA_SAVE_ID + " = " + 1;
 
-        //where文 今回はidを指定して
-        String where = CharacterTable.CHARA_SAVE_ID + " = " + 1;
-
-        // 書き込みモードでデータベースをオープン
-        try (SQLiteDatabase db = helper.getWritableDatabase()) {
-
-            //アップデート
-            db.update(CharacterTable.TABLE_NAME, cv, where, null);
-
-        }
+//        // 書き込みモードでデータベースをオープン
+//        try (SQLiteDatabase db = helper.getWritableDatabase()) {
+//
+//            //アップデート
+//            db.update(CharacterTable.TABLE_NAME, cv, where, null);
+//
+//        }
 
         //エフェクト初期非表示
         binding.myEffect.setVisibility(View.INVISIBLE);
@@ -458,6 +458,11 @@ public class BattleActivity extends AppCompatActivity {
             db.update(CharacterTable.TABLE_NAME, cv, where, null);
             where = CharacterTable.CHARA_SAVE_ID + " = " + 3;
             db.update(CharacterTable.TABLE_NAME, cv, where, null);
+            //キャラクターのターン数リセット
+            ContentValues cv2 = new ContentValues();
+            cv2.put(CharacterTable.CHARA_SAVE_STAGE, 0);
+            where = CharacterTable.CHARA_SAVE_ID + " = " + 1;
+            db.update(CharacterTable.TABLE_NAME, cv2, where, null);
         }
 
     }
@@ -560,7 +565,7 @@ public class BattleActivity extends AppCompatActivity {
             String[] cols = {CharacterTable.CHARA_SAVE_NAME, CharacterTable.CHARA_SAVE_HP,
                     CharacterTable.CHARA_SAVE_ATK, CharacterTable.CHARA_SAVE_DEF, CharacterTable.CHARA_SAVE_DEX,
                     CharacterTable.CHARA_SAVE_SKILL1, CharacterTable.CHARA_SAVE_SKILL2, CharacterTable.CHARA_SAVE_SKILL3, CharacterTable.CHARA_SAVE_SKILL4,
-                    CharacterTable.CHARA_SAVE_TURN
+                    CharacterTable.CHARA_SAVE_STAGE
             };
             //where文
             String my_where = CharacterTable.CHARA_SAVE_ID + " = 3";
@@ -695,26 +700,37 @@ public class BattleActivity extends AppCompatActivity {
         }catch (IOException | JSONException e) {
             e.printStackTrace();
         }
-
+        setCharaImage();
     }
 
     String[] Enemy_names ={"スライム","charaID2","ドラゴン","魔王"};
     //エネミーの決定
     private String getEnemyName(int turn){
         ImageView image = binding.ememyImage;
-        int num = turn / 10 - 1;
+        int num = turn -1;
         switch (num){
             case 0:
                 image.setImageResource(R.drawable.slime);
                 break;
             case 1:
-                image.setImageResource(R.drawable.dragon);
+                image.setImageResource(R.drawable.golem);
                 break;
             case 2:
-                image.setImageResource(R.drawable.golem);
+                image.setImageResource(R.drawable.dragon);
                 break;
         }
         return Enemy_names[num];
+    }
+
+    //キャラクターの画像
+    private void setCharaImage(){
+        String name = my_actor.getName();
+        ImageView image = binding.myCharaImage;
+        if (name.equals("戦士")){
+            image.setImageResource(R.drawable.warrior);
+        }else if (name.equals("魔法使い")){
+            image.setImageResource(R.drawable.magician);
+        }
     }
 
     private Skill getEnemyUseSkill(){
