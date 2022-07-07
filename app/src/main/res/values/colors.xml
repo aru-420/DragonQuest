@@ -8,7 +8,9 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="silver">#c0c0c0</color>
-    <color name="red">#ff0000</color>
+    <color name="red">#FF1403</color>
+    <color name="palegreen">#98fb98</color>
+    <color name="status">#c0c0c0</color>
     <color name="orengered">#ff4500</color>
     <color name="whiteSilver">#AFAFAF</color>
     <color name="whitesil">#C4C4C4</color>

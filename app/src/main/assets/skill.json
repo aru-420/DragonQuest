@@ -1,8 +1,18 @@
 {
   "スラッシュ": {
-    "skill_effect": 2
+    "skill_effect": 2.0,
+    "skill_subject": "enemy"
   },
   "たたきつける": {
-    "skill_effect": 2
+    "skill_effect": 2.0,
+    "skill_subject": "enemy"
+  },
+  "ヒール": {
+    "skill_effect": 0.8,
+    "skill_subject": "my"
+  },
+  "ダブルスラッシュ": {
+    "skill_effect": 1.5,
+    "skill_subject": "double"
   }
 }

@@ -1,5 +1,19 @@
 <resources>
     <string name="app_name">DragonQuest</string>
+<!--  タイトル画面  -->
+    <string name="Title_text">タイトル</string>
+    <string name="start_text">スタート</string>
+<!--  リザルト画面  -->
+    <string name="result_text">リザルト</string>
+    <string name="status">ステータス</string>
+    <string name="status_text">ステータス</string>
+    <string name="turn_text">ターン数：</string>
+    <string name="advice_text">アドバイス：</string>
+    <string name="hp_text">HP:</string>
+    <string name="atk_text">ATK:</string>
+    <string name="def_text">DEF:</string>
+    <string name="dex_text">DEX:</string>
+<!--  メニュー画面  z-->
     <string name="tap_ikusei">育成</string>
     <string name="tap_continue">続ける</string>
     <string name="tap_giveup">あきらめる</string>
