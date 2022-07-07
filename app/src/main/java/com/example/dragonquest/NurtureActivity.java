@@ -139,8 +139,8 @@ public class NurtureActivity extends AppCompatActivity {
                 updata_db();
 
                 //BattleActivityに移る
-                //Intent intent = new Intent(getApplication(), BattleActivity.class);
-                //startActivity(intent);
+                Intent intent = new Intent(getApplication(), BattleActivity.class);
+                startActivity(intent);
             }
         });
 
