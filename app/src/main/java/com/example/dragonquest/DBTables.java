@@ -44,5 +44,7 @@ public class DBTables {
         public static final String CHARA_SAVE_SKILL4   = "chara_save_skill4";
         //ゲームターン
         public static final String CHARA_SAVE_TURN   = "chara_save_turn";
+        //ステージナンバー
+        public static final String CHARA_SAVE_STAGE = "chara_save_stage";
     }
 }

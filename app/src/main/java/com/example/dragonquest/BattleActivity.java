@@ -38,8 +38,10 @@ public class BattleActivity extends AppCompatActivity {
     Actor enemy_actor;
     //メッセージをクリックしたときに消えるかどうかのフラグ
     boolean messageclickflag = false;
+    boolean screen_flag;
     //ボタンを複数押せないようにする
     boolean button_not_double = true;
+
 
     //データベース接続用変数
     private DatabaseHelper helper = null;
@@ -67,12 +69,14 @@ public class BattleActivity extends AppCompatActivity {
         // ヘルパーを準備
         helper = new DatabaseHelper(this);
 
+        screen_flag = false;
+
         // 入力されたタイトルとコンテンツをContentValuesに設定
         // ContentValuesは、項目名と値をセットで保存できるオブジェクト
         ContentValues cv = new ContentValues();
         cv.put(CharacterTable.CHARA_SAVE_NAME, "戦士");
         cv.put(CharacterTable.CHARA_SAVE_HP, 500);
-        cv.put(CharacterTable.CHARA_SAVE_ATK, 100);
+        cv.put(CharacterTable.CHARA_SAVE_ATK, 50);
         cv.put(CharacterTable.CHARA_SAVE_DEF, 50);
         cv.put(CharacterTable.CHARA_SAVE_DEX, 60);
         cv.put(CharacterTable.CHARA_SAVE_SKILL1, "スラッシュ");
@@ -106,18 +110,6 @@ public class BattleActivity extends AppCompatActivity {
         binding.battleMessage.setVisibility(View.INVISIBLE);    //バトルメッセージ非表示
         binding.battleEndButton.setVisibility(View.INVISIBLE);  //バトル終了ボタン非表示
 
-        //メッセージのクリック処理有効化
-        binding.battleMessage.setClickable(true);
-        //メッセージクリック時の処理
-        binding.battleMessage.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                //メッセージの非表示
-                binding.battleMessage.setVisibility(View.INVISIBLE);
-                //スキルボタンの表示
-                binding.grid.setVisibility(View.VISIBLE);
-            }
-        });
         //メニューボタン
         binding.menuButton.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -188,12 +180,28 @@ public class BattleActivity extends AppCompatActivity {
                         //ボタンの非表示
                         binding.grid.setVisibility(View.INVISIBLE);
                         //メッセージのクリックイベント解除
-                        binding.battleMessage.setClickable(false);
+                        screen_flag = false;
                         BattleStart(skill);
                     }
                 }
             });
         }
+    }
+
+    //画面をタップしたとき
+    @Override
+    public boolean onTouchEvent(MotionEvent motionEvent) {
+        if (screen_flag){
+            switch (motionEvent.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    //メッセージの非表示
+                    binding.battleMessage.setVisibility(View.INVISIBLE);
+                    //スキルボタンの表示
+                    binding.grid.setVisibility(View.VISIBLE);
+                    break;
+            }
+        }
+        return false;
     }
 
 
@@ -514,9 +522,6 @@ public class BattleActivity extends AppCompatActivity {
         return skill;
     }
 
-    private String getSkill_Subject(String skill_name){
-        return "";
-    }
 
     //キャラ作成
     @SuppressLint("SetTextI18n")
@@ -703,10 +708,10 @@ public class BattleActivity extends AppCompatActivity {
                 image.setImageResource(R.drawable.slime);
                 break;
             case 1:
-                image.setImageResource(R.drawable.golem);
+                image.setImageResource(R.drawable.dragon);
                 break;
             case 2:
-                image.setImageResource(R.drawable.dragon);
+                image.setImageResource(R.drawable.golem);
                 break;
         }
         return Enemy_names[num];
@@ -765,13 +770,9 @@ public class BattleActivity extends AppCompatActivity {
                         if (myhp == result_HP){
                             //メッセージを消せるようにする
                             if (messageclickflag){
+                                //画面タップでメッセージ非表示
                                 messageclickflag = false;
-                                //スレッド内でUI変更
-                                handler.post(()->{
-                                    //メッセージのクリック処理有効化
-                                    binding.battleMessage.setClickable(true);
-
-                                });
+                                screen_flag = true;
                             }
                             my_actor.setHp(myhp);
                             //データベース更新
@@ -819,12 +820,9 @@ public class BattleActivity extends AppCompatActivity {
                         //メッセージを消せるようにする
                         if (ememyHp == result_HP){
                             if (messageclickflag){
+                                //画面タップでメッセージ非表示
                                 messageclickflag = false;
-                                //スレッド内でUI変更
-                                handler.post(()->{
-                                    //メッセージのクリック処理有効化
-                                    binding.battleMessage.setClickable(true);
-                                });
+                                screen_flag = true;
                             }
                             enemy_actor.setHp(ememyHp);
 
@@ -878,13 +876,9 @@ public class BattleActivity extends AppCompatActivity {
                         if (myhp == result_HP){
                             //メッセージを消せるようにする
                             if (messageclickflag){
+                                //画面タップでメッセージ非表示
                                 messageclickflag = false;
-                                //スレッド内でUI変更
-                                handler.post(()->{
-                                    //メッセージのクリック処理有効化
-                                    binding.battleMessage.setClickable(true);
-
-                                });
+                                screen_flag = true;
                             }
                             my_actor.setHp(myhp);
                             //データベース更新
@@ -918,12 +912,9 @@ public class BattleActivity extends AppCompatActivity {
                         //メッセージを消せるようにする
                         if (ememyHp == result_HP){
                             if (messageclickflag){
+                                //画面タップでメッセージ非表示
                                 messageclickflag = false;
-                                //スレッド内でUI変更
-                                handler.post(()->{
-                                    //メッセージのクリック処理有効化
-                                    binding.battleMessage.setClickable(true);
-                                });
+                                screen_flag = true;
                             }
                             enemy_actor.setHp(ememyHp);
 
