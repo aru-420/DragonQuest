@@ -1,11 +1,22 @@
 {
-  "charaID1":{
+  "warrior":{
     "NAME": "戦士",
     "HP": 1500,
     "ATK": 40,
     "DEF": 40,
     "DEX": 40,
     "SKILL1": "スラッシュ",
+    "SKILL2": "",
+    "SKILL3": "",
+    "SKILL4": ""
+  },
+  "magician":{
+    "NAME": "魔法使い",
+    "HP": 750,
+    "ATK": 25,
+    "DEF": 50,
+    "DEX": 35,
+    "SKILL1": "ファイアー",
     "SKILL2": "",
     "SKILL3": "",
     "SKILL4": ""
