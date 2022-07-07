@@ -31,7 +31,7 @@ public class NurtureActivity extends AppCompatActivity {
     private ActivityNurtureBinding binding;
 
     //変数
-    int turncount, Event_choices1, Event_choices2;
+    int turncount, Event_choices1, Event_choices2, stage_num;
 
     boolean skill_btn = false;
     boolean skill_full = false;
@@ -85,9 +85,16 @@ public class NurtureActivity extends AppCompatActivity {
         Event_Name[7] = "睡眠";
         Event_Name[8] = "勉強";
         Event_Name[9] = "温泉";
+        //Event_Name2
+
+        //Event_Name3
+
 
         //初期画面の設定
         writeDB();
+
+        //ステージの判定
+        stage_num = stage_db();
 
         //選択肢の更新
         random_Choices();
@@ -129,11 +136,11 @@ public class NurtureActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //ステータスなどの更新
-                //updata_db();
+                updata_db();
 
                 //BattleActivityに移る
-                Intent intent = new Intent(getApplication(), BattleActivity.class);
-                startActivity(intent);
+                //Intent intent = new Intent(getApplication(), BattleActivity.class);
+                //startActivity(intent);
             }
         });
 
@@ -325,16 +332,13 @@ public class NurtureActivity extends AppCompatActivity {
 
     //いまが何ステージ目なのかをもらう処理
     protected int stage_db(){
-
+        //返却値
         int res = 0;
 
         try (SQLiteDatabase db = helper.getReadableDatabase()) {
 
             // データベースから取得する項目を設定
-            String[] cols = {DBTables.CharacterTable.CHARA_SAVE_NAME, DBTables.CharacterTable.CHARA_SAVE_HP,
-                    DBTables.CharacterTable.CHARA_SAVE_ATK, DBTables.CharacterTable.CHARA_SAVE_DEF, DBTables.CharacterTable.CHARA_SAVE_DEX,
-                    DBTables.CharacterTable.CHARA_SAVE_SKILL1, DBTables.CharacterTable.CHARA_SAVE_SKILL2, DBTables.CharacterTable.CHARA_SAVE_SKILL3, DBTables.CharacterTable.CHARA_SAVE_SKILL4
-            };
+            String[] cols = {DBTables.CharacterTable.CHARA_SAVE_STAGE};
             //where文
             String my_where = DBTables.CharacterTable.CHARA_SAVE_ID + " = 1";
 
@@ -343,7 +347,7 @@ public class NurtureActivity extends AppCompatActivity {
                     null, null, null, null, null);
 
             if (cursor.moveToFirst()) {
-
+                res = Integer.parseInt(cursor.getString(0));
             }
         }
         return res;
@@ -562,9 +566,18 @@ public class NurtureActivity extends AppCompatActivity {
             Event_choices2 = rnd.nextInt(10);
         }
 
-        //選択肢(ボタン)にイベントの名前を表示
-        binding.Choices1.setText(Event_Name[Event_choices1]);
-        binding.Choices2.setText(Event_Name[Event_choices2]);
+        if(stage_num == 1){
+            //選択肢(ボタン)にイベントの名前を表示
+            binding.Choices1.setText(Event_Name[Event_choices1]);
+            binding.Choices2.setText(Event_Name[Event_choices2]);
+        }else if(stage_num == 2){
+            //選択肢(ボタン)にイベントの名前を表示
+            binding.Choices1.setText(Event_Name2[Event_choices1]);
+            binding.Choices2.setText(Event_Name2[Event_choices2]);
+        }else if(stage_num == 3){
+
+        }
+
 
         if(skill_btn == false){
             binding.alert.setVisibility(View.INVISIBLE);
@@ -582,6 +595,10 @@ public class NurtureActivity extends AppCompatActivity {
 
     //スタートを押した際の処理
     protected void updata_db(){
+        //ターンが規定以上ならステージを1増やす
+        if(turncount >= 10){
+            stage_num += 1;
+        }
         // 入力されたタイトルとコンテンツをContentValuesに設定
         // ContentValuesは、項目名と値をセットで保存できるオブジェクト
         ContentValues cv = new ContentValues();
@@ -594,7 +611,8 @@ public class NurtureActivity extends AppCompatActivity {
         cv.put(DBTables.CharacterTable.CHARA_SAVE_SKILL2, skill2);
         cv.put(DBTables.CharacterTable.CHARA_SAVE_SKILL3, skill3);
         cv.put(DBTables.CharacterTable.CHARA_SAVE_SKILL4, skill4);
-        //cv.put(CharacterTable.CHARA_SAVE_TURN, 0);
+        cv.put(DBTables.CharacterTable.CHARA_SAVE_TURN, turncount);
+        cv.put(DBTables.CharacterTable.CHARA_SAVE_STAGE, stage_num);
 
         //where文 今回はidを指定して
         String where = DBTables.CharacterTable.CHARA_SAVE_ID + " = 1";

@@ -66,6 +66,7 @@ public class CharacterCreationActivity extends AppCompatActivity {
                 cv.put(DBTables.CharacterTable.CHARA_SAVE_SKILL2, binding.skill2.getText().toString());
                 cv.put(DBTables.CharacterTable.CHARA_SAVE_SKILL3, binding.skill3.getText().toString());
                 cv.put(DBTables.CharacterTable.CHARA_SAVE_SKILL4, binding.skill4.getText().toString());
+                cv.put(DBTables.CharacterTable.CHARA_SAVE_STAGE, 1);
                 //cv.put(CharacterTable.CHARA_SAVE_TURN, 0);
 
                 //where文 今回はidを指定して
