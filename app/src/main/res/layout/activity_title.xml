@@ -12,7 +12,7 @@
         android:layout_height="129dp"
         android:layout_marginBottom="130dp"
         android:gravity="center"
-        android:text="@string/Title_text"
+        android:text="タイトル"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textSize="60sp"
