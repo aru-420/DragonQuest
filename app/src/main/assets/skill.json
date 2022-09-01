@@ -55,16 +55,16 @@
     "skill_context": "相手の防御を半分無視して攻撃力の300%で相手に攻撃"
   },
   "ブレス": {
-    "skill_effect": 2.5,
+    "skill_effect": 2.0,
     "skill_subject": "element",
     "skill_gif": "fire_effect",
-    "skill_context": "相手の防御を半分無視して攻撃力の250%で相手に攻撃"
+    "skill_context": "相手の防御を半分無視して攻撃力の200%で相手に攻撃"
   },
   "ドラゴンクロー": {
-    "skill_effect": 2.5,
+    "skill_effect": 3.5,
     "skill_subject": "enemy",
     "skill_gif": "sword_effect",
-    "skill_context": "攻撃力の250%で相手に攻撃"
+    "skill_context": "攻撃力の350%で相手に攻撃"
   },
   "エアスラッシュ": {
     "skill_effect": 2.5,
@@ -85,10 +85,10 @@
   "skill_context": "攻撃力の200%で相手に二回攻撃"
   },
   "整い": {
-    "skill_effect": 2.0,
-    "skill_subject": "double",
-    "skill_gif": "sword_effect",
-    "skill_context": "攻撃力の200%で相手に二回攻撃"
+    "skill_effect": 100,
+    "skill_subject": "power_up",
+    "skill_gif": "recover_effect",
+    "skill_context": "現在の攻撃力に＋100"
   },
   "かめはめ波": {
     "skill_effect": 2.0,
