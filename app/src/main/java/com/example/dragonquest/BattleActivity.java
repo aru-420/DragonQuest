@@ -788,6 +788,9 @@ public class BattleActivity extends AppCompatActivity {
                 image.setImageResource(R.drawable.dragon);
                 binding.BattleSecen.setBackgroundResource(R.drawable.background3);   //背景変更
                 break;
+            default:
+                image.setImageResource(R.drawable.golem);
+                binding.BattleSecen.setBackgroundResource(R.drawable.background);   //背景変更
         }
         return Enemy_names[num];
     }

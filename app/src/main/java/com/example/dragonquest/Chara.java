@@ -22,7 +22,7 @@ public class Chara extends AppCompatActivity {
         tap_ikusei.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
-                Intent intent = new Intent(getApplication(), Menu.class);
+                Intent intent = new Intent(getApplication(), CharacterCreationActivity.class);
                 startActivity(intent);
 
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
