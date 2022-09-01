@@ -86,7 +86,16 @@ public class NurtureActivity extends AppCompatActivity {
         Event_Name[8] = "勉強";
         Event_Name[9] = "温泉";
         //Event_Name2
-
+        Event_Name2[0] = "すごい走り込み";
+        Event_Name2[1] = "ゲーム";
+        Event_Name2[2] = "お参り";
+        Event_Name2[3] = "おみくじ";
+        Event_Name2[4] = "買い物";
+        Event_Name2[5] = "釣り";
+        Event_Name2[6] = "バイト";
+        Event_Name2[7] = "スロット";
+        Event_Name2[8] = "探検";
+        Event_Name2[9] = "大食い";
         //Event_Name3
 
 
@@ -104,7 +113,7 @@ public class NurtureActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //イベント
-                EventJson(Event_Name[Event_choices1]);
+                choices_judg("choices1");
 
                 //押されるとターンが増える
                 turncount += 1;
@@ -120,7 +129,7 @@ public class NurtureActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //イベント
-                EventJson(Event_Name[Event_choices2]);
+                choices_judg("choices2");
 
                 //押されるとターンが増える
                 turncount += 1;
@@ -421,6 +430,7 @@ public class NurtureActivity extends AppCompatActivity {
                 if(skill1.equals("") || skill1.equals(skill)){
                     if(skill1.equals(skill)){
                         skill_notEquals = true;
+                        skill = "";
                     }
                     else{
                         skill1 = skill;
@@ -431,6 +441,7 @@ public class NurtureActivity extends AppCompatActivity {
                 else if(skill2.equals("") || skill2.equals(skill)){
                     if(skill2.equals(skill)){
                         skill_notEquals = true;
+                        skill = "";
                     }
                     else{
                         skill2 = skill;
@@ -441,6 +452,7 @@ public class NurtureActivity extends AppCompatActivity {
                 else if(skill3.equals("") || skill3.equals(skill)){
                     if(skill3.equals(skill)){
                         skill_notEquals = true;
+                        skill = "";
                     }
                     else{
                         skill3 = skill;
@@ -451,6 +463,7 @@ public class NurtureActivity extends AppCompatActivity {
                 else if(skill4.equals("") || skill4.equals(skill)){
                     if(skill4.equals(skill)){
                         skill_notEquals = true;
+                        skill = "";
                     }
                     else{
                         skill4 = skill;
@@ -557,6 +570,33 @@ public class NurtureActivity extends AppCompatActivity {
         }
     }
 
+    //ステージ判定
+    protected void  choices_judg(String choice_num){
+        //ステージの判定
+        if(choice_num.equals("choices1")){
+            if(stage_num == 1){
+                //イベント
+                EventJson(Event_Name[Event_choices1]);
+            }else if(stage_num == 2){
+                //イベント
+                EventJson(Event_Name2[Event_choices1]);
+            }else if(stage_num == 3){
+
+            }
+        }else if(choice_num.equals("choices2")){
+            if(stage_num == 1){
+                //イベント
+                EventJson(Event_Name[Event_choices2]);
+            }else if(stage_num == 2){
+                //イベント
+                EventJson(Event_Name2[Event_choices2]);
+            }else if(stage_num == 3){
+
+            }
+        }
+    }
+
+    //ランダムな数字で選択肢を選択
     protected void random_Choices(){
         //選択肢(ボタン)をランダムで生成
         Event_choices1 = rnd.nextInt(10);
@@ -622,6 +662,5 @@ public class NurtureActivity extends AppCompatActivity {
             //アップデート
             db.update(DBTables.CharacterTable.TABLE_NAME, cv, where, null);
         }
-
     }
 }

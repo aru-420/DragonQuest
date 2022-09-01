@@ -20,9 +20,9 @@
   "食事": {
     "event_name": "食事",
     "event_content": "沢山のご飯を食べた",
-    "event_hp": 5,
+    "event_hp": 3,
     "event_atk": 0,
-    "event_def": 5,
+    "event_def": 2,
     "event_dex": 3,
     "event_skill": ""
   },
@@ -31,15 +31,15 @@
     "event_content": "整った",
     "event_hp": 10,
     "event_atk": 0,
-    "event_def": 5,
-    "event_dex": 2,
+    "event_def": 0,
+    "event_dex": 0,
     "event_skill": "整い"
   },
   "ストレッチ": {
     "event_name": "ストレッチ",
     "event_content": "柔軟体操をした",
-    "event_hp": 5,
-    "event_atk": 0,
+    "event_hp": 0,
+    "event_atk": 2,
     "event_def": 5,
     "event_dex": 3,
     "event_skill": ""
@@ -65,10 +65,10 @@
   "睡眠": {
     "event_name": "睡眠",
     "event_content": "ZzZzZz",
-    "event_hp": 10,
-    "event_atk": 2,
-    "event_def": 5,
-    "event_dex": 5,
+    "event_hp": 8,
+    "event_atk": 0,
+    "event_def": 2,
+    "event_dex": 0,
     "event_skill": "いびき"
   },
   "勉強": {
@@ -77,16 +77,110 @@
     "event_hp": 0,
     "event_atk": 0,
     "event_def": 3,
-    "event_dex": 15,
+    "event_dex": 6,
     "event_skill": ""
   },
   "温泉": {
     "event_name": "温泉",
     "event_content": "いい湯だ",
+    "event_hp": 7,
+    "event_atk": 0,
+    "event_def": 2,
+    "event_dex": 2,
+    "event_skill": ""
+  },
+
+
+
+
+  "すごい走り込み": {
+    "event_name": "すごい走り込み",
+    "event_content": "草原を駆け回った",
+    "event_hp": 5,
+    "event_atk": 0,
+    "event_def": 0,
+    "event_dex": 12,
+    "event_skill": "高速移動"
+  },
+  "ゲーム": {
+    "event_name": "ゲーム",
+    "event_content": "なかなか面白かった",
+    "event_hp": 0,
+    "event_atk": 5,
+    "event_def": 5,
+    "event_dex": 5,
+    "event_skill": ""
+  },
+  "お参り": {
+    "event_name": "お参り",
+    "event_content": "神聖な空気を吸った",
+    "event_hp": 7,
+    "event_atk": 2,
+    "event_def": 4,
+    "event_dex": 1,
+    "event_skill": ""
+  },
+  "おみくじ": {
+    "event_name": "おみくじ",
+    "event_content": "中吉・・・う～ん",
+    "event_hp": 0,
+    "event_atk": 4,
+    "event_def": 10,
+    "event_dex": 2,
+    "event_skill": ""
+  },
+  "買い物": {
+    "event_name": "買い物",
+    "event_content": "気分転換だ！",
+    "event_hp": 2,
+    "event_atk": 4,
+    "event_def": 3,
+    "event_dex": 7,
+    "event_skill": ""
+  },
+  "釣り": {
+    "event_name": "釣り",
+    "event_content": "大漁大漁！！",
     "event_hp": 10,
     "event_atk": 0,
-    "event_def": 5,
+    "event_def": 10,
+    "event_dex": 0,
+    "event_skill": ""
+  },
+  "バイト": {
+    "event_name": "バイト",
+    "event_content": "武器屋でアルバイトだ",
+    "event_hp": 7,
+    "event_atk": 4,
+    "event_def": 4,
     "event_dex": 2,
+    "event_skill": ""
+  },
+  "スロット": {
+    "event_name": "スロット",
+    "event_content": "万枚!!!",
+    "event_hp": 15,
+    "event_atk": -3,
+    "event_def": -5,
+    "event_dex": 6,
+    "event_skill": ""
+  },
+  "探検": {
+    "event_name": "探検",
+    "event_content": "道に迷わないように",
+    "event_hp": 6,
+    "event_atk": 0,
+    "event_def": 4,
+    "event_dex": 10,
+    "event_skill": ""
+  },
+  "大食い": {
+    "event_name": "大食い",
+    "event_content": "もう、食べられない、、",
+    "event_hp": 12,
+    "event_atk": 2,
+    "event_def": 6,
+    "event_dex": -3,
     "event_skill": ""
   }
 }
