@@ -26,5 +26,14 @@ public class Menu extends AppCompatActivity {
                 dialog.show(getSupportFragmentManager(), "my_dialog");
             }
         });
+
+        //前の画面に戻る
+        Button tap_back = findViewById(R.id.back);
+        tap_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 }

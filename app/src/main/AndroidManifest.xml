@@ -13,9 +13,10 @@
         <activity android:name=".NurtureActivity"></activity>
         <activity android:name=".MainActivity"></activity>
         <activity android:name=".Menu" />
-        <activity android:name=".TitleActivity" />
+        <activity android:name=".Chara" />
+        <activity android:name=".CharacterCreationActivity" />
         <activity android:name=".ResultActivity" />
-        <activity android:name=".CharacterCreationActivity">
+        <activity android:name=".TitleActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

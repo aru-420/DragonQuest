@@ -50,7 +50,7 @@
         android:layout_height="80dp"
         android:layout_marginBottom="88dp"
         android:background="#FFFDFD"
-        android:backgroundTint="#EFECEC"
+        android:backgroundTint="#DFBEBE"
         android:text="@string/tap_ikusei"
         android:textColor="#FBFBFB"
         android:textSize="36sp"
