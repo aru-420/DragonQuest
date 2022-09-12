@@ -11,6 +11,17 @@ public class Actor {
     private Skill skill3;  //スキル3
     private Skill skill4;  //スキル4
 
+    public Actor(){
+        name = "";
+        hp = 0;
+        atk = 0;
+        def = 0;
+        dex = 0;
+        skill1 = new Skill("");
+        skill2 = new Skill("");
+        skill3 = new Skill("");
+        skill4 = new Skill("");
+    }
     //ステータスを受け取り保存する
     public Actor(String set_name, int set_hp, int set_atk, int set_def, int set_dex,
                  Skill set_skill1, Skill set_skill2, Skill set_skill3, Skill set_skill4){
