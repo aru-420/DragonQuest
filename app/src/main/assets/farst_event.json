@@ -182,5 +182,27 @@
     "event_def": 6,
     "event_dex": -3,
     "event_skill": ""
+  },
+
+
+
+
+  "ドライブ": {
+    "event_name": "ドライブ",
+    "event_content": "夜景を見に行こう",
+    "event_hp": 15,
+    "event_atk": 0,
+    "event_def": 10,
+    "event_dex": 10,
+    "event_skill": ""
+  },
+  "": {
+    "event_name": "",
+    "event_content": "",
+    "event_hp": 15,
+    "event_atk": 0,
+    "event_def": 10,
+    "event_dex": 10,
+    "event_skill": ""
   }
 }

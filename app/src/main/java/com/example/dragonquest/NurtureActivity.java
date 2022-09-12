@@ -495,6 +495,7 @@ public class NurtureActivity extends AppCompatActivity {
                         binding.Skill2.setEnabled(true);
                         binding.Skill3.setEnabled(true);
                         binding.Skill4.setEnabled(true);
+                        skill_full = false;
                     }
                     else {
                         binding.Skill1.setEnabled(false);
