@@ -38,10 +38,12 @@
         android:layout_width="265dp"
         android:layout_height="218dp"
         android:layout_marginTop="80dp"
+        android:layout_marginBottom="80dp"
+        app:layout_constraintBottom_toTopOf="@+id/ikuseibutton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/charaName"
-        app:srcCompat="@drawable/suraimu" />
+        app:srcCompat="@drawable/warrior" />
 
     <Button
         android:id="@+id/ikuseibutton"
@@ -58,7 +60,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageChara"
-        app:layout_constraintVertical_bias="0.345"
         app:strokeColor="#FFFFFF" />
 </androidx.constraintlayout.widget.ConstraintLayout>

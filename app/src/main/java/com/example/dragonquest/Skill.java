@@ -8,6 +8,9 @@ public class Skill {
     private String skill_gif;
     private String skill_context;
 
+    public Skill(String name){
+        skill_name = name;
+    }
     //値をセット
     public Skill(int num, String name, Double effect, String subject,String gif , String context){
         skill_num = num;

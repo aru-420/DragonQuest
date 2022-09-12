@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.res.AssetManager;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -42,11 +43,12 @@ public class CharacterCreationActivity extends AppCompatActivity {
         CharaNameStr[0] = "warrior";
         CharaNameStr[1] = "magician";
 
-        //初期画面を表示する
-        JsonView(CharaNameStr[0]);
 
         //データベース接続
         helper = new DatabaseHelper(this);
+
+        //初期画面を表示する
+        JsonView(CharaNameStr[0]);
 
 
         //startボタンが押された時の処理
@@ -127,6 +129,49 @@ public class CharacterCreationActivity extends AppCompatActivity {
         });
     }
 
+    //強くてニューゲーム
+    protected Actor GrowPoint(){
+        //空のキャラクターを作成
+        Actor re_actor = new Actor();
+
+        // データベースから取得する項目を設定
+        String[] cols = {DBTables.CharacterTable.CHARA_SAVE_NAME, DBTables.CharacterTable.CHARA_SAVE_HP,
+                DBTables.CharacterTable.CHARA_SAVE_ATK, DBTables.CharacterTable.CHARA_SAVE_DEF, DBTables.CharacterTable.CHARA_SAVE_DEX,
+                DBTables.CharacterTable.CHARA_SAVE_SKILL1, DBTables.CharacterTable.CHARA_SAVE_SKILL2, DBTables.CharacterTable.CHARA_SAVE_SKILL3, DBTables.CharacterTable.CHARA_SAVE_SKILL4,
+        };
+        //where文IDを指定
+        String my_where = DBTables.CharacterTable.CHARA_SAVE_ID + " = 4";
+
+        // 読み込みモードでデータベースをオープン
+        try (SQLiteDatabase db = helper.getReadableDatabase()) {
+            // データを取得するSQLを実行
+            // 取得したデータがCursorオブジェクトに格納される
+            //SELECT文
+            Cursor cursor = db.query(DBTables.CharacterTable.TABLE_NAME, cols, my_where,
+                    null, null, null, null, null);
+
+            //一行読み込み
+            if (cursor.moveToFirst()) {
+                //名前がなければDB取得せずあればデータにあった内容で取得
+                switch (cursor.getString(0)){
+                    case "":
+                        break;
+                    case "戦士":
+                    case "魔法使い":
+                        Skill skill1 = new Skill(cursor.getString(5));
+                        Skill skill2 = new Skill(cursor.getString(6));
+                        Skill skill3 = new Skill(cursor.getString(7));
+                        Skill skill4 = new Skill(cursor.getString(8));
+                        re_actor = new Actor(cursor.getString(0), cursor.getInt(1)/50, cursor.getInt(2)/10,
+                                cursor.getInt(3)/10, cursor.getInt(4)/10,
+                                skill1,skill2,skill3,skill4);
+                        break;
+                }
+            }
+        }
+        return re_actor;
+    }
+
     //画像の表示
     protected void ImageView(String Name){
         if(Name.equals(CharaNameStr[0])){
@@ -172,31 +217,36 @@ public class CharacterCreationActivity extends AppCompatActivity {
             inputStream.close();
             bufferedReader.close();
 
+            //前回データ参照
+            Actor re_actor = GrowPoint();
+
             //jsonからデータを引っ張る
 
             //name
             String name = json.getJSONObject(Name).getString("NAME");
             //hp
-            int int_hp = json.getJSONObject(Name).getInt("HP");
+            int int_hp = json.getJSONObject(Name).getInt("HP") + re_actor.getHp();
             String hp = Integer.toString(int_hp);
             //atk
-            int int_atk = json.getJSONObject(Name).getInt("ATK");
+            int int_atk = json.getJSONObject(Name).getInt("ATK") + re_actor.getAtk();
             String atk = Integer.toString(int_atk);
             //def
-            int int_def = json.getJSONObject(Name).getInt("DEF");
+            int int_def = json.getJSONObject(Name).getInt("DEF") + re_actor.getDef();
             String def = Integer.toString(int_def);
             //dex
-            int int_dex = json.getJSONObject(Name).getInt("DEX");
+            int int_dex = json.getJSONObject(Name).getInt("DEX") + re_actor.getDex();
             String dex = Integer.toString(int_dex);
 
             //skill1
             String skill1 = json.getJSONObject(Name).getString("SKILL1");
             //skill2
-            String skill2 = json.getJSONObject(Name).getString("SKILL2");
+            String skill2 = re_actor.getSkill2().getSkill_name();
             //skill3
-            String skill3 = json.getJSONObject(Name).getString("SKILL3");
+            String skill3 = re_actor.getSkill3().getSkill_name();
             //skill4
-            String skill4 = json.getJSONObject(Name).getString("SKILL4");
+            String skill4 = re_actor.getSkill4().getSkill_name();
+
+
 
 
             //テキストにJSONから得た情報を表示(名前とステータス)

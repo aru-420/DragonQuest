@@ -20,6 +20,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.bumptech.glide.DrawableTypeRequest;
 import com.bumptech.glide.Glide;
@@ -46,6 +47,8 @@ public class BattleActivity extends AppCompatActivity {
     boolean screen_flag;
     //ボタンを複数押せないようにする
     boolean button_not_double = true;
+    //レイアウト変更
+    private LinearLayout.LayoutParams layoutParams;
 
 
     //データベース接続用変数
@@ -79,7 +82,7 @@ public class BattleActivity extends AppCompatActivity {
         // ヘルパーを準備
         helper = new DatabaseHelper(this);
 
-        screen_flag = false;
+        screen_flag = true;
         //BGM
         playFromMediaPlayer();
 
@@ -96,8 +99,8 @@ public class BattleActivity extends AppCompatActivity {
 //        cv.put(CharacterTable.CHARA_SAVE_SKILL3, "ダブルスラッシュ");
 //        cv.put(CharacterTable.CHARA_SAVE_SKILL4, "じこさいせい");
 //        cv.put(CharacterTable.CHARA_SAVE_TURN, 20);
-//
-//        //where文 今回はidを指定して
+
+        //where文 今回はidを指定して
         String where = CharacterTable.CHARA_SAVE_ID + " = " + 3;
 
         // 書き込みモードでデータベースをオープン
@@ -127,8 +130,6 @@ public class BattleActivity extends AppCompatActivity {
         mp3_heal = soundPool.load(this, R.raw.heaal,1);
         mp3_sword = soundPool.load(this, R.raw.sword,1);
 
-
-
         //エフェクト初期非表示
         binding.myEffect.setVisibility(View.INVISIBLE);
         binding.enemyEffect.setVisibility(View.INVISIBLE);
@@ -136,11 +137,8 @@ public class BattleActivity extends AppCompatActivity {
         //キャラ作成
         Create_Actor();
 
-        //データベース接続
-        helper = new DatabaseHelper(this);
-
         //初期非表示
-        binding.battleMessage.setVisibility(View.INVISIBLE);    //バトルメッセージ非表示
+        binding.grid.setVisibility(View.INVISIBLE);;    //スキルボタン非表示
         binding.battleEndButton.setVisibility(View.INVISIBLE);  //バトル終了ボタン非表示
 
         //メニューボタン
@@ -163,6 +161,8 @@ public class BattleActivity extends AppCompatActivity {
         buttonsColor(binding.skill3, my_actor.getSkill3());
         buttonsColor(binding.skill4, my_actor.getSkill4());
 
+        binding.battleMessage.setText(enemy_actor.getName() + "が現れた！");
+
     }
 
     //bgm再生
@@ -174,9 +174,12 @@ public class BattleActivity extends AppCompatActivity {
     //ボタンの色変えと処理
     @SuppressLint("ClickableViewAccessibility")
     private void buttonsColor(Button button_skill, Skill skills){
-        if (skills.getSkill_subject().equals("my") || skills.getSkill_subject().equals("power_up")){
-            //自身にかける効果なら緑
+        if (skills.getSkill_subject().equals("my")){
+            //回復効果なら緑
             button_skill.setBackgroundColor(Color.GREEN);
+        }else if (skills.getSkill_subject().equals("power_up")){
+            //バフ効果なら赤色
+            button_skill.setBackgroundColor(Color.RED);
         }
         //スキル4がなければボタンを押せなくして灰色にする
         if (button_skill.getText().equals("")) {
@@ -230,7 +233,8 @@ public class BattleActivity extends AppCompatActivity {
     @Override
     public boolean onTouchEvent(MotionEvent motionEvent) {
         if (screen_flag){
-            if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {//メッセージの非表示
+            if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                //メッセージの非表示
                 binding.battleMessage.setVisibility(View.INVISIBLE);
                 //スキルボタンの表示
                 binding.grid.setVisibility(View.VISIBLE);
@@ -262,7 +266,7 @@ public class BattleActivity extends AppCompatActivity {
         changeTime(skill);
 
         //ダメージ系スキル
-        if (skill.getSkill_subject().equals("enemy") ||skill.getSkill_subject().equals("element")){
+        if (skill.getSkill_subject().equals("enemy") || skill.getSkill_subject().equals("element")){
             //ダメージ計算
             damegeRandom(tof, skill);
 
@@ -285,6 +289,9 @@ public class BattleActivity extends AppCompatActivity {
 
         }else if (skill.getSkill_subject().equals("power_up")){
             Power_up(tof, skill);
+            if (!end){
+                messageclickflag = false;
+            }
         }
         //行動してないキャラがいるか
         if (end){
@@ -405,6 +412,13 @@ public class BattleActivity extends AppCompatActivity {
     private void GameClear(){
         messagetext = enemy_actor.getName() + "を倒した！";
         binding.battleMessage.setText(messagetext);
+        //エフェクト
+        GlideDrawableImageViewTarget target = new GlideDrawableImageViewTarget(binding.ememyImage,1);
+        Glide.with(binding.ememyImage.getContext()).load(R.drawable.fadeoutslime)
+                .placeholder(R.drawable.slime)
+                .into(target);
+
+
         binding.battleEndButton.setText("次の育成へ");
         binding.battleEndButton.setVisibility(View.VISIBLE);
 
@@ -467,19 +481,19 @@ public class BattleActivity extends AppCompatActivity {
     }
 
     //DBにアップデート保存
-    private void onSave(Actor acto, int id){
+    private void onSave(Actor actor, int id){
         // 入力されたタイトルとコンテンツをContentValuesに設定
         // ContentValuesは、項目名と値をセットで保存できるオブジェクト
         ContentValues cv = new ContentValues();
-        cv.put(CharacterTable.CHARA_SAVE_NAME, acto.getName());
-        cv.put(CharacterTable.CHARA_SAVE_HP, acto.getHp());
-        cv.put(CharacterTable.CHARA_SAVE_ATK, acto.getAtk());
-        cv.put(CharacterTable.CHARA_SAVE_DEF, acto.getDef());
-        cv.put(CharacterTable.CHARA_SAVE_DEX, acto.getDex());
-        cv.put(CharacterTable.CHARA_SAVE_SKILL1, acto.getSkill1().getSkill_name());
-        cv.put(CharacterTable.CHARA_SAVE_SKILL2, acto.getSkill2().getSkill_name());
-        cv.put(CharacterTable.CHARA_SAVE_SKILL3, acto.getSkill3().getSkill_name());
-        cv.put(CharacterTable.CHARA_SAVE_SKILL4, acto.getSkill4().getSkill_name());
+        cv.put(CharacterTable.CHARA_SAVE_NAME, actor.getName());
+        cv.put(CharacterTable.CHARA_SAVE_HP, actor.getHp());
+        cv.put(CharacterTable.CHARA_SAVE_ATK, actor.getAtk());
+        cv.put(CharacterTable.CHARA_SAVE_DEF, actor.getDef());
+        cv.put(CharacterTable.CHARA_SAVE_DEX, actor.getDex());
+        cv.put(CharacterTable.CHARA_SAVE_SKILL1, actor.getSkill1().getSkill_name());
+        cv.put(CharacterTable.CHARA_SAVE_SKILL2, actor.getSkill2().getSkill_name());
+        cv.put(CharacterTable.CHARA_SAVE_SKILL3, actor.getSkill3().getSkill_name());
+        cv.put(CharacterTable.CHARA_SAVE_SKILL4, actor.getSkill4().getSkill_name());
 
         //where文 今回はidを指定して
         String where = CharacterTable.CHARA_SAVE_ID + " = " + id;
@@ -680,6 +694,7 @@ public class BattleActivity extends AppCompatActivity {
                                 my_skill1,my_skill2,my_skill3,my_skill4);
                     }
 
+
                     //キャラクターの最大HPを取得する
                     //取得するIDを変更
                     my_where = CharacterTable.CHARA_SAVE_ID +  " = 1";
@@ -703,6 +718,7 @@ public class BattleActivity extends AppCompatActivity {
                     }
 
                 }
+                onSave(my_actor, 4);
             }
 
 
