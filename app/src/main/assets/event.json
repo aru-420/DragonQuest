@@ -1,0 +1,11 @@
+{
+  "遺跡探索": {
+    "event_name": "遺跡探索",
+    "event_content": "罠を乗り越え踏破した",
+    "event_hp": 3,
+    "event_atk": 0,
+    "event_def": 0,
+    "event_dex": 7,
+    "event_skill": ""
+  }
+}

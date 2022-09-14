@@ -167,8 +167,8 @@ public class BattleActivity extends AppCompatActivity {
 
     //bgm再生
     private void playFromMediaPlayer() {
-        mediaPlayer = MediaPlayer.create(this,R.raw.bgm_battle);
-        mediaPlayer.start();
+        //mediaPlayer = MediaPlayer.create(this,R.raw.bgm_battle);
+        //mediaPlayer.start();
     }
 
     //ボタンの色変えと処理
@@ -397,7 +397,7 @@ public class BattleActivity extends AppCompatActivity {
         binding.battleEndButton.setText("リザルト画面へ");
         binding.battleEndButton.setVisibility(View.VISIBLE);
         //DB更新
-        EndDBChange();
+        EndDBChange(false);
         //リザルト画面へ移行
         binding.battleEndButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -417,13 +417,14 @@ public class BattleActivity extends AppCompatActivity {
         Glide.with(binding.ememyImage.getContext()).load(R.drawable.fadeoutslime)
                 .placeholder(R.drawable.slime)
                 .into(target);
+        //ステージカウントを進める
 
 
         binding.battleEndButton.setText("次の育成へ");
         binding.battleEndButton.setVisibility(View.VISIBLE);
 
         //DB更新
-        EndDBChange();
+        EndDBChange(true);
         //育成画面へ移行
         binding.battleEndButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -508,7 +509,7 @@ public class BattleActivity extends AppCompatActivity {
     }
 
     //バトル終了時データベースを更新する
-    private void EndDBChange(){
+    private void EndDBChange(boolean end){
         // 入力されたタイトルとコンテンツをContentValuesに設定
         // ContentValuesは、項目名と値をセットで保存できるオブジェクト
         ContentValues cv = new ContentValues();
@@ -533,11 +534,16 @@ public class BattleActivity extends AppCompatActivity {
 
             where = CharacterTable.CHARA_SAVE_ID + " = " + 3;
             db.update(CharacterTable.TABLE_NAME, cv, where, null);
-            //キャラクターのターン数リセット
-            ContentValues cv2 = new ContentValues();
-            cv2.put(CharacterTable.CHARA_SAVE_STAGE, 0);
-            where = CharacterTable.CHARA_SAVE_ID + " = " + 1;
-            db.update(CharacterTable.TABLE_NAME, cv2, where, null);
+
+            if (!end){
+                //キャラクターのターン数リセット
+                ContentValues cv2 = new ContentValues();
+                cv2.put(CharacterTable.CHARA_SAVE_TURN, 0);
+                cv2.put(CharacterTable.CHARA_SAVE_STAGE, 1);
+                where = CharacterTable.CHARA_SAVE_ID + " = " + 1;
+                db.update(CharacterTable.TABLE_NAME, cv2, where, null);
+            }
+
         }
 
     }
@@ -788,7 +794,7 @@ public class BattleActivity extends AppCompatActivity {
     //エネミーの決定
     private String getEnemyName(int turn){
         ImageView image = binding.ememyImage;
-        int num = turn -2;
+        int num = turn - 2;
         switch (num){
             //スライム
             case 0:

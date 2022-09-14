@@ -10,7 +10,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     // データベースのバージョン
     // テーブルの内容などを変更したら、この数字を変更する
-    static final private int VERSION = 17;
+    static final private int VERSION = 19;
 
     // データベース名
     static final private String DBNAME = "sample.db";
@@ -63,6 +63,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(CharacterTable.CHARA_SAVE_SKILL3, "");
         cv.put(CharacterTable.CHARA_SAVE_SKILL4, "");
         cv.put(CharacterTable.CHARA_SAVE_TURN, 0);
+        cv.put(CharacterTable.CHARA_SAVE_STAGE, 1);
 
         ContentValues cv2 = new ContentValues();
         cv2.put(CharacterTable.CHARA_SAVE_ID, 2);
@@ -94,8 +95,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.insert(CharacterTable.TABLE_NAME, null, cv);
         db.insert(CharacterTable.TABLE_NAME, null, cv2);
         db.insert(CharacterTable.TABLE_NAME, null, cv3);
-        cv.put(CharacterTable.CHARA_SAVE_ID, 4);
-        db.insert(CharacterTable.TABLE_NAME, null, cv);
+        cv2.put(CharacterTable.CHARA_SAVE_ID, 4);
+        db.insert(CharacterTable.TABLE_NAME, null, cv2);
     }
 
     //バージョン変更時に削除
