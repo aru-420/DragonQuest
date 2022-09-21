@@ -3,9 +3,54 @@
     "event_name": "遺跡探索",
     "event_content": "罠を乗り越え踏破した",
     "event_hp": 3,
-    "event_atk": 0,
-    "event_def": 0,
-    "event_dex": 7,
+    "event_atk": 3,
+    "event_def": 3,
+    "event_dex": 15,
+    "event_skill": ""
+  },
+  "オアシス": {
+    "event_name": "オアシス",
+    "event_content": "乾いた喉が潤った",
+    "event_hp": 150,
+    "event_atk": 20,
+    "event_def": 20,
+    "event_dex": 20,
+    "event_skill": ""
+  },
+  "夜に歩く": {
+    "event_name": "夜に歩く",
+    "event_content": "夜の星を目印に歩いた",
+    "event_hp": 50,
+    "event_atk": 5,
+    "event_def": 10,
+    "event_dex": 10,
+    "event_skill": ""
+  },
+  "砂丘を超える": {
+    "event_name": "砂丘を越える",
+    "event_content": "暑さに体力を奪われながらも乗り越えた",
+    "event_hp": -60,
+    "event_atk": 3,
+    "event_def": 25,
+    "event_dex": 15,
+    "event_skill": ""
+  },
+  "怪しげな小屋": {
+    "event_name": "怪しげな小屋",
+    "event_content": "小屋の魔女に魔術を教わった",
+    "event_hp": 0,
+    "event_atk": 20,
+    "event_def": -5,
+    "event_dex": 5,
+    "event_skill": "ファイヤー"
+  },
+  "商人の護衛": {
+    "event_name": "商人の護衛",
+    "event_content": "襲ってきた狼を追い払った",
+    "event_hp": 50,
+    "event_atk": 10,
+    "event_def": 10,
+    "event_dex": 10,
     "event_skill": ""
   }
 }

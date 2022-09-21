@@ -66,6 +66,7 @@ public class BattleActivity extends AppCompatActivity {
     private int mp3_sword;
     private int mp3_heal;
     private int mp3_fire;
+    private int stage_num;  //何ステージ目か
 
     public BattleActivity() {
         handler = new Handler();
@@ -417,7 +418,6 @@ public class BattleActivity extends AppCompatActivity {
         Glide.with(binding.ememyImage.getContext()).load(R.drawable.fadeoutslime)
                 .placeholder(R.drawable.slime)
                 .into(target);
-        //ステージカウントを進める
 
 
         binding.battleEndButton.setText("次の育成へ");
@@ -431,6 +431,8 @@ public class BattleActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplication(), NurtureActivity.class);
                 startActivity(intent);
+                //ステージカウント
+                StageDBUpdate(stage_num);
             }
         });
     }
@@ -508,6 +510,20 @@ public class BattleActivity extends AppCompatActivity {
         }
     }
 
+    //戦闘勝利時ステージカウント更新
+    private void StageDBUpdate(int num){
+        //ステージカウント更新
+        num += 1;
+        ContentValues cv = new ContentValues();
+        cv.put(CharacterTable.CHARA_SAVE_STAGE, num);
+        try (SQLiteDatabase db = helper.getWritableDatabase()) {
+            //データベース更新
+            String where = CharacterTable.CHARA_SAVE_ID + " = " + 1;
+            db.update(CharacterTable.TABLE_NAME, cv, where, null);
+        }
+
+    }
+
     //バトル終了時データベースを更新する
     private void EndDBChange(boolean end){
         // 入力されたタイトルとコンテンツをContentValuesに設定
@@ -531,7 +547,6 @@ public class BattleActivity extends AppCompatActivity {
 
             //アップデート
             db.update(CharacterTable.TABLE_NAME, cv, where, null);
-
             where = CharacterTable.CHARA_SAVE_ID + " = " + 3;
             db.update(CharacterTable.TABLE_NAME, cv, where, null);
 
@@ -720,7 +735,8 @@ public class BattleActivity extends AppCompatActivity {
                         binding.skill2.setText(my_actor.getSkill2().getSkill_name());
                         binding.skill3.setText(my_actor.getSkill3().getSkill_name());
                         binding.skill4.setText(my_actor.getSkill4().getSkill_name());
-                        enemy_names = getEnemyName(cursor2.getInt(9));
+                        stage_num = cursor2.getInt(9);
+                        enemy_names = getEnemyName(stage_num);
                     }
 
                 }

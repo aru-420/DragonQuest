@@ -107,5 +107,11 @@
     "skill_subject": "double",
     "skill_gif": "sword_effect",
     "skill_context": "攻撃力の200%で相手に二回攻撃"
+  },
+  "メガファイヤー": {
+    "skill_effect": 3.0,
+    "skill_subject": "enemy",
+    "skill_gif": "fire_effect",
+    "skill_context": "相手の防御を半分無視して攻撃力の300%で相手に二回攻撃"
   }
 }
