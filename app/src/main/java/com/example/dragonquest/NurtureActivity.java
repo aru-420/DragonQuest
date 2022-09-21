@@ -628,7 +628,7 @@ public class NurtureActivity extends AppCompatActivity {
         if(turncount >= 10 && skill_btn == false){
             //スタートボタンを表示する
             binding.startbtn.setVisibility(View.VISIBLE);
-            //
+            //選択肢ボタンを非表示
             binding.Choices1.setVisibility(View.INVISIBLE);
             binding.Choices2.setVisibility(View.INVISIBLE);
         }
@@ -640,6 +640,7 @@ public class NurtureActivity extends AppCompatActivity {
         if(turncount >= 10){
             stage_num += 1;
         }
+
         // 入力されたタイトルとコンテンツをContentValuesに設定
         // ContentValuesは、項目名と値をセットで保存できるオブジェクト
         ContentValues cv = new ContentValues();
@@ -653,7 +654,6 @@ public class NurtureActivity extends AppCompatActivity {
         cv.put(DBTables.CharacterTable.CHARA_SAVE_SKILL3, skill3);
         cv.put(DBTables.CharacterTable.CHARA_SAVE_SKILL4, skill4);
         cv.put(DBTables.CharacterTable.CHARA_SAVE_TURN, turncount);
-        cv.put(DBTables.CharacterTable.CHARA_SAVE_STAGE, stage_num);
 
         //where文 今回はidを指定して
         String where = DBTables.CharacterTable.CHARA_SAVE_ID + " = 1";

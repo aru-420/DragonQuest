@@ -350,6 +350,7 @@
         android:layout_height="176dp"
         android:gravity="center"
         android:text="アラート"
+        android:textColor="@color/black"
         android:textSize="22sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
