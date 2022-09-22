@@ -12,7 +12,7 @@ public class Menu extends AppCompatActivity {
 
     //データベース接続用変数
     private DatabaseHelper helper = null;
-    Actor get_save = (Actor) this.getApplication();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,7 +22,9 @@ public class Menu extends AppCompatActivity {
         //続ける
         Button tap_continue = findViewById(R.id.continue1);
         tap_continue.setOnClickListener(v -> finish());
-
+        // ヘルパーを準備
+        helper = new DatabaseHelper(this);
+        Actor get_save = (Actor) this.getApplication();
         //あきらめる
         Button tap_giveup = findViewById(R.id.giveup);
         tap_giveup.setOnClickListener(new View.OnClickListener() {
@@ -49,8 +51,7 @@ public class Menu extends AppCompatActivity {
             public void onClick(View view) {
 
                 //仮読み込み
-
-                    Actor actor = get_save.GetActivityActor();
+                Actor actor = get_save.GetActivityActor();
                 //     510行目あたりのDB保存処理を参照
                 // 入力されたタイトルとコンテンツをContentValuesに設定
                 // ContentValuesは、項目名と値をセットで保存できるオブジェクト
