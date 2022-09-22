@@ -89,5 +89,12 @@ public class StatusActivity extends AppCompatActivity {
                 imageView.setImageResource(R.drawable.magician);
             }
         }
+
+        binding.statusBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 }
