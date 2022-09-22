@@ -20,6 +20,7 @@ public class Chara extends AppCompatActivity {
         tap_ikusei.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
+
                 Intent intent = new Intent(getApplication(), CharacterCreationActivity.class);
                 startActivity(intent);
 

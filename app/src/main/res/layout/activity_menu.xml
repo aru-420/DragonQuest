@@ -9,12 +9,12 @@
 
     <ImageView
         android:id="@+id/background2"
-        android:layout_width="741dp"
-        android:layout_height="733dp"
+        android:layout_width="959dp"
+        android:layout_height="1500dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/menu2" />
+        app:srcCompat="@drawable/backgroundmenu" />
 
     <Button
         android:id="@+id/continue1"
