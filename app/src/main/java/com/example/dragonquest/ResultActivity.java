@@ -83,6 +83,7 @@ public class ResultActivity extends AppCompatActivity {
         String view = Integer.valueOf(view_turn).toString();
         binding.resultTurn.setText(view);
 
+
     }
 
 

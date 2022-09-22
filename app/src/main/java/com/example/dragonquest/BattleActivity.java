@@ -51,6 +51,7 @@ public class BattleActivity extends AppCompatActivity {
 
     //自身のステータスを保存するクラス
     Actor my_actor;
+    Actor my_feast;
     //エネミーステータスを保存するクラス
     Actor enemy_actor;
     //メッセージをクリックしたときに消えるかどうかのフラグ
@@ -161,10 +162,10 @@ public class BattleActivity extends AppCompatActivity {
             public void onClick(View view) {
                 //仮書き込み
 
-                save.SetActivityActor(my_actor.getName(),my_actor.getHp(),
-                        my_actor.getAtk(),my_actor.getDef(),my_actor.getDex(),
-                        my_actor.getSkill1().getSkill_name(),my_actor.getSkill2().getSkill_name(),
-                        my_actor.getSkill3().getSkill_name(),my_actor.getSkill4().getSkill_name(),0);
+                save.SetActivityActor(my_feast.getName(),my_feast.getHp(),
+                        my_feast.getAtk(),my_feast.getDef(),my_feast.getDex(),
+                        my_feast.getSkill1().getSkill_name(),my_feast.getSkill2().getSkill_name(),
+                        my_feast.getSkill3().getSkill_name(),my_feast.getSkill4().getSkill_name(),0);
 
                 Intent intent = new Intent(getApplication(), Menu.class);
                 startActivity(intent);
@@ -573,10 +574,10 @@ public class BattleActivity extends AppCompatActivity {
             if (!end){
                 //キャラクターのターン数リセット
                 ContentValues cv2 = new ContentValues();
-                cv2.put(CharacterTable.CHARA_SAVE_TURN, 0);
-                cv2.put(CharacterTable.CHARA_SAVE_STAGE, 1);
-                where = CharacterTable.CHARA_SAVE_ID + " = " + 1;
-                db.update(CharacterTable.TABLE_NAME, cv2, where, null);
+                //cv2.put(CharacterTable.CHARA_SAVE_TURN, 0);
+                //cv2.put(CharacterTable.CHARA_SAVE_STAGE, 1);
+                //where = CharacterTable.CHARA_SAVE_ID + " = " + 1;
+                //db.update(CharacterTable.TABLE_NAME, cv2, where, null);
             }
 
         }
@@ -733,6 +734,9 @@ public class BattleActivity extends AppCompatActivity {
                         my_actor = new Actor(cursor2.getString(0), cursor2.getInt(1), cursor2.getInt(2),
                                 cursor2.getInt(3), cursor2.getInt(4),
                                 my_skill1,my_skill2,my_skill3,my_skill4);
+                        my_feast = new Actor(cursor2.getString(0), cursor2.getInt(1), cursor2.getInt(2),
+                                cursor2.getInt(3), cursor2.getInt(4),
+                                my_skill1,my_skill2,my_skill3,my_skill4);
                     }
 
 
@@ -760,6 +764,7 @@ public class BattleActivity extends AppCompatActivity {
                     }
 
                 }
+
                 onSave(my_actor, 4);
             }
 
