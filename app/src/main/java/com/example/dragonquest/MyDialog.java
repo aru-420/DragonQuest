@@ -58,7 +58,5 @@ public class MyDialog extends DialogFragment {
             alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.WHITE);
             alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setBackgroundColor(getResources().getColor(R.color.red));
         }
-
     }
 }
-

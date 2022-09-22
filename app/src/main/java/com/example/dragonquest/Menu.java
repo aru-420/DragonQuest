@@ -25,6 +25,18 @@ public class Menu extends AppCompatActivity {
         // ヘルパーを準備
         helper = new DatabaseHelper(this);
         Actor get_save = (Actor) this.getApplication();
+        //ステータス
+        Button tap_status = findViewById(R.id.status);
+        tap_status.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
+//仮読み込み
+                Actor actor = get_save.GetActivityActor();
+                Intent intent = new Intent(getApplication(), StatusActivity.class);
+                startActivity(intent);
+            }
+        });
+
         //あきらめる
         Button tap_giveup = findViewById(R.id.giveup);
         tap_giveup.setOnClickListener(new View.OnClickListener() {
