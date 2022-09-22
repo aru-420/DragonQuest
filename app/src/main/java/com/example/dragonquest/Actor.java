@@ -1,6 +1,8 @@
 package com.example.dragonquest;
 
-public class Actor {
+import android.app.Application;
+
+public class Actor extends Application {
     private String name;    //キャラ名
     private int hp;         //ヒットポイント
     private int atk;        //攻撃力
@@ -10,6 +12,12 @@ public class Actor {
     private Skill skill2;  //スキル2
     private Skill skill3;  //スキル3
     private Skill skill4;  //スキル4
+    private Actor save;
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+    }
 
     public Actor(){
         name = "";
@@ -106,5 +114,22 @@ public class Actor {
         }else{
             return skill4;
         }
+    }
+
+    //変数を受け取って保存する処理
+    public void SetActivityActor(String set_name, int set_hp, int set_atk, int set_def, int set_dex,
+                                 String set_skill1, String set_skill2, String set_skill3, String set_skill4){
+
+        skill1 = new Skill(set_skill1);
+        skill2 = new Skill(set_skill2);
+        skill3 = new Skill(set_skill3);
+        skill4 = new Skill(set_skill4);
+        save = new Actor(set_name, set_hp, set_atk, set_def, set_dex,
+        skill1, skill2, skill3, skill4);
+    }
+
+    //変数を返却する処理
+    public Actor GetActivityActor(){
+        return save;
     }
 }

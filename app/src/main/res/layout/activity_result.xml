@@ -57,7 +57,7 @@
         app:layout_constraintTop_toTopOf="@+id/status" />
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/turn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/turn_text"
@@ -67,7 +67,7 @@
         app:layout_constraintTop_toTopOf="@+id/advice" />
 
     <TextView
-        android:id="@+id/textView7"
+        android:id="@+id/result_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="30dp"
@@ -79,7 +79,7 @@
         app:layout_constraintTop_toTopOf="@+id/advice" />
 
     <TextView
-        android:id="@+id/textView8"
+        android:id="@+id/hp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="110dp"
@@ -91,33 +91,126 @@
         app:layout_constraintTop_toTopOf="@+id/status" />
 
     <TextView
-        android:id="@+id/textView9"
+        android:id="@+id/atk"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/atk_text"
         android:textColor="@color/black"
         android:textSize="36sp"
         app:layout_constraintStart_toStartOf="@+id/status"
-        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+        app:layout_constraintTop_toBottomOf="@+id/hp" />
 
     <TextView
-        android:id="@+id/textView10"
+        android:id="@+id/def"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/def_text"
         android:textColor="@color/black"
         android:textSize="36sp"
         app:layout_constraintStart_toStartOf="@+id/status"
-        app:layout_constraintTop_toBottomOf="@+id/textView9" />
+        app:layout_constraintTop_toBottomOf="@+id/atk" />
 
     <TextView
-        android:id="@+id/textView11"
+        android:id="@+id/dex"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/dex_text"
         android:textColor="@color/black"
         android:textSize="36sp"
         app:layout_constraintStart_toStartOf="@+id/status"
-        app:layout_constraintTop_toBottomOf="@+id/textView10" />
+        app:layout_constraintTop_toBottomOf="@+id/def" />
+
+    <Button
+        android:id="@+id/end_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="終了"
+        app:layout_constraintBottom_toTopOf="@+id/status"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.116" />
+
+    <TextView
+        android:id="@+id/result_hp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textColor="@color/black"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toBottomOf="@+id/status"
+        app:layout_constraintEnd_toEndOf="@+id/status"
+        app:layout_constraintHorizontal_bias="0.563"
+        app:layout_constraintStart_toEndOf="@+id/hp"
+        app:layout_constraintTop_toTopOf="@+id/status"
+        app:layout_constraintVertical_bias="0.266" />
+
+    <TextView
+        android:id="@+id/result_atk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textColor="@color/black"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toBottomOf="@+id/status"
+        app:layout_constraintEnd_toEndOf="@+id/status"
+        app:layout_constraintHorizontal_bias="0.534"
+        app:layout_constraintStart_toEndOf="@+id/atk"
+        app:layout_constraintTop_toTopOf="@+id/status"
+        app:layout_constraintVertical_bias="0.474" />
+
+    <TextView
+        android:id="@+id/result_def"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textColor="@color/black"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toBottomOf="@+id/status"
+        app:layout_constraintEnd_toEndOf="@+id/status"
+        app:layout_constraintHorizontal_bias="0.539"
+        app:layout_constraintStart_toEndOf="@+id/def"
+        app:layout_constraintTop_toTopOf="@+id/status"
+        app:layout_constraintVertical_bias="0.677" />
+
+    <TextView
+        android:id="@+id/result_dex"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textColor="@color/black"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toBottomOf="@+id/status"
+        app:layout_constraintEnd_toEndOf="@+id/status"
+        app:layout_constraintHorizontal_bias="0.534"
+        app:layout_constraintStart_toEndOf="@+id/dex"
+        app:layout_constraintTop_toTopOf="@+id/status"
+        app:layout_constraintVertical_bias="0.889" />
+
+    <TextView
+        android:id="@+id/result_turn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textColor="@color/black"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toBottomOf="@+id/turn"
+        app:layout_constraintEnd_toEndOf="@+id/advice"
+        app:layout_constraintHorizontal_bias="0.227"
+        app:layout_constraintStart_toEndOf="@+id/turn"
+        app:layout_constraintTop_toTopOf="@+id/advice"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/result_advice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="@+id/advice"
+        app:layout_constraintEnd_toEndOf="@+id/advice"
+        app:layout_constraintStart_toStartOf="@+id/result_text"
+        app:layout_constraintTop_toBottomOf="@+id/result_text" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

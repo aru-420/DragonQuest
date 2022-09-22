@@ -8,8 +8,8 @@
     "event_dex": 15,
     "event_skill": ""
   },
-  "オアシス": {
-    "event_name": "オアシス",
+  "オアシスだ！": {
+    "event_name": "オアシスだ！",
     "event_content": "乾いた喉が潤った",
     "event_hp": 150,
     "event_atk": 20,
@@ -41,14 +41,32 @@
     "event_hp": 0,
     "event_atk": 20,
     "event_def": -5,
-    "event_dex": 5,
+    "event_dex": 0,
     "event_skill": "ファイヤー"
   },
   "商人の護衛": {
     "event_name": "商人の護衛",
     "event_content": "襲ってきた狼を追い払った",
-    "event_hp": 50,
+    "event_hp": -50,
     "event_atk": 10,
+    "event_def": 10,
+    "event_dex": 15,
+    "event_skill": ""
+  },
+  "小さな小屋がある...": {
+    "event_name": "小さな小屋がある...",
+    "event_content": "仙人に魔術の極意を教わった",
+    "event_hp": 25,
+    "event_atk": 40,
+    "event_def": 0,
+    "event_dex": 0,
+    "event_skill": "メガファイヤー"
+  },
+  "石像が襲ってきた！": {
+    "event_name": "石像が襲ってきた！",
+    "event_content": "渾身の一撃で砕いた。",
+    "event_hp": -50,
+    "event_atk": 50,
     "event_def": 10,
     "event_dex": 10,
     "event_skill": ""

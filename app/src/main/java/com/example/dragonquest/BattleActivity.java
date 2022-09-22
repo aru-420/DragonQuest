@@ -810,7 +810,7 @@ public class BattleActivity extends AppCompatActivity {
     //エネミーの決定
     private String getEnemyName(int turn){
         ImageView image = binding.ememyImage;
-        int num = turn - 2;
+        int num = turn - 1;
         switch (num){
             //スライム
             case 0:
@@ -933,10 +933,7 @@ public class BattleActivity extends AppCompatActivity {
                         if (ememyHp <= 0){
                             //HPを0に
                             enemy_actor.setHp(ememyHp);
-                            //スレッド内でUI変更
-                            handler.post(()->{
 
-                            });
                             //ループ終了
                             break;
                         }

@@ -112,6 +112,6 @@
     "skill_effect": 3.0,
     "skill_subject": "enemy",
     "skill_gif": "fire_effect",
-    "skill_context": "相手の防御を半分無視して攻撃力の300%で相手に二回攻撃"
+    "skill_context": "相手の防御を半分無視して攻撃力の300%で相手に攻撃"
   }
 }
