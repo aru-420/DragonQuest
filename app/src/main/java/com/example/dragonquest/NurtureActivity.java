@@ -105,6 +105,9 @@ public class NurtureActivity extends AppCompatActivity {
         //ステージの判定
         stage_num = stage_db();
 
+        //背景の変更
+        stage_background(stage_num);
+
         //選択肢の更新
         random_Choices();
 
@@ -242,6 +245,16 @@ public class NurtureActivity extends AppCompatActivity {
 
                     skill_full = false;
                 }
+            }
+        });
+
+        //メニューボタン2の処理
+        binding.menuButton2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MenuButton();
+                Intent intent = new Intent(getApplication(), Menu.class);
+                startActivity(intent);
             }
         });
 
@@ -663,6 +676,36 @@ public class NurtureActivity extends AppCompatActivity {
             //アップデート
             db.update(DBTables.CharacterTable.TABLE_NAME, cv, where, null);
         }
+    }
+
+    protected void stage_background(int stage_num){
+        /*
+        switch (stage_num){
+            case 1:
+                //背景画像の変更
+                ImageView imageView  = findViewById(R.id.Nurture_Back);
+                imageView.setImageResource(R.drawable.background);
+                break;
+            case 2:
+                //背景画像の変更
+                ImageView imageView2  = findViewById(R.id.Nurture_Back);
+                imageView2.setImageResource(R.drawable.background2);
+                break;
+            case 3:
+                //背景画像の変更
+                ImageView imageView3  = findViewById(R.id.Nurture_Back);
+                imageView3.setImageResource(R.drawable.background3);
+                break;
+            default:
+                break;
+        }
+
+         */
+    }
+
+    protected void MenuButton(){
+        Actor save = (Actor) this.getApplication();
+        save.SetActivityActor(name,hp,atk,def,dex,skill1,skill2,skill3,skill4,turncount);
     }
 }
 
