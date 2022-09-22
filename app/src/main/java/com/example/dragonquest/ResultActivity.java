@@ -80,9 +80,7 @@ public class ResultActivity extends AppCompatActivity {
     protected void ResultTurn(int turn, int stage){
         //合計ターン
         int view_turn = turn + (stage-1)*10;
-        String view = Integer.valueOf(view_turn).toString();
-        binding.resultTurn.setText(view);
-
+        ChangeStatus(binding.resultTurn,view_turn);
 
     }
 

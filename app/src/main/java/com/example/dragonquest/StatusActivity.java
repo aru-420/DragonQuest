@@ -42,6 +42,7 @@ public class StatusActivity extends AppCompatActivity {
         //仮読み込み
         Actor actor = get_save.GetActivityActor();
 
+        name = actor.getName();
         hp = actor.getHp();
         atk = actor.getAtk();
         def = actor.getDef();
