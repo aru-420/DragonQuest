@@ -74,6 +74,8 @@ public class Menu extends AppCompatActivity {
                     //アップデート
                     db.update(DBTables.CharacterTable.TABLE_NAME, cv, where, null);
                 }
+                MyDialog2 dialog = new MyDialog2();
+                dialog.show(getSupportFragmentManager(), "my_dialog");
             }
         });
     }
