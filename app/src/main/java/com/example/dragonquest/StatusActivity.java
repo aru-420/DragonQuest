@@ -67,11 +67,11 @@ public class StatusActivity extends AppCompatActivity {
             //画像の変更
             if (name.equals(CharaNameStr[0])) {
                 //画像の変更(warrior)
-                ImageView imageView = findViewById(R.id.character_Image_nu);
+                ImageView imageView = findViewById(R.id.character_Image_nu2);
                 imageView.setImageResource(R.drawable.warrior);
             } else if (name.equals(CharaNameStr[1])) {
                 //画像の変更(magician)
-                ImageView imageView = findViewById(R.id.character_Image_nu);
+                ImageView imageView = findViewById(R.id.character_Image_nu2);
                 imageView.setImageResource(R.drawable.magician);
             }
 
