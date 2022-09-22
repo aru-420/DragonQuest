@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.database.Cursor;
@@ -37,6 +38,16 @@ import java.util.Random;
 
 public class BattleActivity extends AppCompatActivity {
     private ActivityBattleBinding binding;
+
+    //仮書き込み
+//    Actor save = (Actor) this.getApplication();
+//    save.SetActivityActor(name,hp,atk,def,dex,skill1,skill2,skill3,skill4,turncount);
+
+    //仮読み込み
+    //    Actor get_save = (Actor) this.getApplication();
+    //    Actor actor = get_save.GetActivityActor();
+    //      510行目あたりのDB保存処理を参照
+
 
     //自身のステータスを保存するクラス
     Actor my_actor;
@@ -87,10 +98,12 @@ public class BattleActivity extends AppCompatActivity {
         //BGM
         playFromMediaPlayer();
 
+        Actor save = (Actor) this.getApplication();
+
         // 入力されたタイトルとコンテンツをContentValuesに設定
         // ContentValuesは、項目名と値をセットで保存できるオブジェクト
-        ContentValues cv = new ContentValues();
-        cv.put(CharacterTable.CHARA_SAVE_NAME, "");
+//        ContentValues cv = new ContentValues();
+//        cv.put(CharacterTable.CHARA_SAVE_NAME, "");
 //        cv.put(CharacterTable.CHARA_SAVE_HP, 500);
 //        cv.put(CharacterTable.CHARA_SAVE_ATK, 50);
 //        cv.put(CharacterTable.CHARA_SAVE_DEF, 50);
@@ -100,16 +113,16 @@ public class BattleActivity extends AppCompatActivity {
 //        cv.put(CharacterTable.CHARA_SAVE_SKILL3, "ダブルスラッシュ");
 //        cv.put(CharacterTable.CHARA_SAVE_SKILL4, "じこさいせい");
 //        cv.put(CharacterTable.CHARA_SAVE_TURN, 20);
-
-        //where文 今回はidを指定して
-        String where = CharacterTable.CHARA_SAVE_ID + " = " + 3;
-
-        // 書き込みモードでデータベースをオープン
-        try (SQLiteDatabase db = helper.getWritableDatabase()) {
-
-            //アップデート
-            db.update(CharacterTable.TABLE_NAME, cv, where, null);
-        }
+//
+//        //where文 今回はidを指定して
+//        String where = CharacterTable.CHARA_SAVE_ID + " = " + 3;
+//
+//        // 書き込みモードでデータベースをオープン
+//        try (SQLiteDatabase db = helper.getWritableDatabase()) {
+//
+//            //アップデート
+//            db.update(CharacterTable.TABLE_NAME, cv, where, null);
+//        }
 
         //効果音
         //soundPoolの初期化
@@ -146,6 +159,13 @@ public class BattleActivity extends AppCompatActivity {
         binding.menuButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
+                //仮書き込み
+
+                save.SetActivityActor(my_actor.getName(),my_actor.getHp(),
+                        my_actor.getAtk(),my_actor.getDef(),my_actor.getDex(),
+                        my_actor.getSkill1().getSkill_name(),my_actor.getSkill2().getSkill_name(),
+                        my_actor.getSkill3().getSkill_name(),my_actor.getSkill4().getSkill_name(),0);
+
                 Intent intent = new Intent(getApplication(), Menu.class);
                 startActivity(intent);
 
