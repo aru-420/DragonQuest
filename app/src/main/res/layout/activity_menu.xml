@@ -7,57 +7,74 @@
     android:backgroundTint="#A6A1A1"
     tools:context=".Menu">
 
-    <Button
-        android:id="@+id/continue1"
-        android:layout_width="200dp"
-        android:layout_height="90dp"
-        android:layout_marginTop="72dp"
-        android:background="@android:color/background_dark"
-        android:backgroundTint="#E8DFDF"
-        android:text="@string/tap_continue"
-        android:textColor="@color/white"
-        android:textSize="30sp"
+    <ImageView
+        android:id="@+id/background2"
+        android:layout_width="741dp"
+        android:layout_height="733dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:strokeColor="@color/black" />
+        app:srcCompat="@drawable/menu2" />
+
+    <Button
+        android:id="@+id/continue1"
+        android:layout_width="199dp"
+        android:layout_height="85dp"
+        android:layout_marginTop="28dp"
+        android:backgroundTint="@color/black"
+        android:text="@string/tap_continue"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/menu_text"
+        app:strokeColor="@color/白灰色"
+        app:strokeWidth="3dp" />
 
     <Button
         android:id="@+id/status"
         android:layout_width="200dp"
         android:layout_height="90dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="44dp"
+        android:backgroundTint="@color/black"
         android:text="@string/tap_status"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/continue1" />
+        app:layout_constraintTop_toBottomOf="@+id/continue1"
+        app:strokeColor="@color/白灰色"
+        app:strokeWidth="3dp" />
 
     <Button
         android:id="@+id/save"
         android:layout_width="200dp"
         android:layout_height="90dp"
         android:layout_marginBottom="32dp"
+        android:backgroundTint="@color/black"
         android:text="@string/tap_save"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/giveup"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:strokeColor="@color/白灰色"
+        app:strokeWidth="3dp" />
 
     <Button
         android:id="@+id/giveup"
         android:layout_width="200dp"
         android:layout_height="90dp"
         android:layout_marginBottom="96dp"
+        android:backgroundTint="@color/black"
         android:text="@string/tap_giveup"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:strokeColor="@color/白灰色"
+        app:strokeWidth="3dp" />
 
     <Button
         android:id="@+id/back"
@@ -74,5 +91,18 @@
         android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/menu_text"
+        android:layout_width="102dp"
+        android:layout_height="34dp"
+        android:layout_marginTop="16dp"
+        android:text="メニュー"
+        android:textColor="@color/白灰色"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/background2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

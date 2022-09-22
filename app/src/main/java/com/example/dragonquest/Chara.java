@@ -15,10 +15,8 @@ public class Chara extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chara);
 
+        //育成ボタンを押したとき
         Button tap_ikusei = findViewById(R.id.ikuseibutton);
-
-
-
         tap_ikusei.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){

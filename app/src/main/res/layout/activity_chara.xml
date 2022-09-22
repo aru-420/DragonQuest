@@ -9,15 +9,11 @@
     <ImageView
         android:id="@+id/background"
         android:layout_width="425dp"
-        android:layout_height="733dp"
-        android:layout_marginStart="-23dp"
-        android:layout_marginEnd="-25dp"
+        android:layout_height="768dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.454"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/kuro" />
 
     <TextView
@@ -56,6 +52,7 @@
         android:text="@string/tap_ikusei"
         android:textColor="#FBFBFB"
         android:textSize="36sp"
+        app:cornerRadius="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"

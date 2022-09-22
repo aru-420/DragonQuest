@@ -118,6 +118,7 @@ public class Actor extends Application {
     public Skill getSkill4(){
         return skill4;
     }
+    public int getSave_turn(){return save_turn;}
 
     //スキル名から正しいスキルを返す
     public Skill returnSkill(String name){
