@@ -70,5 +70,14 @@
     "event_def": 10,
     "event_dex": 10,
     "event_skill": ""
+  },
+  "宝箱だ！": {
+    "event_name": "宝箱だ！",
+    "event_content": "秘伝の書が入っていた",
+    "event_hp": -50,
+    "event_atk": 50,
+    "event_def": 10,
+    "event_dex": 10,
+    "event_skill": "ヒール"
   }
 }

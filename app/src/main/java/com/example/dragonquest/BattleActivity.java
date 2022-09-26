@@ -435,10 +435,13 @@ public class BattleActivity extends AppCompatActivity {
         messagetext = enemy_actor.getName() + "を倒した！";
         binding.battleMessage.setText(messagetext);
         //エフェクト
-        GlideDrawableImageViewTarget target = new GlideDrawableImageViewTarget(binding.ememyImage,1);
-        Glide.with(binding.ememyImage.getContext()).load(R.drawable.fadeoutslime)
-                .placeholder(R.drawable.slime)
-                .into(target);
+        if (enemy_actor.getName().equals("スライム")){
+            GlideDrawableImageViewTarget target = new GlideDrawableImageViewTarget(binding.ememyImage,1);
+            Glide.with(binding.ememyImage.getContext()).load(R.drawable.fadeoutslime)
+                    .placeholder(R.drawable.slime)
+                    .into(target);
+        }
+
 
 
         binding.battleEndButton.setText("次の育成へ");
