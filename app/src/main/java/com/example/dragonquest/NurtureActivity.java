@@ -11,6 +11,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Binder;
 import android.os.Bundle;
+import android.os.Debug;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -22,6 +23,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.Console;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -31,7 +33,7 @@ public class NurtureActivity extends AppCompatActivity {
     private ActivityNurtureBinding binding;
 
     //変数
-    int turncount, Event_choices1, Event_choices2, stage_num;
+    int Event_choices1, Event_choices2, stage_num;
 
     boolean skill_btn = false;
     boolean skill_full = false;
@@ -56,7 +58,7 @@ public class NurtureActivity extends AppCompatActivity {
 
     //DBからデータを受け取る際に入れる変数
     String name, skill, skill1, skill2, skill3, skill4;
-    int hp, atk, def, dex;
+    int hp, atk, def, dex, turncount;
 
 
     @Override
@@ -99,14 +101,11 @@ public class NurtureActivity extends AppCompatActivity {
         //Event_Name3
 
 
-        //初期画面の設定
-        writeDB();
-
         //ステージの判定
         stage_num = stage_db();
 
-        //背景の変更
-        stage_background(stage_num);
+        //初期画面の設定
+        writeDB();
 
         //選択肢の更新
         random_Choices();
@@ -305,7 +304,8 @@ public class NurtureActivity extends AppCompatActivity {
             // データベースから取得する項目を設定
             String[] cols = {DBTables.CharacterTable.CHARA_SAVE_NAME, DBTables.CharacterTable.CHARA_SAVE_HP,
                     DBTables.CharacterTable.CHARA_SAVE_ATK, DBTables.CharacterTable.CHARA_SAVE_DEF, DBTables.CharacterTable.CHARA_SAVE_DEX,
-                    DBTables.CharacterTable.CHARA_SAVE_SKILL1, DBTables.CharacterTable.CHARA_SAVE_SKILL2, DBTables.CharacterTable.CHARA_SAVE_SKILL3, DBTables.CharacterTable.CHARA_SAVE_SKILL4
+                    DBTables.CharacterTable.CHARA_SAVE_SKILL1, DBTables.CharacterTable.CHARA_SAVE_SKILL2, DBTables.CharacterTable.CHARA_SAVE_SKILL3, DBTables.CharacterTable.CHARA_SAVE_SKILL4,
+                    DBTables.CharacterTable.CHARA_SAVE_TURN
             };
             //where文
             String my_where = DBTables.CharacterTable.CHARA_SAVE_ID + " = 1";
@@ -324,6 +324,7 @@ public class NurtureActivity extends AppCompatActivity {
                 skill2 = cursor.getString(6);
                 skill3 = cursor.getString(7);
                 skill4 = cursor.getString(8);
+                turncount = Integer.parseInt(cursor.getString(9));
             }
 
             //ステータス表示
@@ -338,6 +339,10 @@ public class NurtureActivity extends AppCompatActivity {
             binding.Skill3.setText(skill3);
             binding.Skill4.setText(skill4);
 
+            //ターン数書き換え
+            binding.turnCount.setText(turncount + "ターン");
+
+
             //画像の変更
             if(name.equals(CharaNameStr[0])){
                 //画像の変更(warrior)
@@ -348,6 +353,22 @@ public class NurtureActivity extends AppCompatActivity {
                 //画像の変更(magician)
                 ImageView imageView  = findViewById(R.id.character_Image_nu);
                 imageView.setImageResource(R.drawable.magician);
+            }
+
+            //背景の変更
+            switch (stage_num - 1){
+                case 0:
+                    System.out.println("ok");
+                    binding.NurtureScene.setBackgroundResource(R.drawable.background);
+                    break;
+                case 1:
+                    binding.NurtureScene.setBackgroundResource(R.drawable.background2);
+                    break;
+                case 2:
+                    binding.NurtureScene.setBackgroundResource(R.drawable.background3);
+                    break;
+                default:
+                    binding.NurtureScene.setBackgroundResource(R.drawable.background);
             }
         }
     }
@@ -678,35 +699,10 @@ public class NurtureActivity extends AppCompatActivity {
         }
     }
 
-    protected void stage_background(int stage_num){
-        /*
-        switch (stage_num){
-            case 1:
-                //背景画像の変更
-                ImageView imageView  = findViewById(R.id.Nurture_Back);
-                imageView.setImageResource(R.drawable.background);
-                break;
-            case 2:
-                //背景画像の変更
-                ImageView imageView2  = findViewById(R.id.Nurture_Back);
-                imageView2.setImageResource(R.drawable.background2);
-                break;
-            case 3:
-                //背景画像の変更
-                ImageView imageView3  = findViewById(R.id.Nurture_Back);
-                imageView3.setImageResource(R.drawable.background3);
-                break;
-            default:
-                break;
-        }
-
-         */
-    }
-
     protected void MenuButton(){
         Actor save = (Actor) this.getApplication();
         save.SetActivityActor(name,hp,atk,def,dex,skill1,skill2,skill3,skill4,turncount);
     }
 }
 
-//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
+//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
