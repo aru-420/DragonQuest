@@ -19,6 +19,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -51,6 +54,7 @@ public class BattleActivity extends AppCompatActivity {
 
     //自身のステータスを保存するクラス
     Actor my_actor;
+    Actor my_feast;
     //エネミーステータスを保存するクラス
     Actor enemy_actor;
     //メッセージをクリックしたときに消えるかどうかのフラグ
@@ -161,10 +165,10 @@ public class BattleActivity extends AppCompatActivity {
             public void onClick(View view) {
                 //仮書き込み
 
-                save.SetActivityActor(my_actor.getName(),my_actor.getHp(),
-                        my_actor.getAtk(),my_actor.getDef(),my_actor.getDex(),
-                        my_actor.getSkill1().getSkill_name(),my_actor.getSkill2().getSkill_name(),
-                        my_actor.getSkill3().getSkill_name(),my_actor.getSkill4().getSkill_name(),0);
+                save.SetActivityActor(my_feast.getName(),my_feast.getHp(),
+                        my_feast.getAtk(),my_feast.getDef(),my_feast.getDex(),
+                        my_feast.getSkill1().getSkill_name(),my_feast.getSkill2().getSkill_name(),
+                        my_feast.getSkill3().getSkill_name(),my_feast.getSkill4().getSkill_name(),0);
 
                 Intent intent = new Intent(getApplication(), Menu.class);
                 startActivity(intent);
@@ -306,7 +310,7 @@ public class BattleActivity extends AppCompatActivity {
                 }else {
                     GameEndCheck();
                 }
-            }, delayTime/2 - 100); // 約2000ミリ秒（2秒）後
+            }, delayTime/2 ); // 約2000ミリ秒（2秒）後
 
         }else if (skill.getSkill_subject().equals("power_up")){
             Power_up(tof, skill);
@@ -434,25 +438,29 @@ public class BattleActivity extends AppCompatActivity {
         messagetext = enemy_actor.getName() + "を倒した！";
         binding.battleMessage.setText(messagetext);
         //エフェクト
-        GlideDrawableImageViewTarget target = new GlideDrawableImageViewTarget(binding.ememyImage,1);
-        Glide.with(binding.ememyImage.getContext()).load(R.drawable.fadeoutslime)
-                .placeholder(R.drawable.slime)
-                .into(target);
+        if (enemy_actor.getName().equals("スライム")){
+            AlphaAnimation alphaFadeout = new AlphaAnimation(1.0f, 0.0f);
+            // animation時間 msec
+            alphaFadeout.setDuration(1000);
+            // animationが終わったそのまま表示にする
+            alphaFadeout.setFillAfter(true);
 
+            binding.ememyImage.startAnimation(alphaFadeout);
+        }
 
         binding.battleEndButton.setText("次の育成へ");
         binding.battleEndButton.setVisibility(View.VISIBLE);
 
         //DB更新
         EndDBChange(true);
+        //ステージカウント
+        StageDBUpdate(stage_num);
         //育成画面へ移行
         binding.battleEndButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplication(), NurtureActivity.class);
                 startActivity(intent);
-                //ステージカウント
-                StageDBUpdate(stage_num);
             }
         });
     }
@@ -536,6 +544,7 @@ public class BattleActivity extends AppCompatActivity {
         num += 1;
         ContentValues cv = new ContentValues();
         cv.put(CharacterTable.CHARA_SAVE_STAGE, num);
+        cv.put(CharacterTable.CHARA_SAVE_TURN, 0);
         try (SQLiteDatabase db = helper.getWritableDatabase()) {
             //データベース更新
             String where = CharacterTable.CHARA_SAVE_ID + " = " + 1;
@@ -573,10 +582,10 @@ public class BattleActivity extends AppCompatActivity {
             if (!end){
                 //キャラクターのターン数リセット
                 ContentValues cv2 = new ContentValues();
-                cv2.put(CharacterTable.CHARA_SAVE_TURN, 0);
-                cv2.put(CharacterTable.CHARA_SAVE_STAGE, 1);
-                where = CharacterTable.CHARA_SAVE_ID + " = " + 1;
-                db.update(CharacterTable.TABLE_NAME, cv2, where, null);
+                //cv2.put(CharacterTable.CHARA_SAVE_TURN, 0);
+                //cv2.put(CharacterTable.CHARA_SAVE_STAGE, 1);
+                //where = CharacterTable.CHARA_SAVE_ID + " = " + 1;
+                //db.update(CharacterTable.TABLE_NAME, cv2, where, null);
             }
 
         }
@@ -720,6 +729,7 @@ public class BattleActivity extends AppCompatActivity {
                             my_actor = new Actor(cursor2.getString(0), cursor2.getInt(1), cursor2.getInt(2),
                                     cursor2.getInt(3), cursor2.getInt(4),
                                     my_skill1,my_skill2,my_skill3,my_skill4);
+
                         }
 
 
@@ -760,7 +770,9 @@ public class BattleActivity extends AppCompatActivity {
                     }
 
                 }
+
                 onSave(my_actor, 4);
+                onSave(my_actor, 3);
             }
 
 
@@ -801,6 +813,7 @@ public class BattleActivity extends AppCompatActivity {
                         Skill enemy_skill4 = SettingSkill(2,skill4);
                         enemy_actor = new Actor(enemy_name, enemy_hp, enemy_atk, enemy_def, enemy_dex,
                                 enemy_skill1,enemy_skill2,enemy_skill3,enemy_skill4);
+                        onSave(enemy_actor, 2);
                     }else {
                         Skill enemy_skill1 = SettingSkill(1,cursor.getString(5));
                         Skill enemy_skill2 = SettingSkill(2,cursor.getString(6));
@@ -844,6 +857,10 @@ public class BattleActivity extends AppCompatActivity {
                 break;
             case 2:
                 image.setImageResource(R.drawable.dragon);
+                binding.BattleSecen.setBackgroundResource(R.drawable.background4);   //背景変更
+                break;
+            case 3:
+                image.setImageResource(R.drawable.lastboss);
                 binding.BattleSecen.setBackgroundResource(R.drawable.background3);   //背景変更
                 break;
             default:

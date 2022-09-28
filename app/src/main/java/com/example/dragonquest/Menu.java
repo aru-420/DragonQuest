@@ -25,6 +25,18 @@ public class Menu extends AppCompatActivity {
         // ヘルパーを準備
         helper = new DatabaseHelper(this);
         Actor get_save = (Actor) this.getApplication();
+        //ステータス
+        Button tap_status = findViewById(R.id.status);
+        tap_status.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
+//仮読み込み
+                Actor actor = get_save.GetActivityActor();
+                Intent intent = new Intent(getApplication(), StatusActivity.class);
+                startActivity(intent);
+            }
+        });
+
         //あきらめる
         Button tap_giveup = findViewById(R.id.giveup);
         tap_giveup.setOnClickListener(new View.OnClickListener() {
@@ -65,6 +77,7 @@ public class Menu extends AppCompatActivity {
                 cv.put(DBTables.CharacterTable.CHARA_SAVE_SKILL2, actor.getSkill2().getSkill_name());
                 cv.put(DBTables.CharacterTable.CHARA_SAVE_SKILL3, actor.getSkill3().getSkill_name());
                 cv.put(DBTables.CharacterTable.CHARA_SAVE_SKILL4, actor.getSkill4().getSkill_name());
+                cv.put(DBTables.CharacterTable.CHARA_SAVE_TURN, actor.getSave_turn());
 
                 //where文 今回はidを指定して
                 String where = DBTables.CharacterTable.CHARA_SAVE_ID + " = 1";
@@ -74,6 +87,8 @@ public class Menu extends AppCompatActivity {
                     //アップデート
                     db.update(DBTables.CharacterTable.TABLE_NAME, cv, where, null);
                 }
+                MyDialog2 dialog = new MyDialog2();
+                dialog.show(getSupportFragmentManager(), "my_dialog");
             }
         });
     }

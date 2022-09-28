@@ -2,6 +2,7 @@ package com.example.dragonquest;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -38,9 +39,36 @@ public class ResultActivity extends AppCompatActivity {
         }, 1000); // 約2000ミリ秒（2秒）後
 
 
+        //終了ボタンを押したとき
         binding.endButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // キャラクターDBの内容を初期化
+                // 入力されたタイトルとコンテンツをContentValuesに設定
+                // ContentValuesは、項目名と値をセットで保存できるオブジェクト
+                ContentValues cv = new ContentValues();
+                cv.put(DBTables.CharacterTable.CHARA_SAVE_NAME, "");
+                cv.put(DBTables.CharacterTable.CHARA_SAVE_HP, 0);
+                cv.put(DBTables.CharacterTable.CHARA_SAVE_ATK, 0);
+                cv.put(DBTables.CharacterTable.CHARA_SAVE_DEF, 0);
+                cv.put(DBTables.CharacterTable.CHARA_SAVE_DEX, 0);
+                cv.put(DBTables.CharacterTable.CHARA_SAVE_SKILL1, "");
+                cv.put(DBTables.CharacterTable.CHARA_SAVE_SKILL2, "");
+                cv.put(DBTables.CharacterTable.CHARA_SAVE_SKILL3, "");
+                cv.put(DBTables.CharacterTable.CHARA_SAVE_SKILL4, "");
+                cv.put(DBTables.CharacterTable.CHARA_SAVE_TURN, 0);
+                cv.put(DBTables.CharacterTable.CHARA_SAVE_STAGE, 1);
+
+                //where文 今回はidを指定して
+                String where = DBTables.CharacterTable.CHARA_SAVE_ID + " = " + 1;
+
+                // 書き込みモードでデータベースをオープン
+                try (SQLiteDatabase db = helper.getWritableDatabase()) {
+
+                    //アップデート
+                    db.update(DBTables.CharacterTable.TABLE_NAME, cv, where, null);
+
+                }
                 Intent intent = new Intent(getApplication(), TitleActivity.class);
                 startActivity(intent);
             }
@@ -71,18 +99,36 @@ public class ResultActivity extends AppCompatActivity {
                 ChangeStatus(binding.resultAtk, cursor.getInt(2));
                 ChangeStatus(binding.resultDef, cursor.getInt(3));
                 ChangeStatus(binding.resultDex, cursor.getInt(4));
-                ResultTurn(cursor.getInt(9),cursor.getInt(10));
+                ResultTurn(cursor);
+
             }
         }
     }
 
     //ターン数の表示
-    protected void ResultTurn(int turn, int stage){
+    protected void ResultTurn(Cursor cursor){
         //合計ターン
-        int view_turn = turn + (stage-1)*10;
-        String view = Integer.valueOf(view_turn).toString();
-        binding.resultTurn.setText(view);
+        int view_turn = cursor.getInt(9) + (cursor.getInt(10)-1)*10;
+        ChangeStatus(binding.resultTurn,view_turn);
+        //アドバイス表示
+        handler.postDelayed(() -> {
+            //1秒待って実行
+            ResultAdvice(cursor,view_turn);
+        }, 1000);
+    }
 
+    //アドバイス
+    protected void ResultAdvice(Cursor cursor, int turn){
+        String txt = "";
+        if (cursor.getString(7).equals("") || cursor.getString(8).equals("") || cursor.getString(6).equals("")){
+            txt = "スキルは４つまで覚えられる。\r色んな選択肢を選んでみよう！";
+        }else if (turn <=10){
+            txt = "スライムは回復スキルを覚えている。\rATKを上げて短期決戦を臨もう！";
+        }else if (turn <= 20){
+            txt = "ゴーレムは高防御だ。\r魔法スキルが有効だ！";
+        }
+        binding.resultAdvice.setText(txt);
+        binding.endButton.setVisibility(View.VISIBLE);
     }
 
 
