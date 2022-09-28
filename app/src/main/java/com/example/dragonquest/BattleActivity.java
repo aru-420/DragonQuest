@@ -19,6 +19,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -307,7 +310,7 @@ public class BattleActivity extends AppCompatActivity {
                 }else {
                     GameEndCheck();
                 }
-            }, delayTime/2 - 100); // 約2000ミリ秒（2秒）後
+            }, delayTime/2 ); // 約2000ミリ秒（2秒）後
 
         }else if (skill.getSkill_subject().equals("power_up")){
             Power_up(tof, skill);
@@ -436,10 +439,13 @@ public class BattleActivity extends AppCompatActivity {
         binding.battleMessage.setText(messagetext);
         //エフェクト
         if (enemy_actor.getName().equals("スライム")){
-            GlideDrawableImageViewTarget target = new GlideDrawableImageViewTarget(binding.ememyImage,1);
-            Glide.with(binding.ememyImage.getContext()).load(R.drawable.fadeoutslime)
-                    .placeholder(R.drawable.slime)
-                    .into(target);
+            AlphaAnimation alphaFadeout = new AlphaAnimation(1.0f, 0.0f);
+            // animation時間 msec
+            alphaFadeout.setDuration(1000);
+            // animationが終わったそのまま表示にする
+            alphaFadeout.setFillAfter(true);
+
+            binding.ememyImage.startAnimation(alphaFadeout);
         }
 
 
@@ -724,6 +730,7 @@ public class BattleActivity extends AppCompatActivity {
                             my_actor = new Actor(cursor2.getString(0), cursor2.getInt(1), cursor2.getInt(2),
                                     cursor2.getInt(3), cursor2.getInt(4),
                                     my_skill1,my_skill2,my_skill3,my_skill4);
+
                         }
 
 
@@ -735,9 +742,6 @@ public class BattleActivity extends AppCompatActivity {
                         Skill my_skill4 = SettingSkill(4,cursor2.getString(8));
                         //検索結果からmy_actorを作成
                         my_actor = new Actor(cursor2.getString(0), cursor2.getInt(1), cursor2.getInt(2),
-                                cursor2.getInt(3), cursor2.getInt(4),
-                                my_skill1,my_skill2,my_skill3,my_skill4);
-                        my_feast = new Actor(cursor2.getString(0), cursor2.getInt(1), cursor2.getInt(2),
                                 cursor2.getInt(3), cursor2.getInt(4),
                                 my_skill1,my_skill2,my_skill3,my_skill4);
                     }
@@ -769,6 +773,7 @@ public class BattleActivity extends AppCompatActivity {
                 }
 
                 onSave(my_actor, 4);
+                onSave(my_actor, 3);
             }
 
 
@@ -809,6 +814,7 @@ public class BattleActivity extends AppCompatActivity {
                         Skill enemy_skill4 = SettingSkill(2,skill4);
                         enemy_actor = new Actor(enemy_name, enemy_hp, enemy_atk, enemy_def, enemy_dex,
                                 enemy_skill1,enemy_skill2,enemy_skill3,enemy_skill4);
+                        onSave(enemy_actor, 2);
                     }else {
                         Skill enemy_skill1 = SettingSkill(1,cursor.getString(5));
                         Skill enemy_skill2 = SettingSkill(2,cursor.getString(6));
@@ -852,6 +858,10 @@ public class BattleActivity extends AppCompatActivity {
                 break;
             case 2:
                 image.setImageResource(R.drawable.dragon);
+                binding.BattleSecen.setBackgroundResource(R.drawable.background4);   //背景変更
+                break;
+            case 3:
+                image.setImageResource(R.drawable.lastboss);
                 binding.BattleSecen.setBackgroundResource(R.drawable.background3);   //背景変更
                 break;
             default:

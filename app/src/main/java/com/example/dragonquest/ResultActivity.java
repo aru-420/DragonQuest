@@ -2,6 +2,7 @@ package com.example.dragonquest;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -38,9 +39,36 @@ public class ResultActivity extends AppCompatActivity {
         }, 1000); // 約2000ミリ秒（2秒）後
 
 
+        //終了ボタンを押したとき
         binding.endButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // キャラクターDBの内容を初期化
+                // 入力されたタイトルとコンテンツをContentValuesに設定
+                // ContentValuesは、項目名と値をセットで保存できるオブジェクト
+                ContentValues cv = new ContentValues();
+                cv.put(DBTables.CharacterTable.CHARA_SAVE_NAME, "");
+                cv.put(DBTables.CharacterTable.CHARA_SAVE_HP, 0);
+                cv.put(DBTables.CharacterTable.CHARA_SAVE_ATK, 0);
+                cv.put(DBTables.CharacterTable.CHARA_SAVE_DEF, 0);
+                cv.put(DBTables.CharacterTable.CHARA_SAVE_DEX, 0);
+                cv.put(DBTables.CharacterTable.CHARA_SAVE_SKILL1, "");
+                cv.put(DBTables.CharacterTable.CHARA_SAVE_SKILL2, "");
+                cv.put(DBTables.CharacterTable.CHARA_SAVE_SKILL3, "");
+                cv.put(DBTables.CharacterTable.CHARA_SAVE_SKILL4, "");
+                cv.put(DBTables.CharacterTable.CHARA_SAVE_TURN, 0);
+                cv.put(DBTables.CharacterTable.CHARA_SAVE_STAGE, 1);
+
+                //where文 今回はidを指定して
+                String where = DBTables.CharacterTable.CHARA_SAVE_ID + " = " + 1;
+
+                // 書き込みモードでデータベースをオープン
+                try (SQLiteDatabase db = helper.getWritableDatabase()) {
+
+                    //アップデート
+                    db.update(DBTables.CharacterTable.TABLE_NAME, cv, where, null);
+
+                }
                 Intent intent = new Intent(getApplication(), TitleActivity.class);
                 startActivity(intent);
             }
