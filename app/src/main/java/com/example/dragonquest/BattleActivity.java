@@ -448,21 +448,19 @@ public class BattleActivity extends AppCompatActivity {
             binding.ememyImage.startAnimation(alphaFadeout);
         }
 
-
-
         binding.battleEndButton.setText("次の育成へ");
         binding.battleEndButton.setVisibility(View.VISIBLE);
 
         //DB更新
         EndDBChange(true);
+        //ステージカウント
+        StageDBUpdate(stage_num);
         //育成画面へ移行
         binding.battleEndButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplication(), NurtureActivity.class);
                 startActivity(intent);
-                //ステージカウント
-                StageDBUpdate(stage_num);
             }
         });
     }
@@ -546,6 +544,7 @@ public class BattleActivity extends AppCompatActivity {
         num += 1;
         ContentValues cv = new ContentValues();
         cv.put(CharacterTable.CHARA_SAVE_STAGE, num);
+        cv.put(CharacterTable.CHARA_SAVE_TURN, 0);
         try (SQLiteDatabase db = helper.getWritableDatabase()) {
             //データベース更新
             String where = CharacterTable.CHARA_SAVE_ID + " = " + 1;
