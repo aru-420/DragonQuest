@@ -1,40 +1,97 @@
 {
   "遺跡探索": {
     "event_name": "遺跡探索",
-    "event_content": "罠を乗り越え踏破した",
-    "event_hp": 3,
-    "event_atk": 3,
-    "event_def": 3,
+    "event_content": "最深部で宝箱を見つけた",
+    "event_hp": 55,
+    "event_atk": 5,
+    "event_def": 10,
     "event_dex": 15,
-    "event_skill": ""
+    "event_skill": "アイス"
   },
   "オアシスだ！": {
     "event_name": "オアシスだ！",
     "event_content": "乾いた喉が潤った",
     "event_hp": 150,
-    "event_atk": 20,
-    "event_def": 20,
-    "event_dex": 20,
+    "event_atk": 15,
+    "event_def": 15,
+    "event_dex": 15,
     "event_skill": ""
   },
   "夜に歩く": {
     "event_name": "夜に歩く",
     "event_content": "夜の星を目印に歩いた",
     "event_hp": 50,
-    "event_atk": 5,
+    "event_atk": 15,
     "event_def": 10,
-    "event_dex": 10,
+    "event_dex": 5,
     "event_skill": ""
   },
   "砂丘を超える": {
     "event_name": "砂丘を越える",
     "event_content": "暑さに体力を奪われながらも乗り越えた",
     "event_hp": -60,
-    "event_atk": 3,
-    "event_def": 25,
+    "event_atk": 15,
+    "event_def": 10,
     "event_dex": 15,
     "event_skill": ""
   },
+  "ラクダに乗る": {
+    "event_name": "ラクダに乗る",
+    "event_content": "ラクダになつかれた",
+    "event_hp": 80,
+    "event_atk": 5,
+    "event_def": 15,
+    "event_dex": 15,
+    "event_skill": ""
+  },
+  "人が倒れている！": {
+    "event_name": "人が倒れている！",
+    "event_content": "水を分けたお礼に魔法の書をもらった",
+    "event_hp": 30,
+    "event_atk": 15,
+    "event_def": 10,
+    "event_dex": 0,
+    "event_skill": "ファイヤー"
+  },
+  "ノドが乾いた...": {
+    "event_name": "ノドが乾いた...",
+    "event_content": "雨が降るまで休もう...",
+    "event_hp": 50,
+    "event_atk": 10,
+    "event_def": 0,
+    "event_dex": 10,
+    "event_skill": ""
+  },
+  "雨が降ってきた": {
+    "event_name": "雨が降ってきた",
+    "event_content": "この先のために雨水を蓄えた",
+    "event_hp": 100,
+    "event_atk": 10,
+    "event_def": 10,
+    "event_dex": 10,
+    "event_skill": ""
+  },
+  "ピラミッドだ！": {
+    "event_name": "ピラミッドだ！",
+    "event_content": "まつられた王家に祈りをささげた",
+    "event_hp": 30,
+    "event_atk": 10,
+    "event_def": 5,
+    "event_dex": 5,
+    "event_skill": "祈り"
+  },
+  "大サソリが現れた！": {
+    "event_name": "大サソリが現れた！",
+    "event_content": "毒針に当たらぬよう立ち回った",
+    "event_hp": -10,
+    "event_atk": 30,
+    "event_def": 10,
+    "event_dex": 20,
+    "event_skill": ""
+  },
+
+
+
   "怪しげな小屋": {
     "event_name": "怪しげな小屋",
     "event_content": "小屋の魔女に魔術を教わった",
@@ -62,6 +119,8 @@
     "event_dex": 0,
     "event_skill": "メガファイヤー"
   },
+
+
   "石像が現れた！": {
     "event_name": "石像が現れた！",
     "event_content": "渾身の一撃で砕いた。",
@@ -75,8 +134,8 @@
     "event_name": "ケルベロスが現れた！",
     "event_content": "一頭ずつ丁寧に倒した。",
     "event_hp": -33,
-    "event_atk": 3,
-    "event_def": 10,
+    "event_atk": 10,
+    "event_def": 20,
     "event_dex": 45,
     "event_skill": ""
   },
@@ -85,17 +144,17 @@
     "event_content": "強力な魔法を凌ぎ切った。",
     "event_hp": -100,
     "event_atk": 55,
-    "event_def": -10,
-    "event_dex": 40,
+    "event_def": 20,
+    "event_dex": 20,
     "event_skill": ""
   },
   "大蛇が現れた！": {
     "event_name": "大蛇が現れた！",
     "event_content": "強靭な鱗をも貫通する一撃を放った。",
     "event_hp": -20,
-    "event_atk": 70,
+    "event_atk": 60,
     "event_def": -10,
-    "event_dex": -30,
+    "event_dex": 20,
     "event_skill": ""
   },
   "どこからか声がする": {
@@ -108,7 +167,7 @@
     "event_skill": ""
   },
   "部屋に閉じ込められた！": {
-  "event_name": "部屋に閉じ込められた！！",
+  "event_name": "部屋に閉じ込められた！",
   "event_content": "灼熱の中でも耐えきった。",
   "event_hp": -50,
   "event_atk": 0,
@@ -116,6 +175,26 @@
   "event_dex": 0,
   "event_skill": ""
   },
+  "幻影師が現れた！": {
+    "event_name": "幻影師が現れた！",
+    "event_content": "幻影ごと薙ぎ払った。",
+    "event_hp": -50,
+    "event_atk": 50,
+    "event_def": 10,
+    "event_dex": 15,
+    "event_skill": ""
+  },
+  "が現れた！": {
+    "event_name": "幻影師が現れた！",
+    "event_content": "幻影ごと薙ぎ払った。",
+    "event_hp": -50,
+    "event_atk": 50,
+    "event_def": 10,
+    "event_dex": 15,
+    "event_skill": ""
+  },
+
+
   "宝箱だ！": {
     "event_name": "宝箱だ！",
     "event_content": "秘伝の書が入っていた",
@@ -124,5 +203,7 @@
     "event_def": 20,
     "event_dex": 20,
     "event_skill": "ヒール"
-  }
+  },
+
+
 }

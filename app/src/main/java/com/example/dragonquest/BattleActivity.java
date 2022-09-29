@@ -75,7 +75,7 @@ public class BattleActivity extends AppCompatActivity {
     private int delayTime = 2000;   //ディレイタイムの設定
     private MediaPlayer mediaPlayer;    //BGM再生
     private SoundPool soundPool;
-    private int mp3_sword;
+    private int mp3_sword, mp3_ice;
     private int mp3_heal;
     private int mp3_fire;
     private int stage_num;  //何ステージ目か
@@ -137,13 +137,14 @@ public class BattleActivity extends AppCompatActivity {
             soundPool = new SoundPool.Builder()
                     .setAudioAttributes(attr)
                     //パラメーターはリソースの数に合わせる
-                    .setMaxStreams(3)
+                    .setMaxStreams(4)
                     .build();
         }
         //効果音読み込み
         mp3_fire = soundPool.load(this, R.raw.fire1,1);
         mp3_heal = soundPool.load(this, R.raw.heaal,1);
         mp3_sword = soundPool.load(this, R.raw.sword,1);
+        mp3_ice = soundPool.load(this, R.raw.ice_effect,1);
 
         //エフェクト初期非表示
         binding.myEffect.setVisibility(View.INVISIBLE);
@@ -1166,6 +1167,10 @@ public class BattleActivity extends AppCompatActivity {
             case "recover_effect":
                 re_gif = Glide.with(this).load(R.drawable.recover_effect);
                 soundPool.play(mp3_heal,1f , 1f, 0, 0, 1f);
+                break;
+            case"ice_effect":
+                re_gif = Glide.with(this).load(R.drawable.ice2_effect);
+                soundPool.play(mp3_ice,1f , 1f, 0, 0, 1f);
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + gif);
