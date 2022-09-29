@@ -207,11 +207,11 @@
 
     <Button
         android:id="@+id/Choices1"
-        android:layout_width="158dp"
-        android:layout_height="64dp"
+        android:layout_width="170dp"
+        android:layout_height="70dp"
         android:backgroundTint="@color/翡翠"
         android:text="選択肢1"
-        android:textSize="22sp"
+        android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/character_Image_nu"
         app:layout_constraintEnd_toEndOf="@+id/character_Image_nu"
@@ -222,11 +222,11 @@
 
     <Button
         android:id="@+id/Choices2"
-        android:layout_width="158dp"
-        android:layout_height="64dp"
+        android:layout_width="170dp"
+        android:layout_height="70dp"
         android:backgroundTint="@color/翡翠"
         android:text="選択肢2"
-        android:textSize="22sp"
+        android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/character_Image_nu"
         app:layout_constraintEnd_toEndOf="@+id/character_Image_nu"

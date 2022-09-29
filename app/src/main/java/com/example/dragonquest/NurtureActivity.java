@@ -46,7 +46,7 @@ public class NurtureActivity extends AppCompatActivity {
     //1ステージ目
     private String Event_Name[] = new String[10];
     //2ステージ目
-    private String Event_Name2[] = new String[10];
+    private String Event_Name2[] = new String[11];
     //3ステージ目
     private String Event_Name3[] = new String[10];
 
@@ -77,40 +77,42 @@ public class NurtureActivity extends AppCompatActivity {
         CharaNameStr[1] = "魔法使い";
 
         //Event_Name
-        Event_Name[0] = "走り込み";
-        Event_Name[1] = "筋トレ";
-        Event_Name[2] = "食事";
-        Event_Name[3] = "サウナ";
-        Event_Name[4] = "ストレッチ";
-        Event_Name[5] = "漫画";
-        Event_Name[6] = "パチンコ";
-        Event_Name[7] = "睡眠";
-        Event_Name[8] = "勉強";
-        Event_Name[9] = "温泉";
+        Event_Name[0] = "木を切り倒した";
+        Event_Name[1] = "虫に遭遇した";
+        Event_Name[2] = "雨が降ってきた";
+        Event_Name[3] = "廃墟がある";
+        Event_Name[4] = "水の音がきこえる";
+        Event_Name[5] = "日記を書こう";
+        Event_Name[6] = "底なし沼にはまった";
+        Event_Name[7] = "土砂崩れだ！";
+        Event_Name[8] = "食料調達";
+        Event_Name[9] = "行商人だ！";
 
         //Event_Name2
-        Event_Name2[0] = "すごい走り込み";
-        Event_Name2[1] = "ゲーム";
-        Event_Name2[2] = "お参り";
-        Event_Name2[3] = "おみくじ";
-        Event_Name2[4] = "買い物";
-        Event_Name2[5] = "釣り";
-        Event_Name2[6] = "バイト";
-        Event_Name2[7] = "スロット";
-        Event_Name2[8] = "探検";
-        Event_Name2[9] = "大食い";
+        Event_Name2[0] = "遺跡探索";
+        Event_Name2[1] = "オアシスだ";
+        Event_Name2[2] = "夜に歩く";
+        Event_Name2[3] = "砂丘を超える";
+        Event_Name2[4] = "ラクダに乗る";
+        Event_Name2[5] = "人が倒れている！";
+        Event_Name2[6] = "ノドが乾いた...";
+        Event_Name2[7] = "雨が降り出した";
+        Event_Name2[8] = "ピラミッドだ！";
+        Event_Name2[9] = "大サソリが現れた！";
+        Event_Name2[10] = "砂丘が連なる";
 
         //Event_Name3
-        Event_Name3[0] = "遺跡探索";
-        Event_Name3[1] = "オアシスだ";
-        Event_Name3[2] = "夜に歩く";
-        Event_Name3[3] = "砂丘を超える";
-        Event_Name3[4] = "怪しげな小屋";
-        Event_Name3[5] = "商人の護衛";
-        Event_Name3[6] = "小さな小屋がある...";
-        Event_Name3[7] = "石像が襲ってきた！";
-        Event_Name3[8] = "宝箱だ！";
-        Event_Name3[9] = "";
+        Event_Name3[0] = "すごい走り込み";
+        Event_Name3[1] = "ゲーム";
+        Event_Name3[2] = "お参り";
+        Event_Name3[3] = "おみくじ";
+        Event_Name3[4] = "買い物";
+        Event_Name3[5] = "釣り";
+        Event_Name3[6] = "バイト";
+        Event_Name3[7] = "スロット";
+        Event_Name3[8] = "探検";
+        Event_Name3[9] = "大食い";
+
 
 
         //ステージの判定
@@ -646,25 +648,31 @@ public class NurtureActivity extends AppCompatActivity {
         }
     }
 
+    //
+    protected void rad_num(int getint){
+        //選択肢(ボタン)をランダムで生成
+        Event_choices1 = rnd.nextInt(getint);
+        Event_choices2 = rnd.nextInt(getint);
+        while (Event_choices1 == Event_choices2){
+            Event_choices1 = rnd.nextInt(getint);
+            Event_choices2 = rnd.nextInt(getint);
+        }
+    }
+
     //ランダムな数字で選択肢を選択
     protected void random_Choices(){
-        //選択肢(ボタン)をランダムで生成
-        Event_choices1 = rnd.nextInt(10);
-        Event_choices2 = rnd.nextInt(10);
-        while (Event_choices1 == Event_choices2){
-            Event_choices1 = rnd.nextInt(10);
-            Event_choices2 = rnd.nextInt(10);
-        }
-
         if(stage_num == 1){
+            rad_num(10);
             //選択肢(ボタン)にイベントの名前を表示
             binding.Choices1.setText(Event_Name[Event_choices1]);
             binding.Choices2.setText(Event_Name[Event_choices2]);
         }else if(stage_num == 2){
+            rad_num(11);
             //選択肢(ボタン)にイベントの名前を表示
             binding.Choices1.setText(Event_Name2[Event_choices1]);
             binding.Choices2.setText(Event_Name2[Event_choices2]);
         }else if(stage_num == 3){
+            rad_num(10);
             //選択肢(ボタン)にイベントの名前を表示
             binding.Choices1.setText(Event_Name3[Event_choices1]);
             binding.Choices2.setText(Event_Name3[Event_choices2]);
