@@ -87,6 +87,7 @@ public class NurtureActivity extends AppCompatActivity {
         Event_Name[7] = "睡眠";
         Event_Name[8] = "勉強";
         Event_Name[9] = "温泉";
+
         //Event_Name2
         Event_Name2[0] = "すごい走り込み";
         Event_Name2[1] = "ゲーム";
@@ -98,7 +99,18 @@ public class NurtureActivity extends AppCompatActivity {
         Event_Name2[7] = "スロット";
         Event_Name2[8] = "探検";
         Event_Name2[9] = "大食い";
+
         //Event_Name3
+        Event_Name3[0] = "遺跡探索";
+        Event_Name3[1] = "オアシスだ";
+        Event_Name3[2] = "夜に歩く";
+        Event_Name3[3] = "砂丘を超える";
+        Event_Name3[4] = "怪しげな小屋";
+        Event_Name3[5] = "商人の護衛";
+        Event_Name3[6] = "小さな小屋がある...";
+        Event_Name3[7] = "石像が襲ってきた！";
+        Event_Name3[8] = "宝箱だ！";
+        Event_Name3[9] = "";
 
 
         //ステージの判定
@@ -366,6 +378,9 @@ public class NurtureActivity extends AppCompatActivity {
                     break;
                 case 2:
                     binding.NurtureScene.setBackgroundResource(R.drawable.background3);
+                    break;
+                case 3:
+                    binding.NurtureScene.setBackgroundResource(R.drawable.background4);
                     break;
                 default:
                     binding.NurtureScene.setBackgroundResource(R.drawable.background);
@@ -650,7 +665,9 @@ public class NurtureActivity extends AppCompatActivity {
             binding.Choices1.setText(Event_Name2[Event_choices1]);
             binding.Choices2.setText(Event_Name2[Event_choices2]);
         }else if(stage_num == 3){
-
+            //選択肢(ボタン)にイベントの名前を表示
+            binding.Choices1.setText(Event_Name3[Event_choices1]);
+            binding.Choices2.setText(Event_Name3[Event_choices2]);
         }
 
 

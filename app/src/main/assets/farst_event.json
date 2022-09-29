@@ -1,93 +1,93 @@
 {
-  "走り込み": {
-    "event_name": "走り込み",
-    "event_content": "草原を走り回った",
-    "event_hp": 3,
+  "木を切り倒した": {
+    "event_name": "木を切り倒した",
+    "event_content": "薪に使おう",
+    "event_hp": 20,
+    "event_atk": 9,
+    "event_def": 3,
+    "event_dex": 4,
+    "event_skill": "チャージアックス"
+  },
+  "虫に遭遇した": {
+    "event_name": "虫に遭遇した",
+    "event_content": "あまり好きではない...",
+    "event_hp": 10,
+    "event_atk": 2,
+    "event_def": -3,
+    "event_dex": 10,
+    "event_skill": ""
+  },
+  "雨が降ってきた": {
+    "event_name": "雨が降ってきた",
+    "event_content": "雨宿りができる場所を探そう",
+    "event_hp": 5,
     "event_atk": 0,
-    "event_def": 0,
+    "event_def": 5,
+    "event_dex": 8,
+    "event_skill": ""
+  },
+  "廃墟がある": {
+    "event_name": "廃墟がある",
+    "event_content": "何もなかった",
+    "event_hp": 12,
+    "event_atk": 5,
+    "event_def": 5,
+    "event_dex": 5,
+    "event_skill": ""
+  },
+  "水の音がきこえる": {
+    "event_name": "水の音がきこえる",
+    "event_content": "川を発見した",
+    "event_hp": 12,
+    "event_atk": 3,
+    "event_def": 9,
+    "event_dex": 3,
+    "event_skill": ""
+  },
+  "日記を書こう": {
+    "event_name": "日記を書こう",
+    "event_content": "今日体験したいろんなことを記録しよう",
+    "event_hp": 6,
+    "event_atk": 4,
+    "event_def": 6,
+    "event_dex": 2,
+    "event_skill": ""
+  },
+  "底なし沼にはまった": {
+    "event_name": "底なし沼にはまった",
+    "event_content": "はぁはぁ、ギリギリ抜け出せた",
+    "event_hp": 10,
+    "event_atk": 5,
+    "event_def": -2,
+    "event_dex": 5,
+    "event_skill": "縮地"
+  },
+  "土砂崩れだ！": {
+    "event_name": "土砂崩れだ！",
+    "event_content": "この場所は危険だな",
+    "event_hp": 13,
+    "event_atk": 4,
+    "event_def": 4,
     "event_dex": 7,
     "event_skill": ""
   },
-  "筋トレ": {
-    "event_name": "筋トレ",
-    "event_content": "50kgのバーベルを持ち上げた",
-    "event_hp": 0,
-    "event_atk": 7,
-    "event_def": 4,
-    "event_dex": -1,
-    "event_skill": "普通のパンチ"
-  },
-  "食事": {
-    "event_name": "食事",
-    "event_content": "沢山のご飯を食べた",
-    "event_hp": 3,
-    "event_atk": 0,
-    "event_def": 2,
+  "食料調達": {
+    "event_name": "食料調達",
+    "event_content": "命に感謝",
+    "event_hp": 20,
+    "event_atk": 10,
+    "event_def": 8,
     "event_dex": 3,
     "event_skill": ""
   },
-  "サウナ": {
-    "event_name": "サウナ",
-    "event_content": "整った",
-    "event_hp": 10,
-    "event_atk": 0,
-    "event_def": 0,
-    "event_dex": 0,
-    "event_skill": "整い"
-  },
-  "ストレッチ": {
-    "event_name": "ストレッチ",
-    "event_content": "柔軟体操をした",
-    "event_hp": 0,
+  "行商人だ！": {
+    "event_name": "行商人だ！",
+    "event_content": "備品を買い足しておこう",
+    "event_hp": 5,
     "event_atk": 2,
-    "event_def": 5,
-    "event_dex": 3,
-    "event_skill": ""
-  },
-  "漫画": {
-    "event_name": "漫画",
-    "event_content": "漫画でイメトレをした",
-    "event_hp": 2,
-    "event_atk": 2,
-    "event_def": 2,
-    "event_dex": 2,
-    "event_skill": "かめはめ波"
-  },
-  "パチンコ": {
-    "event_name": "パチンコ",
-    "event_content": "今日こそ勝つぞ",
-    "event_hp": 0,
-    "event_atk": 12,
-    "event_def": -5,
-    "event_dex": -3,
-    "event_skill": "右打ち"
-  },
-  "睡眠": {
-    "event_name": "睡眠",
-    "event_content": "ZzZzZz",
-    "event_hp": 8,
-    "event_atk": 0,
-    "event_def": 2,
-    "event_dex": 0,
-    "event_skill": "いびき"
-  },
-  "勉強": {
-    "event_name": "勉強",
-    "event_content": "頭がよくなった気がする",
-    "event_hp": 0,
-    "event_atk": 0,
-    "event_def": 3,
-    "event_dex": 6,
-    "event_skill": ""
-  },
-  "温泉": {
-    "event_name": "温泉",
-    "event_content": "いい湯だ",
-    "event_hp": 7,
-    "event_atk": 0,
-    "event_def": 2,
-    "event_dex": 2,
-    "event_skill": ""
+    "event_def": 8,
+    "event_dex": 5,
+    "event_skill": "ブースト"
   },
 
 
@@ -187,22 +187,85 @@
 
 
 
-  "ドライブ": {
-    "event_name": "ドライブ",
-    "event_content": "夜景を見に行こう",
-    "event_hp": 15,
-    "event_atk": 0,
+  "遺跡探索": {
+    "event_name": "遺跡探索",
+    "event_content": "罠を乗り越え踏破した",
+    "event_hp": 3,
+    "event_atk": 3,
+    "event_def": 3,
+    "event_dex": 15,
+    "event_skill": ""
+  },
+  "オアシスだ！": {
+    "event_name": "オアシスだ！",
+    "event_content": "乾いた喉が潤った",
+    "event_hp": 150,
+    "event_atk": 20,
+    "event_def": 20,
+    "event_dex": 20,
+    "event_skill": ""
+  },
+  "夜に歩く": {
+    "event_name": "夜に歩く",
+    "event_content": "夜の星を目印に歩いた",
+    "event_hp": 50,
+    "event_atk": 5,
     "event_def": 10,
     "event_dex": 10,
     "event_skill": ""
   },
-  "": {
-    "event_name": "",
-    "event_content": "",
-    "event_hp": 15,
-    "event_atk": 0,
+  "砂丘を超える": {
+    "event_name": "砂丘を越える",
+    "event_content": "暑さに体力を奪われながらも乗り越えた",
+    "event_hp": -60,
+    "event_atk": 3,
+    "event_def": 25,
+    "event_dex": 15,
+    "event_skill": ""
+  },
+  "怪しげな小屋": {
+    "event_name": "怪しげな小屋",
+    "event_content": "小屋の魔女に魔術を教わった",
+    "event_hp": 0,
+    "event_atk": 20,
+    "event_def": -5,
+    "event_dex": 0,
+    "event_skill": "ファイヤー"
+  },
+  "商人の護衛": {
+    "event_name": "商人の護衛",
+    "event_content": "襲ってきた狼を追い払った",
+    "event_hp": -50,
+    "event_atk": 10,
+    "event_def": 10,
+    "event_dex": 15,
+    "event_skill": ""
+  },
+  "小さな小屋がある...": {
+    "event_name": "小さな小屋がある...",
+    "event_content": "仙人に魔術の極意を教わった",
+    "event_hp": 25,
+    "event_atk": 40,
+    "event_def": 0,
+    "event_dex": 0,
+    "event_skill": "メガファイヤー"
+  },
+  "石像が襲ってきた！": {
+    "event_name": "石像が襲ってきた！",
+    "event_content": "渾身の一撃で砕いた。",
+    "event_hp": -50,
+    "event_atk": 50,
     "event_def": 10,
     "event_dex": 10,
     "event_skill": ""
+  },
+  "宝箱だ！": {
+    "event_name": "宝箱だ！",
+    "event_content": "秘伝の書が入っていた",
+    "event_hp": -50,
+    "event_atk": 50,
+    "event_def": 10,
+    "event_dex": 10,
+    "event_skill": "ヒール"
   }
 }

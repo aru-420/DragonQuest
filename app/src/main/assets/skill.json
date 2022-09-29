@@ -101,31 +101,19 @@
     "skill_gif": "sword_effect",
     "skill_context": "攻撃力の240%で相手に二回攻撃"
   },
-  "普通のパンチ": {
+  "チャージアックス": {
   "skill_effect": 2.0,
   "skill_subject": "double",
   "skill_gif": "sword_effect",
   "skill_context": "攻撃力の200%で相手に二回攻撃"
   },
-  "整い": {
+  "ブースト": {
     "skill_effect": 100,
     "skill_subject": "power_up",
     "skill_gif": "recover_effect",
     "skill_context": "現在の攻撃力に＋100"
   },
-  "かめはめ波": {
-    "skill_effect": 2.0,
-    "skill_subject": "double",
-    "skill_gif": "sword_effect",
-    "skill_context": "攻撃力の200%で相手に二回攻撃"
-  },
-  "いびき": {
-    "skill_effect": 2.0,
-    "skill_subject": "double",
-    "skill_gif": "sword_effect",
-    "skill_context": "攻撃力の200%で相手に二回攻撃"
-  },
-  "右打ち": {
+  "縮地": {
     "skill_effect": 2.0,
     "skill_subject": "double",
     "skill_gif": "sword_effect",
