@@ -12,10 +12,10 @@
     "skill_context": "攻撃力の250%で相手に攻撃"
   },
   "ヒール": {
-    "skill_effect": 0.8,
+    "skill_effect": 1.5,
     "skill_subject": "my",
     "skill_gif": "recover_effect",
-    "skill_context": "攻撃力の80%、HPが回復"
+    "skill_context": "攻撃力の150%、HPが回復"
   },
   "ダブルスラッシュ": {
     "skill_effect": 1.5,
@@ -66,10 +66,10 @@
     "skill_context": "攻撃力の270%で相手に攻撃"
   },
   "ファイアー": {
-    "skill_effect": 3.0,
+    "skill_effect": 2.3,
     "skill_subject": "element",
     "skill_gif": "fire_effect",
-    "skill_context": "相手の防御を半分無視して攻撃力の300%で相手に攻撃"
+    "skill_context": "相手の防御を半分無視して攻撃力の230%で相手に攻撃"
   },
   "ブレス": {
     "skill_effect": 2.5,
@@ -102,10 +102,10 @@
     "skill_context": "攻撃力の240%で相手に二回攻撃"
   },
   "チャージアックス": {
-  "skill_effect": 2.0,
-  "skill_subject": "double",
+  "skill_effect": 2.3,
+  "skill_subject": "enemy",
   "skill_gif": "sword_effect",
-  "skill_context": "攻撃力の200%で相手に二回攻撃"
+  "skill_context": "攻撃力の230%で相手に攻撃"
   },
   "ブースト": {
     "skill_effect": 100,
@@ -138,15 +138,51 @@
     "skill_context": "攻撃力の250%で相手に攻撃"
   },
   "祈り": {
-    "skill_effect": 2.0,
+    "skill_effect": 1.0,
     "skill_subject": "my",
     "skill_gif": "recover_effect",
-    "skill_context": "攻撃力の200%、HPが回復"
+    "skill_context": "攻撃力の100%、HPが回復"
   },
   "アイス": {
-    "skill_effect": 3.0,
+    "skill_effect": 2.5,
     "skill_subject": "element",
     "skill_gif": "ice_effect",
-    "skill_context": "相手の防御を半分無視して攻撃力の300%で相手に攻撃"
+    "skill_context": "相手の防御を半分無視して攻撃力の250%で相手に攻撃"
+  },
+  "バスターソード": {
+    "skill_effect": 3.2,
+    "skill_subject": "enemy",
+    "skill_gif": "sword_effect",
+    "skill_context": "攻撃力の320%で相手に攻撃"
+  },
+  "アイスブレイク": {
+    "skill_effect": 2.8,
+    "skill_subject": "element",
+    "skill_gif": "ice_effect",
+    "skill_context": "相手の防御を半分無視して攻撃力の280%で相手に攻撃"
+  },
+  "アイスランス": {
+    "skill_effect": 3.0,
+    "skill_subject": "enemy",
+    "skill_gif": "ice_effect",
+    "skill_context": "攻撃力の300%で相手に攻撃"
+  },
+  "奇跡の光": {
+    "skill_effect": 3.5,
+    "skill_subject": "element",
+    "skill_gif": "sword_effect",
+    "skill_context": "相手の防御を半分無視して攻撃力の350%で相手に攻撃"
+  },
+  "薙ぎ払い": {
+    "skill_effect": 3.7,
+    "skill_subject": "enemy",
+    "skill_gif": "sword_effect",
+    "skill_context": "攻撃力の370%で相手に攻撃"
+  },
+  "ブレイクアタック": {
+    "skill_effect": 4.0,
+    "skill_subject": "enemy",
+    "skill_gif": "sword_effect",
+    "skill_context": "攻撃力の400%で相手に攻撃"
   }
 }

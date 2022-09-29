@@ -131,7 +131,7 @@ public class ResultActivity extends AppCompatActivity {
         }else if (turn <= 20){
             txt = "ゴーレムは高防御だ。\r魔法スキルが有効だ！";
         }else if (turn <= 30){
-            txt = "魔王は強敵だ！\n今までのすべてをぶつけて倒してくれ！";
+            txt = "ドラゴンの一撃は強力だ！\nやられる前にやってしまおう！";
         }else if (turn < 40){
             txt = "ラストステージは様々な敵が襲ってくる。\nHPに気を付けながら臨もう";
         }else if (turn == 40){

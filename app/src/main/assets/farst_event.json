@@ -123,7 +123,7 @@
   "砂丘を超える": {
     "event_name": "砂丘を越える",
     "event_content": "暑さに体力を奪われながらも乗り越えた",
-    "event_hp": -60,
+    "event_hp": -30,
     "event_atk": 15,
     "event_def": 10,
     "event_dex": 15,
@@ -186,7 +186,7 @@
   "砂丘が連なる": {
     "event_name": "砂丘が連なる",
     "event_content": "砂丘を切り払った",
-    "event_hp": -60,
+    "event_hp": 30,
     "event_atk": 15,
     "event_def": 10,
     "event_dex": 15,

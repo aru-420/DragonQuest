@@ -92,6 +92,98 @@
 
 
 
+  "氷壁に阻まれた": {
+    "event_name": "氷壁に阻まれた！",
+    "event_content": "研ぎ澄ました一撃で氷壁を壊した",
+    "event_hp": 200,
+    "event_atk": 30,
+    "event_def": 10,
+    "event_dex": 10,
+    "event_skill": "アイスブレイク"
+  },
+  "狩りをしよう": {
+    "event_name": "狩りをしよう",
+    "event_content": "ヤギとトリを仕留めた。鍋にしよう",
+    "event_hp": 250,
+    "event_atk": 10,
+    "event_def": 15,
+    "event_dex": 20,
+    "event_skill": ""
+  },
+  "つららが出来ている": {
+    "event_name": "つららが出来ている",
+    "event_content": "あれにささったら痛そうだ...",
+    "event_hp": 150,
+    "event_atk": 30,
+    "event_def": 10,
+    "event_dex": 20,
+    "event_skill": "アイスランス"
+  },
+  "ここはどこだ？": {
+    "event_name": "ここはどこだ？",
+    "event_content": "目印をつけながら慎重に進もう",
+    "event_hp": 170,
+    "event_atk": 15,
+    "event_def": 20,
+    "event_dex": 5,
+    "event_skill": ""
+  },
+  "猛吹雪だ": {
+    "event_name": "猛吹雪だ",
+    "event_content": "おさまるまで洞窟に避難だ。",
+    "event_hp": 250,
+    "event_atk": 10,
+    "event_def": 35,
+    "event_dex": 5,
+    "event_skill": ""
+  },
+  "山奥に村がある": {
+    "event_name": "山奥に村がある",
+    "event_content": "丁重にもてなされて、しっかり休めた。",
+    "event_hp": 370,
+    "event_atk": 15,
+    "event_def": 15,
+    "event_dex": 15,
+    "event_skill": ""
+  },
+  "洞窟がある": {
+    "event_name": "洞窟がある",
+    "event_content": "中でクマが冬眠していた。",
+    "event_hp": 200,
+    "event_atk": 20,
+    "event_def": 10,
+    "event_dex": 10,
+    "event_skill": ""
+  },
+  "焚火をしよう": {
+    "event_name": "焚火をしよう",
+    "event_content": "凍えぬようしっかり温まった。",
+    "event_hp": 300,
+    "event_atk": 10,
+    "event_def": 10,
+    "event_dex": 10,
+    "event_skill": ""
+  },
+  "神秘的な洞窟がある": {
+    "event_name": "神秘的な洞窟がある",
+    "event_content": "中に剣が刺さっていた。抜けなかった...",
+    "event_hp": 150,
+    "event_atk": 20,
+    "event_def": 5,
+    "event_dex": 20,
+    "event_skill": "バスターソード"
+  },
+  "山の中で修行だ": {
+    "event_name": "山の中で修行だ",
+    "event_content": "身も心も成長した気がする",
+    "event_hp": 250,
+    "event_atk": 20,
+    "event_def": 20,
+    "event_dex": 20,
+    "event_skill": ""
+  },
+
+
   "怪しげな小屋": {
     "event_name": "怪しげな小屋",
     "event_content": "小屋の魔女に魔術を教わった",
@@ -128,7 +220,7 @@
     "event_atk": 50,
     "event_def": 10,
     "event_dex": 10,
-    "event_skill": ""
+    "event_skill": "ブレイクアタック"
   },
   "ケルベロスが現れた！": {
     "event_name": "ケルベロスが現れた！",
@@ -182,16 +274,34 @@
     "event_atk": 50,
     "event_def": 10,
     "event_dex": 15,
+    "event_skill": "薙ぎ払い"
+  },
+  "デュラハンが現れた！": {
+    "event_name": "デュラハンが現れた！",
+    "event_content": "死角にまわりとどめをさした。",
+    "event_hp": -55,
+    "event_atk": 30,
+    "event_def": 20,
+    "event_dex": 35,
     "event_skill": ""
   },
-  "が現れた！": {
-    "event_name": "幻影師が現れた！",
-    "event_content": "幻影ごと薙ぎ払った。",
-    "event_hp": -50,
-    "event_atk": 50,
-    "event_def": 10,
-    "event_dex": 15,
+  "メデューサが現れた！": {
+    "event_name": "メデューサが現れた！",
+    "event_content": "目が合わぬよう素早く立ち回った。",
+    "event_hp": -30,
+    "event_atk": 15,
+    "event_def": 15,
+    "event_dex": 50,
     "event_skill": ""
+  },
+  "骸騎士が現れた！": {
+    "event_name": "骸騎士が現れた！",
+    "event_content": "浄化の力で眠らした。",
+    "event_hp": -70,
+    "event_atk": 35,
+    "event_def": 25,
+    "event_dex": 20,
+    "event_skill": "奇跡の光"
   },
 
 
