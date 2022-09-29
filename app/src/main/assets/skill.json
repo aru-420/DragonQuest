@@ -131,10 +131,22 @@
     "skill_gif": "sword_effect",
     "skill_context": "攻撃力の270%で相手に攻撃"
   },
-  "デザートソード": {
-    "skill_effect": 2.7,
+  "鱗砕き": {
+    "skill_effect": 2.5,
     "skill_subject": "enemy",
     "skill_gif": "sword_effect",
-    "skill_context": "攻撃力の270%で相手に攻撃"
+    "skill_context": "攻撃力の250%で相手に攻撃"
+  },
+  "祈り": {
+    "skill_effect": 2.0,
+    "skill_subject": "my",
+    "skill_gif": "recover_effect",
+    "skill_context": "攻撃力の200%、HPが回復"
+  },
+  "アイス": {
+    "skill_effect": 3.0,
+    "skill_subject": "element",
+    "skill_gif": "ice_effect",
+    "skill_context": "相手の防御を半分無視して攻撃力の300%で相手に攻撃"
   }
 }
