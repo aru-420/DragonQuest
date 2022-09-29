@@ -256,7 +256,7 @@
     "event_atk": 0,
     "event_def": 0,
     "event_dex": 0,
-    "event_skill": ""
+    "event_skill": "グロウヒーロー"
   },
   "部屋に閉じ込められた！": {
   "event_name": "部屋に閉じ込められた！",

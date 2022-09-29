@@ -317,6 +317,8 @@ public class BattleActivity extends AppCompatActivity {
             if (!end){
                 messageclickflag = false;
             }
+        }else if (skill.getSkill_subject().equals("GROW_HERO")){
+            Grow_hero(tof, skill);
         }
         //行動してないキャラがいるか
         if (end){
@@ -520,6 +522,35 @@ public class BattleActivity extends AppCompatActivity {
             messagetext = my_actor.getName() + "の" + skill.getSkill_name() + "\n" +  "攻撃力が"
                     + skill_effect + "上昇!";
         }
+        //エフェクト表示
+        effect_show(!MoE, skill.getSkill_gif());
+        //バトルメッセージに表示
+        binding.battleMessage.setText(messagetext);
+    }
+
+    //バフスキル
+    private void Grow_hero(boolean MoE, Skill skill){
+        //加算結果を入れる変数
+        int atk,def,dex,view_atk,view_def,view_dex;
+        //int型に変換
+        int skill_effect = (int)(0+skill.getSkill_effect());
+
+
+        atk = (int) (my_actor.getAtk() * skill.getSkill_effect());
+        view_atk = atk - my_actor.getAtk();
+        def = (int) (my_actor.getDef() + skill.getSkill_effect());
+        view_def = def - my_actor.getDef();
+        dex = (int) (my_actor.getDex() + skill.getSkill_effect());
+        view_dex = dex - my_actor.getDex();
+        my_actor.setAtk(atk);
+        my_actor.setDef(def);
+        my_actor.setDex(dex);
+        //表示するメッセージ
+        messagetext = my_actor.getName() + "の" + skill.getSkill_name() + "\n" +  "攻撃力が"
+                + view_atk + "上昇!\n"
+                + view_def + "上昇!\n"
+                + view_dex + "上昇!";
+
         //エフェクト表示
         effect_show(!MoE, skill.getSkill_gif());
         //バトルメッセージに表示

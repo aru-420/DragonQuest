@@ -184,5 +184,11 @@
     "skill_subject": "enemy",
     "skill_gif": "sword_effect",
     "skill_context": "攻撃力の400%で相手に攻撃"
+  },
+  "グロウヒーロー": {
+    "skill_effect": 1.5,
+    "skill_subject": "GROW_HERO",
+    "skill_gif": "recover_effect",
+    "skill_context": "全ステータスを150%で相手に攻撃"
   }
 }
