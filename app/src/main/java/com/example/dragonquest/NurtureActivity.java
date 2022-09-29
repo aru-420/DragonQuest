@@ -49,6 +49,8 @@ public class NurtureActivity extends AppCompatActivity {
     private String Event_Name2[] = new String[11];
     //3ステージ目
     private String Event_Name3[] = new String[10];
+    //4ステージ目
+    private String Event_Name4[] = new String[10];
 
     //データベース接続用変数
     private DatabaseHelper helper = null;
@@ -102,16 +104,28 @@ public class NurtureActivity extends AppCompatActivity {
         Event_Name2[10] = "砂丘が連なる";
 
         //Event_Name3
-        Event_Name3[0] = "すごい走り込み";
-        Event_Name3[1] = "ゲーム";
-        Event_Name3[2] = "お参り";
-        Event_Name3[3] = "おみくじ";
-        Event_Name3[4] = "買い物";
-        Event_Name3[5] = "釣り";
-        Event_Name3[6] = "バイト";
-        Event_Name3[7] = "スロット";
-        Event_Name3[8] = "探検";
-        Event_Name3[9] = "大食い";
+        Event_Name3[0] = "氷壁に阻まれた";
+        Event_Name3[1] = "狩りをしよう";
+        Event_Name3[2] = "つららが出来ている";
+        Event_Name3[3] = "ここはどこだ？";
+        Event_Name3[4] = "猛吹雪だ";
+        Event_Name3[5] = "山奥に村がある";
+        Event_Name3[6] = "洞窟がある";
+        Event_Name3[7] = "焚火をしよう";
+        Event_Name3[8] = "神秘的な洞窟がある";
+        Event_Name3[9] = "山の中で修行だ";
+
+        //Event_Name4
+        Event_Name4[0] = "石像が現れた！";
+        Event_Name4[1] = "ケルベロスが現れた！";
+        Event_Name4[2] = "悪魔が現れた！";
+        Event_Name4[3] = "大蛇が現れた！";
+        Event_Name4[4] = "どこからか声がする";
+        Event_Name4[5] = "部屋に閉じ込められた！";
+        Event_Name4[6] = "幻影師が現れた！";
+        Event_Name4[7] = "デュラハンが現れた！";
+        Event_Name4[8] = "メデューサが現れた！";
+        Event_Name4[9] = "骸騎士が現れた！";
 
 
 
@@ -379,10 +393,10 @@ public class NurtureActivity extends AppCompatActivity {
                     binding.NurtureScene.setBackgroundResource(R.drawable.background2);
                     break;
                 case 2:
-                    binding.NurtureScene.setBackgroundResource(R.drawable.background3);
+                    binding.NurtureScene.setBackgroundResource(R.drawable.background4);
                     break;
                 case 3:
-                    binding.NurtureScene.setBackgroundResource(R.drawable.background4);
+                    binding.NurtureScene.setBackgroundResource(R.drawable.background3);
                     break;
                 default:
                     binding.NurtureScene.setBackgroundResource(R.drawable.background);
@@ -672,6 +686,11 @@ public class NurtureActivity extends AppCompatActivity {
             binding.Choices1.setText(Event_Name2[Event_choices1]);
             binding.Choices2.setText(Event_Name2[Event_choices2]);
         }else if(stage_num == 3){
+            rad_num(10);
+            //選択肢(ボタン)にイベントの名前を表示
+            binding.Choices1.setText(Event_Name3[Event_choices1]);
+            binding.Choices2.setText(Event_Name3[Event_choices2]);
+        }else if(stage_num == 4){
             rad_num(10);
             //選択肢(ボタン)にイベントの名前を表示
             binding.Choices1.setText(Event_Name3[Event_choices1]);
