@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.database.Cursor;
@@ -20,8 +19,6 @@ import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -303,14 +300,16 @@ public class BattleActivity extends AppCompatActivity {
             //ダメージ計算
             damegeRandom(tof, skill);
             //表示2秒後に処理を移す
+            if (my_actor.getHp() != 0 && enemy_actor.getHp() != 0){
             handler.postDelayed(() -> {
                 //２秒待って実行
-                if (my_actor.getHp() != 0 && enemy_actor.getHp() != 0){
+
                     damegeRandom(tof, skill);
-                }else {
-                    GameEndCheck();
-                }
+
             }, delayTime/2 ); // 約2000ミリ秒（2秒）後
+            }else {
+                //GameEndCheck();
+            }
 
         }else if (skill.getSkill_subject().equals("power_up")){
             Power_up(tof, skill);
@@ -434,35 +433,50 @@ public class BattleActivity extends AppCompatActivity {
     }
 
     //戦闘終了
-    private void GameClear(){
+    private void GameClear() {
         messagetext = enemy_actor.getName() + "を倒した！";
         binding.battleMessage.setText(messagetext);
         //エフェクト
-        if (enemy_actor.getName().equals("スライム")){
-            AlphaAnimation alphaFadeout = new AlphaAnimation(1.0f, 0.0f);
-            // animation時間 msec
-            alphaFadeout.setDuration(1000);
-            // animationが終わったそのまま表示にする
-            alphaFadeout.setFillAfter(true);
+        AlphaAnimation alphaFadeout = new AlphaAnimation(1.0f, 0.0f);
+        // animation時間
+        alphaFadeout.setDuration(1000);
+        // animationが終わったそのまま表示にする
+        alphaFadeout.setFillAfter(true);
 
-            binding.ememyImage.startAnimation(alphaFadeout);
+        binding.ememyImage.startAnimation(alphaFadeout);
+
+        if (enemy_actor.getName().equals("魔王")){
+            binding.battleEndButton.setText("リザルト画面へ");
+            binding.battleEndButton.setVisibility(View.VISIBLE);
+            EndDBChange(false);
+            LastDBUpdate();
+            //リザルト画面へ移行
+            binding.battleEndButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getApplication(), ResultActivity.class);
+                    startActivity(intent);
+                }
+            });
+        }else {
+            binding.battleEndButton.setText("次の育成へ");
+            binding.battleEndButton.setVisibility(View.VISIBLE);
+
+            //DB更新
+            EndDBChange(true);
+            //ステージカウント
+            StageDBUpdate(stage_num);
+            //育成画面へ移行
+            binding.battleEndButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getApplication(), NurtureActivity.class);
+                    startActivity(intent);
+                }
+            });
         }
 
-        binding.battleEndButton.setText("次の育成へ");
-        binding.battleEndButton.setVisibility(View.VISIBLE);
 
-        //DB更新
-        EndDBChange(true);
-        //ステージカウント
-        StageDBUpdate(stage_num);
-        //育成画面へ移行
-        binding.battleEndButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplication(), NurtureActivity.class);
-                startActivity(intent);
-            }
-        });
     }
 
     //回復スキル
@@ -550,7 +564,18 @@ public class BattleActivity extends AppCompatActivity {
             String where = CharacterTable.CHARA_SAVE_ID + " = " + 1;
             db.update(CharacterTable.TABLE_NAME, cv, where, null);
         }
+    }
 
+    //最終戦闘終了更新
+    private void LastDBUpdate(){
+        //ステージカウント更新
+        ContentValues cv = new ContentValues();
+        cv.put(CharacterTable.CHARA_SAVE_TURN, 11);
+        try (SQLiteDatabase db = helper.getWritableDatabase()) {
+            //データベース更新
+            String where = CharacterTable.CHARA_SAVE_ID + " = " + 1;
+            db.update(CharacterTable.TABLE_NAME, cv, where, null);
+        }
     }
 
     //バトル終了時データベースを更新する
@@ -729,6 +754,9 @@ public class BattleActivity extends AppCompatActivity {
                             my_actor = new Actor(cursor2.getString(0), cursor2.getInt(1), cursor2.getInt(2),
                                     cursor2.getInt(3), cursor2.getInt(4),
                                     my_skill1,my_skill2,my_skill3,my_skill4);
+                            my_feast = new Actor(cursor2.getString(0), cursor2.getInt(1), cursor2.getInt(2),
+                                    cursor2.getInt(3), cursor2.getInt(4),
+                                    my_skill1,my_skill2,my_skill3,my_skill4);
 
                         }
 
@@ -741,6 +769,9 @@ public class BattleActivity extends AppCompatActivity {
                         Skill my_skill4 = SettingSkill(4,cursor2.getString(8));
                         //検索結果からmy_actorを作成
                         my_actor = new Actor(cursor2.getString(0), cursor2.getInt(1), cursor2.getInt(2),
+                                cursor2.getInt(3), cursor2.getInt(4),
+                                my_skill1,my_skill2,my_skill3,my_skill4);
+                        my_feast = new Actor(cursor2.getString(0), cursor2.getInt(1), cursor2.getInt(2),
                                 cursor2.getInt(3), cursor2.getInt(4),
                                 my_skill1,my_skill2,my_skill3,my_skill4);
                     }
@@ -839,7 +870,7 @@ public class BattleActivity extends AppCompatActivity {
         setCharaImage();
     }
 
-    String[] Enemy_names ={"enemyID1","enemyID2","enemyID3","魔王"};
+    String[] Enemy_names ={"enemyID1","enemyID2","enemyID3","enemyID4"};
     //エネミーの決定
     private String getEnemyName(int turn){
         ImageView image = binding.ememyImage;

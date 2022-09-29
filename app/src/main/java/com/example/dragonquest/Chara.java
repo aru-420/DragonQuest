@@ -55,7 +55,7 @@ public class Chara extends AppCompatActivity {
                 turn = cursor.getInt(9);
                 stage_num = cursor.getInt(10);
             }
-            if (turn%10 == 0){
+            if (turn >= 10){
                 my_where = DBTables.CharacterTable.CHARA_SAVE_ID + " = 3";
                 cursor = db.query(DBTables.CharacterTable.TABLE_NAME, cols, my_where,
                         null, null, null, null, null);
@@ -99,7 +99,7 @@ public class Chara extends AppCompatActivity {
                     Intent intent = new Intent(getApplication(), CharacterCreationActivity.class);
                     startActivity(intent);
 
-                }else if (turn == 10){
+                }else if (turn >= 10){
                     //10ターン目かつ戦闘中のキャラのHPが0でないなら戦闘画面
                     if (battle_hp != 0){
                         Intent intent = new Intent(getApplication(), BattleActivity.class);

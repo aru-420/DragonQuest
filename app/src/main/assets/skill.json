@@ -23,12 +23,23 @@
     "skill_gif": "sword_effect",
     "skill_context": "攻撃力の150%で相手に二回攻撃"
   },
-
+  "黒剣二刀": {
+    "skill_effect": 2.8,
+    "skill_subject": "double",
+    "skill_gif": "sword_effect",
+    "skill_context": "攻撃力の280%で相手に二回攻撃"
+  },
   "たいあたり": {
-    "skill_effect": 1.5,
+    "skill_effect": 2.3,
     "skill_subject": "enemy",
     "skill_gif": "sword_effect",
-    "skill_context": "攻撃力の250%で相手に攻撃"
+    "skill_context": "攻撃力の230%で相手に攻撃"
+  },
+  "疾風怒濤": {
+    "skill_effect": 4.0,
+    "skill_subject": "enemy",
+    "skill_gif": "sword_effect",
+    "skill_context": "攻撃力の400%で相手に攻撃"
   },
   "ようかいえき": {
     "skill_effect": 2.3,
@@ -42,11 +53,17 @@
     "skill_gif": "recover_effect",
     "skill_context": "攻撃力の100%、HPが回復"
   },
+  "瞑想": {
+    "skill_effect": 3.0,
+    "skill_subject": "my",
+    "skill_gif": "recover_effect",
+    "skill_context": "攻撃力の300%、HPが回復"
+  },
   "がんせきとばし": {
-    "skill_effect": 1.85,
+    "skill_effect": 2.7,
     "skill_subject": "enemy",
     "skill_gif": "sword_effect",
-    "skill_context": "攻撃力の185%で相手に攻撃"
+    "skill_context": "攻撃力の270%で相手に攻撃"
   },
   "ファイアー": {
     "skill_effect": 3.0,
@@ -55,28 +72,34 @@
     "skill_context": "相手の防御を半分無視して攻撃力の300%で相手に攻撃"
   },
   "ブレス": {
-    "skill_effect": 2.0,
+    "skill_effect": 2.5,
     "skill_subject": "element",
     "skill_gif": "fire_effect",
-    "skill_context": "相手の防御を半分無視して攻撃力の200%で相手に攻撃"
+    "skill_context": "相手の防御を半分無視して攻撃力の250%で相手に攻撃"
+  },
+  "煉獄": {
+    "skill_effect": 3.0,
+    "skill_subject": "element",
+    "skill_gif": "fire_effect",
+    "skill_context": "相手の防御を半分無視して攻撃力の300%で相手に攻撃"
   },
   "ドラゴンクロー": {
-    "skill_effect": 3.5,
+    "skill_effect": 3.2,
     "skill_subject": "enemy",
     "skill_gif": "sword_effect",
-    "skill_context": "攻撃力の350%で相手に攻撃"
+    "skill_context": "攻撃力の320%で相手に攻撃"
   },
   "エアスラッシュ": {
-    "skill_effect": 2.5,
+    "skill_effect": 3.0,
     "skill_subject": "enemy",
     "skill_gif": "sword_effect",
-    "skill_context": "攻撃力の250%で相手に攻撃"
+    "skill_context": "攻撃力の300%で相手に攻撃"
   },
   "ダブルウィング": {
-    "skill_effect": 2.0,
+    "skill_effect": 2.4,
     "skill_subject": "double",
     "skill_gif": "sword_effect",
-    "skill_context": "攻撃力の200%で相手に二回攻撃"
+    "skill_context": "攻撃力の240%で相手に二回攻撃"
   },
   "普通のパンチ": {
   "skill_effect": 2.0,

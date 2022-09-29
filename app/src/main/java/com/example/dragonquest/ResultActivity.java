@@ -108,12 +108,16 @@ public class ResultActivity extends AppCompatActivity {
     //ターン数の表示
     protected void ResultTurn(Cursor cursor){
         //合計ターン
-        int view_turn = cursor.getInt(9) + (cursor.getInt(10)-1)*10;
+        int last_turn = cursor.getInt(9) + (cursor.getInt(10)-1)*10;
+        int view_turn = last_turn;
+        if (view_turn > 40){
+            view_turn = 40;
+        }
         ChangeStatus(binding.resultTurn,view_turn);
         //アドバイス表示
         handler.postDelayed(() -> {
             //1秒待って実行
-            ResultAdvice(cursor,view_turn);
+            ResultAdvice(cursor,last_turn);
         }, 1000);
     }
 
@@ -126,6 +130,14 @@ public class ResultActivity extends AppCompatActivity {
             txt = "スライムは回復スキルを覚えている。\rATKを上げて短期決戦を臨もう！";
         }else if (turn <= 20){
             txt = "ゴーレムは高防御だ。\r魔法スキルが有効だ！";
+        }else if (turn <= 30){
+            txt = "魔王は強敵だ！\n今までのすべてをぶつけて倒してくれ！";
+        }else if (turn < 40){
+            txt = "ラストステージは様々な敵が襲ってくる。\nHPに気を付けながら臨もう";
+        }else if (turn == 40){
+            txt = "魔王は強敵だ";
+        }else if(turn > 40){
+            txt = "全ての魔物を倒し切った！\nおめでとう！君が真のヒーローだ！";
         }
         binding.resultAdvice.setText(txt);
         binding.endButton.setVisibility(View.VISIBLE);
@@ -142,7 +154,7 @@ public class ResultActivity extends AppCompatActivity {
             int view_num = 0;
             @Override
             public void run() {
-                while (view_num < num){
+                while (view_num != num){
                     if (view_num < num){
                         view_num += point_up;
                     }else if (view_num > num){
