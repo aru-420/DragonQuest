@@ -662,10 +662,10 @@ public class NurtureActivity extends AppCompatActivity {
                 EventJson(Event_Name2[Event_choices2]);
             }else if(stage_num == 3){
                 //イベント
-                EventJson(Event_Name3[Event_choices1]);
+                EventJson(Event_Name3[Event_choices2]);
             }else if(stage_num == 4){
                 //イベント
-                EventJson(Event_Name4[Event_choices1]);
+                EventJson(Event_Name4[Event_choices2]);
             }
         }
     }
