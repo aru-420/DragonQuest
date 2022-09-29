@@ -647,7 +647,11 @@ public class NurtureActivity extends AppCompatActivity {
                 //イベント
                 EventJson(Event_Name2[Event_choices1]);
             }else if(stage_num == 3){
-
+                //イベント
+                EventJson(Event_Name3[Event_choices1]);
+            }else if(stage_num == 4){
+                //イベント
+                EventJson(Event_Name4[Event_choices1]);
             }
         }else if(choice_num.equals("choices2")){
             if(stage_num == 1){
@@ -657,7 +661,11 @@ public class NurtureActivity extends AppCompatActivity {
                 //イベント
                 EventJson(Event_Name2[Event_choices2]);
             }else if(stage_num == 3){
-
+                //イベント
+                EventJson(Event_Name3[Event_choices1]);
+            }else if(stage_num == 4){
+                //イベント
+                EventJson(Event_Name4[Event_choices1]);
             }
         }
     }
@@ -693,8 +701,8 @@ public class NurtureActivity extends AppCompatActivity {
         }else if(stage_num == 4){
             rad_num(10);
             //選択肢(ボタン)にイベントの名前を表示
-            binding.Choices1.setText(Event_Name3[Event_choices1]);
-            binding.Choices2.setText(Event_Name3[Event_choices2]);
+            binding.Choices1.setText(Event_Name4[Event_choices1]);
+            binding.Choices2.setText(Event_Name4[Event_choices2]);
         }
 
 
