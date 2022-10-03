@@ -60,22 +60,22 @@
     "skill_context": "攻撃力の300%、HPが回復"
   },
   "がんせきとばし": {
-    "skill_effect": 2.7,
+    "skill_effect": 2.6,
     "skill_subject": "enemy",
     "skill_gif": "sword_effect",
-    "skill_context": "攻撃力の270%で相手に攻撃"
+    "skill_context": "攻撃力の260%で相手に攻撃"
   },
-  "ファイアー": {
+  "ファイヤー": {
     "skill_effect": 2.3,
     "skill_subject": "element",
     "skill_gif": "fire_effect",
     "skill_context": "相手の防御を半分無視して攻撃力の230%で相手に攻撃"
   },
   "ブレス": {
-    "skill_effect": 2.5,
+    "skill_effect": 2.7,
     "skill_subject": "element",
     "skill_gif": "fire_effect",
-    "skill_context": "相手の防御を半分無視して攻撃力の250%で相手に攻撃"
+    "skill_context": "相手の防御を半分無視して攻撃力の270%で相手に攻撃"
   },
   "煉獄": {
     "skill_effect": 3.0,
@@ -126,6 +126,12 @@
     "skill_context": "相手の防御を半分無視して攻撃力の300%で相手に攻撃"
   },
   "デザートソード": {
+    "skill_effect": 2.7,
+    "skill_subject": "enemy",
+    "skill_gif": "sword_effect",
+    "skill_context": "攻撃力の270%で相手に攻撃"
+  },
+  "グランドクエイク": {
     "skill_effect": 2.7,
     "skill_subject": "enemy",
     "skill_gif": "sword_effect",

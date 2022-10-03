@@ -29,7 +29,7 @@
             android:layout_marginRight="5dp"
             android:text="Button"
             android:textAlignment="center"
-            android:textSize="18sp"
+            android:textSize="14sp"
             android:textStyle="bold"
             app:layout_column="0"
             app:layout_row="0" />
@@ -43,7 +43,7 @@
             android:text="Button"
             android:textAlignment="center"
             android:textColor="#FFFFFF"
-            android:textSize="18sp"
+            android:textSize="14sp"
             android:textStyle="bold"
             app:layout_column="1"
             app:layout_row="0" />
@@ -56,7 +56,7 @@
             android:layout_marginRight="5dp"
             android:text="Button"
             android:textAlignment="center"
-            android:textSize="18sp"
+            android:textSize="14sp"
             app:layout_column="1"
             app:layout_row="1" />
 
@@ -68,7 +68,7 @@
             android:layout_marginRight="5dp"
             android:text="Button"
             android:textAlignment="center"
-            android:textSize="18sp"
+            android:textSize="14sp"
             android:textStyle="bold"
             app:layout_column="0"
             app:layout_row="1" />

@@ -20,6 +20,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Random;
 
 public class CharacterCreationActivity extends AppCompatActivity {
     private ActivityCharacterCreationBinding binding;
@@ -27,6 +28,9 @@ public class CharacterCreationActivity extends AppCompatActivity {
     //キャラを変える(選択)する際に使用する変数
     private String CharaNameStr[] = new String[2];
     private int CharaCount = 0;
+
+    //ランダム変数
+    int skill_ran;
 
     //データベース接続用変数
     private DatabaseHelper helper = null;
@@ -46,6 +50,10 @@ public class CharacterCreationActivity extends AppCompatActivity {
 
         //データベース接続
         helper = new DatabaseHelper(this);
+
+        //継承するスキルの数をランダムで決定
+        Random rand = new Random();
+        skill_ran = rand.nextInt(3) + 1;
 
         //初期画面を表示する
         JsonView(CharaNameStr[0]);
@@ -138,6 +146,7 @@ public class CharacterCreationActivity extends AppCompatActivity {
         String[] cols = {DBTables.CharacterTable.CHARA_SAVE_NAME, DBTables.CharacterTable.CHARA_SAVE_HP,
                 DBTables.CharacterTable.CHARA_SAVE_ATK, DBTables.CharacterTable.CHARA_SAVE_DEF, DBTables.CharacterTable.CHARA_SAVE_DEX,
                 DBTables.CharacterTable.CHARA_SAVE_SKILL1, DBTables.CharacterTable.CHARA_SAVE_SKILL2, DBTables.CharacterTable.CHARA_SAVE_SKILL3, DBTables.CharacterTable.CHARA_SAVE_SKILL4,
+                DBTables.CharacterTable.CHARA_SAVE_TURN
         };
         //where文IDを指定
         String my_where = DBTables.CharacterTable.CHARA_SAVE_ID + " = 4";
@@ -153,6 +162,7 @@ public class CharacterCreationActivity extends AppCompatActivity {
             //一行読み込み
             if (cursor.moveToFirst()) {
                 //名前がなければDB取得せずあればデータにあった内容で取得
+                int magnification = cursor.getInt(9) + 10;
                 switch (cursor.getString(0)){
                     case "":
                         break;
@@ -162,8 +172,8 @@ public class CharacterCreationActivity extends AppCompatActivity {
                         Skill skill2 = new Skill(cursor.getString(6));
                         Skill skill3 = new Skill(cursor.getString(7));
                         Skill skill4 = new Skill(cursor.getString(8));
-                        re_actor = new Actor(cursor.getString(0), cursor.getInt(1)/50, cursor.getInt(2)/10,
-                                cursor.getInt(3)/10, cursor.getInt(4)/10,
+                        re_actor = new Actor(cursor.getString(0), cursor.getInt(1)*magnification/200, cursor.getInt(2)*magnification/100,
+                                cursor.getInt(3)* magnification/100, cursor.getInt(4)*magnification/100,
                                 skill1,skill2,skill3,skill4);
                         break;
                 }
@@ -237,14 +247,34 @@ public class CharacterCreationActivity extends AppCompatActivity {
             int int_dex = json.getJSONObject(Name).getInt("DEX") + re_actor.getDex();
             String dex = Integer.toString(int_dex);
 
+            //ランダムスキル
+            String skill1;
+            String skill2 = "";
+            String skill3 = "";
+            String skill4 = "";
+
+            switch (skill_ran){
+                case 1:
+                    //skill2
+                    skill2 = re_actor.getSkill2().getSkill_name();
+                    break;
+                case 2:
+                    //skill2
+                    skill2 = re_actor.getSkill2().getSkill_name();
+                    //skill3
+                    skill3 = re_actor.getSkill3().getSkill_name();
+                    break;
+                case 3:
+                    //skill2
+                    skill2 = re_actor.getSkill2().getSkill_name();
+                    //skill3
+                    skill3 = re_actor.getSkill3().getSkill_name();
+                    //skill4
+                    skill4 = re_actor.getSkill4().getSkill_name();
+                    break;
+            }
             //skill1
-            String skill1 = json.getJSONObject(Name).getString("SKILL1");
-            //skill2
-            String skill2 = re_actor.getSkill2().getSkill_name();
-            //skill3
-            String skill3 = re_actor.getSkill3().getSkill_name();
-            //skill4
-            String skill4 = re_actor.getSkill4().getSkill_name();
+            skill1 = json.getJSONObject(Name).getString("SKILL1");
 
 
 
@@ -261,6 +291,10 @@ public class CharacterCreationActivity extends AppCompatActivity {
             binding.skill3.setText(skill3);
             binding.skill4.setText(skill4);
 
+            binding.skill3.setEnabled(true);
+            binding.skill3.setBackgroundColor(Color.parseColor("#3700b3"));
+            binding.skill4.setEnabled(true);
+            binding.skill4.setBackgroundColor(Color.parseColor("#3700b3"));
             //スキルのないボタンを押せなくして灰色にする
             if(skill1.equals("")){
                 binding.skill1.setEnabled(false);
@@ -278,6 +312,7 @@ public class CharacterCreationActivity extends AppCompatActivity {
                 binding.skill4.setEnabled(false);
                 binding.skill4.setBackgroundColor(Color.GRAY);
             }
+
 
         }catch (IOException | JSONException e) {
             e.printStackTrace();

@@ -319,6 +319,9 @@ public class BattleActivity extends AppCompatActivity {
             }
         }else if (skill.getSkill_subject().equals("GROW_HERO")){
             Grow_hero(tof, skill);
+            if (!end){
+                messageclickflag = false;
+            }
         }
         //行動してないキャラがいるか
         if (end){
@@ -417,6 +420,21 @@ public class BattleActivity extends AppCompatActivity {
 
     //キャラクターがやられたときの処理
     private void GameOver(){
+        String name = my_actor.getName();
+        ImageView image = binding.myCharaImage;
+        if (name.equals("戦士")){
+            image.setImageResource(R.drawable.warrior_dead);
+        }else if (name.equals("魔法使い")){
+            image.setImageResource(R.drawable.magition_dead);
+        }
+        //エフェクト
+        AlphaAnimation alphaFadeout = new AlphaAnimation(1.0f, 0.0f);
+        // animation時間
+        alphaFadeout.setDuration(1000);
+        // animationが終わったそのまま表示にする
+        alphaFadeout.setFillAfter(true);
+
+        binding.myCharaImage.startAnimation(alphaFadeout);
         //ゲームオーバー
         messagetext = my_actor.getName() + "は死んでしまった！";
         binding.battleMessage.setText(messagetext);
@@ -538,9 +556,9 @@ public class BattleActivity extends AppCompatActivity {
 
         atk = (int) (my_actor.getAtk() * skill.getSkill_effect());
         view_atk = atk - my_actor.getAtk();
-        def = (int) (my_actor.getDef() + skill.getSkill_effect());
+        def = (int) (my_actor.getDef() * skill.getSkill_effect());
         view_def = def - my_actor.getDef();
-        dex = (int) (my_actor.getDex() + skill.getSkill_effect());
+        dex = (int) (my_actor.getDex() * skill.getSkill_effect());
         view_dex = dex - my_actor.getDex();
         my_actor.setAtk(atk);
         my_actor.setDef(def);
@@ -548,8 +566,8 @@ public class BattleActivity extends AppCompatActivity {
         //表示するメッセージ
         messagetext = my_actor.getName() + "の" + skill.getSkill_name() + "\n" +  "攻撃力が"
                 + view_atk + "上昇!\n"
-                + view_def + "上昇!\n"
-                + view_dex + "上昇!";
+                + "防御力が"  + view_def + "上昇!\n"
+                + "素早さが"  + view_dex + "上昇!";
 
         //エフェクト表示
         effect_show(!MoE, skill.getSkill_gif());

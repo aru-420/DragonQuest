@@ -20,6 +20,8 @@ public class ResultActivity extends AppCompatActivity {
     private DatabaseHelper helper = null;
     private Handler handler;//スレッド内でテキストをいじる際に使用
 
+    int view_turn,last_turn;
+
     public ResultActivity(){handler = new Handler();}
 
     @Override
@@ -28,6 +30,8 @@ public class ResultActivity extends AppCompatActivity {
         binding = ActivityResultBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
+        //終了ボタン非表示
+        binding.endButton.setVisibility(View.INVISIBLE);
 
         // ヘルパーを準備
         helper = new DatabaseHelper(this);
@@ -67,6 +71,16 @@ public class ResultActivity extends AppCompatActivity {
 
                     //アップデート
                     db.update(DBTables.CharacterTable.TABLE_NAME, cv, where, null);
+                    if (view_turn == 40 && last_turn > 40){
+                        where = DBTables.CharacterTable.CHARA_SAVE_ID + " = " + 4;
+                        db.update(DBTables.CharacterTable.TABLE_NAME, cv, where, null);
+                    }else {
+                        //合計ターン保存
+                        where = DBTables.CharacterTable.CHARA_SAVE_ID + " = " + 4;
+                        ContentValues cv2 = new ContentValues();
+                        cv2.put(DBTables.CharacterTable.CHARA_SAVE_TURN, view_turn);
+                        db.update(DBTables.CharacterTable.TABLE_NAME, cv2, where, null);
+                    }
 
                 }
                 Intent intent = new Intent(getApplication(), TitleActivity.class);
@@ -108,8 +122,8 @@ public class ResultActivity extends AppCompatActivity {
     //ターン数の表示
     protected void ResultTurn(Cursor cursor){
         //合計ターン
-        int last_turn = cursor.getInt(9) + (cursor.getInt(10)-1)*10;
-        int view_turn = last_turn;
+        last_turn = cursor.getInt(9) + (cursor.getInt(10)-1)*10;
+        view_turn = last_turn;
         if (view_turn > 40){
             view_turn = 40;
         }
@@ -135,12 +149,13 @@ public class ResultActivity extends AppCompatActivity {
         }else if (turn < 40){
             txt = "ラストステージは様々な敵が襲ってくる。\nHPに気を付けながら臨もう";
         }else if (turn == 40){
-            txt = "魔王は強敵だ";
+            txt = "魔王は強敵だ。何度か転生し直しステータスを上げよう！";
         }else if(turn > 40){
             txt = "全ての魔物を倒し切った！\nおめでとう！君が真のヒーローだ！";
         }
         binding.resultAdvice.setText(txt);
         binding.endButton.setVisibility(View.VISIBLE);
+
     }
 
 
