@@ -188,6 +188,37 @@ public class BattleActivity extends AppCompatActivity {
 
     }
 
+    //下限上限
+    private void StatusMaxMin(Actor actor){
+        //下限
+        if (actor.getHp() < 1){
+            actor.setHp(1);
+        }
+        if (actor.getAtk() < 1){
+            actor.setAtk(1);
+        }
+        if (actor.getDex() < 1){
+            actor.setDex(1);
+        }
+        if (actor.getDef() < 1){
+            actor.setDef(1);
+        }
+
+        //上限
+        if (actor.getHp() > 9999){
+            actor.setHp(9999);
+        }
+        if (actor.getAtk() > 9999){
+            actor.setAtk(9999);
+        }
+        if (actor.getDex() > 9999){
+            actor.setDex(9999);
+        }
+        if (actor.getDef() < 9999){
+            actor.setDef(9999);
+        }
+    }
+
     //bgm再生
     private void playFromMediaPlayer() {
         //mediaPlayer = MediaPlayer.create(this,R.raw.bgm_battle);

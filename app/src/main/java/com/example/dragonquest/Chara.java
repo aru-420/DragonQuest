@@ -67,6 +67,8 @@ public class Chara extends AppCompatActivity {
             }
         }
 
+        //名前表示
+        binding.charaName.setText(chara_name);
         //画像処理
         ImageView image = binding.imageChara;
         if (chara_name.equals("戦士")){
@@ -76,6 +78,7 @@ public class Chara extends AppCompatActivity {
         }else {
             image.setVisibility(View.INVISIBLE);
             binding.background.setVisibility(View.VISIBLE);
+            binding.charaName.setText("");
         }
 
         //背景処理
