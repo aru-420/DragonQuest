@@ -477,6 +477,27 @@ public class NurtureActivity extends AppCompatActivity {
             def += E_def;
             dex += E_dex;
 
+            //増えたステータスがマイナスになった場合1にする
+            if(hp < 1){
+                hp = 1;
+            }else if(atk < 1){
+                atk = 1;
+            }else if(def < 1){
+                def = 1;
+            }else if(dex < 1){
+                dex = 1;
+            }
+            //増えたステータスが9999以上になった場合9999にする
+            if(hp > 9999){
+                hp = 9999;
+            }else if(atk > 9999){
+                atk = 9999;
+            }else if(def > 9999){
+                def = 9999;
+            }else if(dex > 9999){
+                dex = 9999;
+            }
+
 
             //ボタンの初期化
             binding.Skill1.setBackgroundColor(Color.BLUE);
@@ -670,34 +691,39 @@ public class NurtureActivity extends AppCompatActivity {
         }
     }
 
-    //
+    //ランダムな数字で選択肢をきめる
     protected void rad_num(int getint){
         //選択肢(ボタン)をランダムで生成
         Event_choices1 = rnd.nextInt(getint);
         Event_choices2 = rnd.nextInt(getint);
+        //被った場合被らなくなるまで繰り返し
         while (Event_choices1 == Event_choices2){
             Event_choices1 = rnd.nextInt(getint);
             Event_choices2 = rnd.nextInt(getint);
         }
     }
 
-    //ランダムな数字で選択肢を選択
+    //選択肢を表示
     protected void random_Choices(){
+        //ステージ1
         if(stage_num == 1){
             rad_num(10);
             //選択肢(ボタン)にイベントの名前を表示
             binding.Choices1.setText(Event_Name[Event_choices1]);
             binding.Choices2.setText(Event_Name[Event_choices2]);
+        //ステージ2
         }else if(stage_num == 2){
             rad_num(11);
             //選択肢(ボタン)にイベントの名前を表示
             binding.Choices1.setText(Event_Name2[Event_choices1]);
             binding.Choices2.setText(Event_Name2[Event_choices2]);
+        //ステージ3
         }else if(stage_num == 3){
             rad_num(10);
             //選択肢(ボタン)にイベントの名前を表示
             binding.Choices1.setText(Event_Name3[Event_choices1]);
             binding.Choices2.setText(Event_Name3[Event_choices2]);
+        //ステージ4
         }else if(stage_num == 4){
             rad_num(10);
             //選択肢(ボタン)にイベントの名前を表示
@@ -705,7 +731,7 @@ public class NurtureActivity extends AppCompatActivity {
             binding.Choices2.setText(Event_Name4[Event_choices2]);
         }
 
-
+        //スキルの説明テキストを非表示に
         if(skill_btn == false){
             binding.alert.setVisibility(View.INVISIBLE);
         }
@@ -756,5 +782,3 @@ public class NurtureActivity extends AppCompatActivity {
         save.SetActivityActor(name,hp,atk,def,dex,skill1,skill2,skill3,skill4,turncount);
     }
 }
-
-//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
