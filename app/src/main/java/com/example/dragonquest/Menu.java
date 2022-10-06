@@ -77,7 +77,10 @@ public class Menu extends AppCompatActivity {
                 cv.put(DBTables.CharacterTable.CHARA_SAVE_SKILL2, actor.getSkill2().getSkill_name());
                 cv.put(DBTables.CharacterTable.CHARA_SAVE_SKILL3, actor.getSkill3().getSkill_name());
                 cv.put(DBTables.CharacterTable.CHARA_SAVE_SKILL4, actor.getSkill4().getSkill_name());
-                cv.put(DBTables.CharacterTable.CHARA_SAVE_TURN, actor.getSave_turn());
+                if (actor.getSave_turn() < 10){
+                    cv.put(DBTables.CharacterTable.CHARA_SAVE_TURN, actor.getSave_turn());
+                }
+
 
                 //where文 今回はidを指定して
                 String where = DBTables.CharacterTable.CHARA_SAVE_ID + " = 1";

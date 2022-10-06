@@ -9,8 +9,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 import com.example.dragonquest.databinding.ActivityResultBinding;
 
 public class ResultActivity extends AppCompatActivity {
@@ -32,6 +35,7 @@ public class ResultActivity extends AppCompatActivity {
         setContentView(view);
         //終了ボタン非表示
         binding.endButton.setVisibility(View.INVISIBLE);
+        binding.imageView2.setVisibility(View.INVISIBLE);
 
         // ヘルパーを準備
         helper = new DatabaseHelper(this);
@@ -69,6 +73,11 @@ public class ResultActivity extends AppCompatActivity {
                 try (SQLiteDatabase db = helper.getWritableDatabase()) {
 
                     //アップデート
+                    db.update(DBTables.CharacterTable.TABLE_NAME, cv, where, null);
+                    cv.put(DBTables.CharacterTable.CHARA_SAVE_STAGE, 0);
+                    where = DBTables.CharacterTable.CHARA_SAVE_ID + " = " + 3;
+                    db.update(DBTables.CharacterTable.TABLE_NAME, cv, where, null);
+                    where = DBTables.CharacterTable.CHARA_SAVE_ID + " = " + 2;
                     db.update(DBTables.CharacterTable.TABLE_NAME, cv, where, null);
                     if (view_turn == 40 && last_turn > 40){
                         where = DBTables.CharacterTable.CHARA_SAVE_ID + " = " + 4;
@@ -138,11 +147,15 @@ public class ResultActivity extends AppCompatActivity {
     protected void ResultAdvice(Cursor cursor, int turn){
         String txt = "";
         if (cursor.getString(7).equals("") || cursor.getString(8).equals("") || cursor.getString(6).equals("")){
-            txt = "スキルは４つまで覚えられる。\r色んな選択肢を選んでみよう！";
+            txt = "スキルは４つまで覚えられる。\\r色んな選択肢を選んでみよう！";
         }else if (turn <=10){
             txt = "スライムは回復スキルを覚えている。\rATKを上げて短期決戦を臨もう！";
         }else if (turn <= 20){
-            txt = "ゴーレムは高防御だ。\r魔法スキルが有効だ！";
+            if (cursor.getInt(2) <= 300){
+                txt = "ゴーレムは高防御だ。今の攻撃力では勝てそうにない。魔法スキルなら…";
+            }else {
+                txt = "ゴーレムは高防御だ。魔法スキルなら…";
+            }
         }else if (turn <= 30){
             txt = "ドラゴンの一撃は強力だ！\nやられる前にやってしまおう！";
         }else if (turn < 40){
@@ -151,6 +164,11 @@ public class ResultActivity extends AppCompatActivity {
             txt = "魔王は強敵だ。何度か転生し直しステータスを上げよう！";
         }else if(turn > 40){
             txt = "全ての魔物を倒し切った！\nおめでとう！君が真のヒーローだ！";
+            //エフェクト
+            ImageView imageView = binding.imageView2;
+            GlideDrawableImageViewTarget target = new GlideDrawableImageViewTarget(imageView, 0);
+            Glide.with(this).load(R.drawable.confetti).into(target);
+            binding.imageView2.setVisibility(View.VISIBLE);
         }
         binding.resultAdvice.setText(txt);
         binding.endButton.setVisibility(View.VISIBLE);
@@ -162,9 +180,9 @@ public class ResultActivity extends AppCompatActivity {
     protected void ChangeStatus(TextView view,int num){
         //カウントアップ
         int point_up = num/20 + 1;
-        //表示する値
-        int view_num;
+
         Thread change_hp = new Thread(new Runnable() {
+            //表示する値
             int view_num = 0;
             @Override
             public void run() {

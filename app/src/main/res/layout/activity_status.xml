@@ -98,7 +98,7 @@
 
     <TextView
         android:id="@+id/txtDEF2"
-        android:layout_width="50dp"
+        android:layout_width="56dp"
         android:layout_height="30dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
@@ -116,7 +116,7 @@
 
     <TextView
         android:id="@+id/txtDEX2"
-        android:layout_width="50dp"
+        android:layout_width="56dp"
         android:layout_height="30dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"

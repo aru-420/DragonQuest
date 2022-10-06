@@ -142,7 +142,7 @@ public class BattleActivity extends AppCompatActivity {
                 save.SetActivityActor(my_feast.getName(),my_feast.getHp(),
                         my_feast.getAtk(),my_feast.getDef(),my_feast.getDex(),
                         my_feast.getSkill1().getSkill_name(),my_feast.getSkill2().getSkill_name(),
-                        my_feast.getSkill3().getSkill_name(),my_feast.getSkill4().getSkill_name(),0);
+                        my_feast.getSkill3().getSkill_name(),my_feast.getSkill4().getSkill_name(),10);
 
                 Intent intent = new Intent(getApplication(), Menu.class);
                 startActivity(intent);
@@ -447,7 +447,7 @@ public class BattleActivity extends AppCompatActivity {
 
         binding.myCharaImage.startAnimation(alphaFadeout);
         //ゲームオーバー
-        messagetext = my_actor.getName() + "は死んでしまった！";
+        messagetext = my_actor.getName() + "はやられてしまった！";
         binding.battleMessage.setText(messagetext);
         binding.battleMessage.setBackgroundColor(Color.RED);
         binding.battleEndButton.setText("リザルト画面へ");

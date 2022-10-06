@@ -52,6 +52,33 @@ public class StatusActivity extends AppCompatActivity {
         skill3 = actor.getSkill3().getSkill_name();
         skill4 = actor.getSkill4().getSkill_name();
 
+        //戦闘中かどうか
+        // データベースから取得する項目を設定
+        String[] cols = {DBTables.CharacterTable.CHARA_SAVE_NAME, DBTables.CharacterTable.CHARA_SAVE_HP,
+                DBTables.CharacterTable.CHARA_SAVE_ATK, DBTables.CharacterTable.CHARA_SAVE_DEF, DBTables.CharacterTable.CHARA_SAVE_DEX,
+                DBTables.CharacterTable.CHARA_SAVE_SKILL1, DBTables.CharacterTable.CHARA_SAVE_SKILL2, DBTables.CharacterTable.CHARA_SAVE_SKILL3, DBTables.CharacterTable.CHARA_SAVE_SKILL4,
+                DBTables.CharacterTable.CHARA_SAVE_TURN, DBTables.CharacterTable.CHARA_SAVE_STAGE
+        };
+        //where文 リザルトデータ
+        String my_where = DBTables.CharacterTable.CHARA_SAVE_ID + " = 3";
+
+        // 読み込みモードでデータベースをオープン
+        try (SQLiteDatabase db = helper.getReadableDatabase()) {
+            // データを取得するSQLを実行
+            // 取得したデータがCursorオブジェクトに格納される
+            //SELECT文
+            Cursor cursor = db.query(DBTables.CharacterTable.TABLE_NAME, cols, my_where,
+                    null, null, null, null, null);
+            //一行読み込み
+            if (cursor.moveToFirst()){
+                if (cursor.getString(0).equals(name)){
+                    atk = cursor.getInt(2);
+                    def = cursor.getInt(3);
+                    dex = cursor.getInt(4);
+                }
+            }
+        }
+
         //ステータス表示
         binding.txtHP2.setText(Integer.toString(hp));
         binding.txtATK2.setText(Integer.toString(atk));
