@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">DragonQuest</string>
+    <string name="app_name">Re:GrowHero</string>
     <!--  タイトル画面  -->
     <string name="Title_text">タイトル</string>
     <string name="start_text">スタート</string>

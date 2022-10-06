@@ -92,7 +92,7 @@ public class NurtureActivity extends AppCompatActivity {
 
         //Event_Name2
         Event_Name2[0] = "遺跡探索";
-        Event_Name2[1] = "オアシスだ";
+        Event_Name2[1] = "オアシスだ！";
         Event_Name2[2] = "夜に歩く";
         Event_Name2[3] = "砂丘を超える";
         Event_Name2[4] = "ラクダに乗る";

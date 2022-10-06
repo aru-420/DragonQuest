@@ -195,6 +195,6 @@
     "skill_effect": 1.5,
     "skill_subject": "GROW_HERO",
     "skill_gif": "recover_effect",
-    "skill_context": "全ステータスを150%で相手に攻撃"
+    "skill_context": "全ステータスを150%まで上昇"
   }
 }

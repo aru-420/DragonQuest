@@ -35,7 +35,6 @@ public class ResultActivity extends AppCompatActivity {
 
         // ヘルパーを準備
         helper = new DatabaseHelper(this);
-
         handler.postDelayed(() -> {
             //1秒待って実行
             //ステータス表示

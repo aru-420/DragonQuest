@@ -1,5 +1,6 @@
 package com.example.dragonquest;
 import android.app.AlertDialog;
+import android.app.Application;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -8,6 +9,7 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
 import androidx.annotation.NonNull;
@@ -41,7 +43,7 @@ public class MyDialog extends DialogFragment {
                 .setNegativeButton("はい", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // このボタンを押した時の処理
-                            Intent intent = new Intent(String.valueOf(ResultActivity.class));
+                            Intent intent = new Intent(getContext(),ResultActivity.class);
                             startActivity(intent);
                         }
 
