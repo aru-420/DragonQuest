@@ -101,30 +101,6 @@ public class BattleActivity extends AppCompatActivity {
 
         Actor save = (Actor) this.getApplication();
 
-        // 入力されたタイトルとコンテンツをContentValuesに設定
-        // ContentValuesは、項目名と値をセットで保存できるオブジェクト
-//        ContentValues cv = new ContentValues();
-//        cv.put(CharacterTable.CHARA_SAVE_NAME, "");
-//        cv.put(CharacterTable.CHARA_SAVE_HP, 500);
-//        cv.put(CharacterTable.CHARA_SAVE_ATK, 50);
-//        cv.put(CharacterTable.CHARA_SAVE_DEF, 50);
-//        cv.put(CharacterTable.CHARA_SAVE_DEX, 60);
-//        cv.put(CharacterTable.CHARA_SAVE_SKILL1, "スラッシュ");
-//        cv.put(CharacterTable.CHARA_SAVE_SKILL2, "ブレス");
-//        cv.put(CharacterTable.CHARA_SAVE_SKILL3, "ダブルスラッシュ");
-//        cv.put(CharacterTable.CHARA_SAVE_SKILL4, "じこさいせい");
-//        cv.put(CharacterTable.CHARA_SAVE_TURN, 20);
-//
-//        //where文 今回はidを指定して
-//        String where = CharacterTable.CHARA_SAVE_ID + " = " + 3;
-//
-//        // 書き込みモードでデータベースをオープン
-//        try (SQLiteDatabase db = helper.getWritableDatabase()) {
-//
-//            //アップデート
-//            db.update(CharacterTable.TABLE_NAME, cv, where, null);
-//        }
-
         //効果音
         //soundPoolの初期化
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
@@ -214,7 +190,7 @@ public class BattleActivity extends AppCompatActivity {
         if (actor.getDex() > 9999){
             actor.setDex(9999);
         }
-        if (actor.getDef() < 9999){
+        if (actor.getDef() > 9999){
             actor.setDef(9999);
         }
     }
@@ -234,6 +210,10 @@ public class BattleActivity extends AppCompatActivity {
         }else if (skills.getSkill_subject().equals("power_up")){
             //バフ効果なら赤色
             button_skill.setBackgroundColor(Color.RED);
+        }else if (skills.getSkill_subject().equals("GROW_HERO")){
+            //GROW_HEROなら文字赤色
+            button_skill.setTextColor(Color.RED);
+            button_skill.setTextSize(16);
         }
         //スキル4がなければボタンを押せなくして灰色にする
         if (button_skill.getText().equals("")) {
@@ -486,6 +466,16 @@ public class BattleActivity extends AppCompatActivity {
 
     //戦闘終了
     private void GameClear() {
+        handler.postDelayed(() -> {
+            //キャラクター表情変更
+            String name = my_actor.getName();
+            ImageView image = binding.myCharaImage;
+            if (name.equals("戦士")){
+                image.setImageResource(R.drawable.warrior_win);
+            }else if (name.equals("魔法使い")){
+                image.setImageResource(R.drawable.magition_win);
+            }
+        },500);
         messagetext = enemy_actor.getName() + "を倒した！";
         binding.battleMessage.setText(messagetext);
         //エフェクト
@@ -584,16 +574,28 @@ public class BattleActivity extends AppCompatActivity {
         //int型に変換
         int skill_effect = (int)(0+skill.getSkill_effect());
 
-
         atk = (int) (my_actor.getAtk() * skill.getSkill_effect());
-        view_atk = atk - my_actor.getAtk();
         def = (int) (my_actor.getDef() * skill.getSkill_effect());
-        view_def = def - my_actor.getDef();
         dex = (int) (my_actor.getDex() * skill.getSkill_effect());
-        view_dex = dex - my_actor.getDex();
+
+        if (atk < 9999 && def < 9999 && dex < 9999 ){
+            view_atk = atk - my_actor.getAtk();
+            view_def = def - my_actor.getDef();
+            view_dex = dex - my_actor.getDex();
+        }else {
+            view_atk = 9999 - my_actor.getAtk();
+            view_def = 9999 - my_actor.getDef();
+            view_dex = 9999 - my_actor.getDex();
+            StatusMaxMin(my_actor);
+        }
+
         my_actor.setAtk(atk);
         my_actor.setDef(def);
         my_actor.setDex(dex);
+
+        StatusMaxMin(my_actor);
+
+
         //表示するメッセージ
         messagetext = my_actor.getName() + "の" + skill.getSkill_name() + "\n" +  "攻撃力が"
                 + view_atk + "上昇!\n"
