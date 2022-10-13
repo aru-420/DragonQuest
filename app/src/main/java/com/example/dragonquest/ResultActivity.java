@@ -147,7 +147,7 @@ public class ResultActivity extends AppCompatActivity {
     protected void ResultAdvice(Cursor cursor, int turn){
         String txt = "";
         if (cursor.getString(7).equals("") || cursor.getString(8).equals("") || cursor.getString(6).equals("")){
-            txt = "スキルは４つまで覚えられる。\\r色んな選択肢を選んでみよう！";
+            txt = "スキルは４つまで覚えられる。\r色んな選択肢を選んでみよう！";
         }else if (turn <=10){
             txt = "スライムは回復スキルを覚えている。\rATKを上げて短期決戦を臨もう！";
         }else if (turn <= 20){
